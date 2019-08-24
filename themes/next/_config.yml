@@ -148,8 +148,9 @@ links_icon: link
 links_title: Links
 links_layout: block
 #links_layout: inline
-#links:
-  #Title: http://example.com/
+links:
+  我的简书: https://www.jianshu.com/u/9b87ba5fc959
+  老班长的博客: https://runnerwoo.com/
 
 # Sidebar Avatar
 # in theme directory(source/images): /images/avatar.gif

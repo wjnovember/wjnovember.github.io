@@ -91,3 +91,11 @@ algolia:
   adminApiKey: 'd221fd900452259ae62a0fdd28a93ce2'
   indexName: 'blog_NAME'
   chunkSize: 5000
+
+# RSS
+feed:
+  type: rss2
+  path: rss2.html
+  limit: 5
+  hub:
+  content: 'true'
