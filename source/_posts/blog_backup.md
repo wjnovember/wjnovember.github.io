@@ -26,7 +26,7 @@ npm install
 // 安装部署相关的配置
 npm install hexo-deployer-git
 ```
-详情参考《[全民博客时代的到来——20分钟简要教程](https://wjnovember.github.io/2016/10/12/blog_basic/)》一文。
+详情参考《[全民博客时代的到来——20分钟简要教程](https://wjnovember.github.io/blog_basic/)》一文。
 
 * 上传博客工程
 

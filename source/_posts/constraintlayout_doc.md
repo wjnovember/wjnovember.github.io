@@ -8,7 +8,7 @@ categories:
 
 # 写在前面
 
-之前品读了**郭霖**大神写的《[Android新特性介绍，ConstraintLayout完全解析](http://blog.csdn.net/guolin_blog/article/details/53122387)》，受其感染，写了一篇《[未来布局之星——ConstraintLayout](https://wjnovember.github.io/2017/03/10/constraintlayout_basic/)》，回过头来看，感觉这一篇文章太注重可视化操作，于是去翻阅了一下ConstraintLayout的官方文档，决定从官方文档的角度在代码层面来了解一下ConstraintLayout。
+之前品读了**郭霖**大神写的《[Android新特性介绍，ConstraintLayout完全解析](http://blog.csdn.net/guolin_blog/article/details/53122387)》，受其感染，写了一篇《[未来布局之星——ConstraintLayout](https://wjnovember.github.io/constraintlayout_basic/)》，回过头来看，感觉这一篇文章太注重可视化操作，于是去翻阅了一下ConstraintLayout的官方文档，决定从官方文档的角度在代码层面来了解一下ConstraintLayout。
 
 # 继承关系
 
@@ -288,7 +288,7 @@ Chain是一系列双向连接的控件连接在一起的形态（如图 8所示�
 
 # 辅助工具
 
-这里“辅助工具”的原文是**Virtual Helper objects**，对于ConstraintLayout，其辅助工具目前是**Guidline**。关于**Guideline**的了解，读者们可先尝试《[未来布局之星——ConstraintLayout](https://wjnovember.github.io/2017/03/10/constraintlayout_basic/)》一文中的Guideline操作。在此基础上，访问[Guideline类](https://developer.android.google.cn/reference/android/support/constraint/Guideline.html)了解详情，附上Guideline类的代码案例供读者们了解：
+这里“辅助工具”的原文是**Virtual Helper objects**，对于ConstraintLayout，其辅助工具目前是**Guidline**。关于**Guideline**的了解，读者们可先尝试《[未来布局之星——ConstraintLayout](https://wjnovember.github.io/constraintlayout_basic/)》一文中的Guideline操作。在此基础上，访问[Guideline类](https://developer.android.google.cn/reference/android/support/constraint/Guideline.html)了解详情，附上Guideline类的代码案例供读者们了解：
 
 ```
 <android.support.constraint.ConstraintLayout
