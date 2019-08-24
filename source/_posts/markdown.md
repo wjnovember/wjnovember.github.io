@@ -2,6 +2,8 @@
 title: Markdown，一款让你爱上写博客的神器（内附Markdown编辑器推荐）
 date: 2016-09-16 22:10:00
 tags:
+categories:
+- 零基础学习博客搭建
 ---
 
 # 叨叨在前

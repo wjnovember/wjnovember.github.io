@@ -2,6 +2,8 @@
 title: 细细品读！深入浅出，官方文档看ConstraintLayout
 date: 2017-03-11 11:21:27
 tags:
+categories:
+- Android开发从入门到炸机
 ---
 
 # 写在前面

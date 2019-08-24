@@ -94,7 +94,7 @@ index_with_subtitle: false
 menu:
   首页: / || home
   #tags: /tags/ || tags
-  #categories: /categories/ || th
+  目录: /categories/ || th
   归档: /archives/ || archive
   #about: /about/ || user
   #schedule: /schedule/ || calendar

@@ -2,6 +2,8 @@
 title: 未来布局之星——ConstraintLayout
 date: 2017-03-10 17:27:50
 tags:
+categories:
+- Android开发从入门到炸机
 ---
 
 # 知识背景
