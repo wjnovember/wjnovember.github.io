@@ -7,3 +7,7 @@
 # Tags
 
 * Photoshop
+* 博客
+* Android开发
+* Markdown
+* Excel

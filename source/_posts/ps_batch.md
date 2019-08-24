@@ -2,6 +2,7 @@
 title: PS批处理，带你体验计算机的速度
 date: 2018-07-23 13:31:43
 tags:
+- Photoshop
 categories:
 - 计算机外围技能储备
 ---

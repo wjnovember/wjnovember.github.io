@@ -2,6 +2,7 @@
 title: 听说你想用ViewPager实现这样的效果？
 date: 2016-09-13 16:20:58
 tags:
+- Android开发
 categories:
 - Android开发从入门到炸机
 ---
