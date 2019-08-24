@@ -81,3 +81,13 @@ deploy:
   type: git
   repo: https://github.com/wjnovember/wjnovember.github.io.git
   branch: master
+
+
+# Algolia
+## Website: https://www.algolia.com/
+algolia:
+  applicationID: 'P169SBHT9P'
+  apiKey: 'aff6672534638c8530052ce885f3d28a'
+  adminApiKey: 'd221fd900452259ae62a0fdd28a93ce2'
+  indexName: 'blog_NAME'
+  chunkSize: 5000
