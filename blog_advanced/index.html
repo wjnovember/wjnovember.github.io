@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="博客,">
 
 
 
@@ -82,6 +82,7 @@
 
 
 <meta name="description" content="备注：该教程基于Hexo 2.x版本。  前情提要几个月前，写过几篇关于Hexo博客搭建的教程，最近几天，发现有一些读者私信一些Hexo搭建过程中遇到的问题，于是笔者重新燃起Hexo博客的兴趣，花了一两天的时间重新将Hexo博客搭建了一下，并通过配置实现了一些附加功能，写下此篇教程，希望可以帮助读者们深入了解Hexo博客的使用。 本篇教程基于NexT主题的博客配置，实现更换主题、评论、打赏等功能">
+<meta name="keywords" content="博客">
 <meta property="og:type" content="article">
 <meta property="og:title" content="2小时还你一个集打赏、评论、RSS功能于一身的个性化博客">
 <meta property="og:url" content="http://wjnovember.github.io/blog_advanced/index.html">
@@ -125,7 +126,7 @@
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-f644825841dbb010.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-2b48ae358539d93f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-004e6ede8b77527c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2019-08-24T12:09:54.241Z">
+<meta property="og:updated_time" content="2019-08-24T12:17:02.238Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="2小时还你一个集打赏、评论、RSS功能于一身的个性化博客">
 <meta name="twitter:description" content="备注：该教程基于Hexo 2.x版本。  前情提要几个月前，写过几篇关于Hexo博客搭建的教程，最近几天，发现有一些读者私信一些Hexo搭建过程中遇到的问题，于是笔者重新燃起Hexo博客的兴趣，花了一两天的时间重新将Hexo博客搭建了一下，并通过配置实现了一些附加功能，写下此篇教程，希望可以帮助读者们深入了解Hexo博客的使用。 本篇教程基于NexT主题的博客配置，实现更换主题、评论、打赏等功能">
@@ -226,6 +227,16 @@
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
             
             首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
           </a>
         </li>
       
@@ -637,6 +648,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/博客/" rel="tag"># 博客</a>
+          
+        </div>
+      
 
       
       
@@ -740,7 +757,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -757,6 +774,15 @@
               </div>
             
 
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
             
 
           </nav>
