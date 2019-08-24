@@ -81,13 +81,23 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="程序员叨叨叨">
-<meta property="og:url" content="http://wjnovember.github.io/archives/2016/index.html">
+<meta name="description" content="效果图  代码实现实现效果有两种：  重写PagerAdapter的getPageWidth()方法 布局参数设置  重写PagerAdapter的getPageWidth()方法1234@Overridepublic float getPageWidth(int position) &amp;#123;    return (float)0.8;&amp;#125;  该方法返回结果默认为1.0，其效果为Vie">
+<meta property="og:type" content="article">
+<meta property="og:title" content="听说你想用ViewPager实现这样的效果？">
+<meta property="og:url" content="http://wjnovember.github.io/2016/09/13/viewpager_scroll/index.html">
 <meta property="og:site_name" content="程序员叨叨叨">
+<meta property="og:description" content="效果图  代码实现实现效果有两种：  重写PagerAdapter的getPageWidth()方法 布局参数设置  重写PagerAdapter的getPageWidth()方法1234@Overridepublic float getPageWidth(int position) &amp;#123;    return (float)0.8;&amp;#125;  该方法返回结果默认为1.0，其效果为Vie">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-4a2d2176f95be5a5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-86d59532cd37f25c.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-c8e52d2b64c03ca5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-af304b5a260a2514.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-5ad6aeaded7fd52d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-08-24T11:16:46.515Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="程序员叨叨叨">
+<meta name="twitter:title" content="听说你想用ViewPager实现这样的效果？">
+<meta name="twitter:description" content="效果图  代码实现实现效果有两种：  重写PagerAdapter的getPageWidth()方法 布局参数设置  重写PagerAdapter的getPageWidth()方法1234@Overridepublic float getPageWidth(int position) &amp;#123;    return (float)0.8;&amp;#125;  该方法返回结果默认为1.0，其效果为Vie">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/291600-4a2d2176f95be5a5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
 
@@ -117,13 +127,13 @@
 
 
 
-  <link rel="canonical" href="http://wjnovember.github.io/archives/2016/">
+  <link rel="canonical" href="http://wjnovember.github.io/2016/09/13/viewpager_scroll/">
 
 
 
 
 
-  <title>Archive | 程序员叨叨叨</title>
+  <title>听说你想用ViewPager实现这样的效果？ | 程序员叨叨叨</title>
   
 
 
@@ -142,7 +152,7 @@
     
   
 
-  <div class="container sidebar-position-right page-archive">
+  <div class="container sidebar-position-right page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -254,212 +264,218 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-      <span class="archive-page-counter">
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wjnovember.github.io/2016/09/13/viewpager_scroll/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="代码咖啡">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar_sidebar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="程序员叨叨叨">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
+          <h1 class="post-title" itemprop="name headline">听说你想用ViewPager实现这样的效果？</h1>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-09-13T16:20:58+08:00">
+                2016-09-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
           
-        
-        Um..! 9 posts in total. Keep on posting.
-      </span>
 
-      
-
-        
-        
-        
-
-        
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2016">2016</h1>
-          </div>
-        
-        
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/09/13/viewpager_scroll/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2016/09/13/viewpager_scroll/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
 
-        
+          
+          
+             <span id="/2016/09/13/viewpager_scroll/" class="leancloud_visitors" data-flag-title="听说你想用ViewPager实现这样的效果？">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+          
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2016/10/31/blog_backup/" itemprop="url">
-              
-                <span itemprop="name">跨设备同步博客，让你走到哪儿，写到哪儿</span>
-              
-            </a>
-        
-      </h2>
+          
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2016-10-31T12:19:00+08:00" content="2016-10-31">
-          10-31
-        </time>
-      </div>
+          
 
-    </header>
-  </article>
+        </div>
+      </header>
+    
 
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2016/10/14/blog_domain/" itemprop="url">
-              
-                <span itemprop="name">域名绑定，让你的博客拥有自己的个性</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2016-10-14T12:35:00+08:00" content="2016-10-14">
-          10-14
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2016/10/12/blog_basic/" itemprop="url">
-              
-                <span itemprop="name">全民博客时代的到来——20分钟简要教程</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2016-10-12T01:21:33+08:00" content="2016-10-12">
-          10-12
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2016/09/16/markdown/" itemprop="url">
-              
-                <span itemprop="name">Markdown，一款让你爱上写博客的神器（内附Markdown编辑器推荐）</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2016-09-16T22:10:00+08:00" content="2016-09-16">
-          09-16
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
+        <h1 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h1><p><img src="http://upload-images.jianshu.io/upload_images/291600-4a2d2176f95be5a5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="ViewPager实现多个View"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-86d59532cd37f25c.gif?imageMogr2/auto-orient/strip" alt="此图盗于https://github.com/smallnew/FuCardPager"></p>
+<h1 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h1><p>实现效果有两种：</p>
+<ul>
+<li>重写<strong>PagerAdapter</strong>的<strong>getPageWidth()</strong>方法</li>
+<li>布局参数设置</li>
+</ul>
+<h2 id="重写PagerAdapter的getPageWidth-方法"><a href="#重写PagerAdapter的getPageWidth-方法" class="headerlink" title="重写PagerAdapter的getPageWidth()方法"></a>重写<strong>PagerAdapter</strong>的<strong>getPageWidth()</strong>方法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">public float getPageWidth(int position) &#123;</span><br><span class="line">    return (float)0.8;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-        
-        
-        
+<p>该方法返回结果<em>默认为1.0</em>，其效果为<strong>ViewPager的Item占满整个ViewPager控件的宽度</strong>，如果我们将返回的结果重写为小于1的数，则Item会相对默认效果变小，两边的Item也会相应地靠近过来，从而来到屏幕可见的区域，实现了我们想要的效果。</p>
+<h2 id="布局参数设置"><a href="#布局参数设置" class="headerlink" title="布局参数设置"></a>布局参数设置</h2><p>这里我们设置的参数有点杂乱，我们分块来看：</p>
+<h3 id="xml-ViewPager"><a href="#xml-ViewPager" class="headerlink" title="xml-ViewPager"></a>xml-ViewPager</h3><p><img src="http://upload-images.jianshu.io/upload_images/291600-c8e52d2b64c03ca5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="设置外边距和clipChildren"></p>
+<p>代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">android:layout_marginLeft=&quot;xx&quot;</span><br><span class="line">android:layout_marginRight=&quot;xx&quot;</span><br><span class="line">android:clipChildren=&quot;false&quot;</span><br></pre></td></tr></table></figure>
 
-        
-        
+<h3 id="xml-ViewPager的父容器"><a href="#xml-ViewPager的父容器" class="headerlink" title="xml-ViewPager的父容器"></a>xml-ViewPager的父容器</h3><p><img src="http://upload-images.jianshu.io/upload_images/291600-af304b5a260a2514.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="设置clipChildren和layerType"></p>
+<p>代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">android:clipChildren=&quot;false&quot;</span><br><span class="line">android:layerType=&quot;software&quot;</span><br></pre></td></tr></table></figure>
 
-        
+<h3 id="java-viewPager"><a href="#java-viewPager" class="headerlink" title="java-viewPager"></a>java-viewPager</h3><p><img src="http://upload-images.jianshu.io/upload_images/291600-5ad6aeaded7fd52d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="设置最多一屏最多显示个数及page间距"></p>
+<p>代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">viewPager.setOffscreenPageLimit(4);</span><br><span class="line">viewPager.setPageMargin(xxx);</span><br></pre></td></tr></table></figure>
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2016/09/13/viewpager_scroll/" itemprop="url">
-              
-                <span itemprop="name">听说你想用ViewPager实现这样的效果？</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2016-09-13T16:20:58+08:00" content="2016-09-13">
-          09-13
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
+<p><strong><em>知其然，知其所以然！</em></strong> 我们来看看其中的原理：</p>
+<p><strong>android:clipChildren</strong>表示是否限制子View在其范围内，如果<strong>clipChildren</strong>属性设置为<strong><em>true</em></strong>,就表明我们要<strong>将children给clip掉</strong>，就是说对于子元素来说，超出当前view的部分都会被切掉，所以我们需要将<strong>clipChidren</strong>设置为<strong><em>false</em></strong>。</p>
+<p><strong>setClipChildren</strong>(false)在<strong>3.0以上版本</strong>中，开启了硬件加速后将<strong><em>不能</em></strong> 正常工作，所以需要将其设置为<strong>软件加速</strong>。即：<strong>android:layerType=”software”</strong>。</p>
+<p><strong>注意一下</strong>：PAGE_MARGIN的间距要<strong><em>小于</em></strong> VIEW_PAGER_MARGIN的间距才可以实现一屏多View的效果。</p>
+<h1 id="实现居中"><a href="#实现居中" class="headerlink" title="实现居中"></a>实现居中</h1><p>有的时候，我们为了好看，想要将我们的item实现居中。实现居中的方法很灵活，这里说一个比较接地气的方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ViewPager宽度设置为MATCH_PARENT，横向间距设置相同宽度。</span><br></pre></td></tr></table></figure>
       
-
     </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>再小的鼓励也是一种支持!</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="代码咖啡 WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="代码咖啡 Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/09/16/markdown/" rel="prev" title="Markdown，一款让你爱上写博客的神器（内附Markdown编辑器推荐）">
+                Markdown，一款让你爱上写博客的神器（内附Markdown编辑器推荐） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -467,6 +483,13 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
 
         </div>
         
@@ -487,8 +510,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -573,6 +605,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#效果图"><span class="nav-number">1.</span> <span class="nav-text">效果图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#代码实现"><span class="nav-number">2.</span> <span class="nav-text">代码实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#重写PagerAdapter的getPageWidth-方法"><span class="nav-number">2.1.</span> <span class="nav-text">重写PagerAdapter的getPageWidth()方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#布局参数设置"><span class="nav-number">2.2.</span> <span class="nav-text">布局参数设置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#xml-ViewPager"><span class="nav-number">2.2.1.</span> <span class="nav-text">xml-ViewPager</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#xml-ViewPager的父容器"><span class="nav-number">2.2.2.</span> <span class="nav-text">xml-ViewPager的父容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#java-viewPager"><span class="nav-number">2.2.3.</span> <span class="nav-text">java-viewPager</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实现居中"><span class="nav-number">3.</span> <span class="nav-text">实现居中</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -707,6 +755,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
