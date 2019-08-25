@@ -15,3 +15,4 @@
 * Windows
 * 树莓派
 * Git
+* Visual Studio
