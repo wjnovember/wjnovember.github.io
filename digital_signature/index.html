@@ -81,13 +81,13 @@
 
 
 
-<meta name="description" content="前情提要在写上一篇《Android Keystore漫谈》时对数字证书和数字签名的区别感觉模棱两可，于是网上找了找资料发现了一篇简单易懂的文章，对证书和签名有了一个较清晰的概念：  数字签名信息实体经HASH函数后得到一个摘要，摘要经过私钥加密后形成数字签名。数字证书证书中心的信息+个人的信息+个人的公钥，经过证书中心的私钥加密后，得到数字证书。  虽然CSDN博客上已经有人对这篇文章翻译过，但是">
+<meta name="description" content="前情提要在写上一篇《Android Keystore漫谈》时对数字证书和数字签名的区别感觉模棱两可，于是网上找了找资料发现了一篇简单易懂的文章，对证书和签名有了一个较清晰的概念： 数字签名信息实体经HASH函数后得到一个摘要，摘要经过私钥加密后形成数字签名。 数字证书证书中心的信息+个人的信息+个人的公钥，经过证书中心的私钥加密后，得到数字证书。 虽然CSDN博客上已经有人对这篇文章翻译过，但是感">
 <meta name="keywords" content="数字签名">
 <meta property="og:type" content="article">
 <meta property="og:title" content="一文读懂数字签名">
 <meta property="og:url" content="http://wjnovember.github.io/digital_signature/index.html">
 <meta property="og:site_name" content="程序员叨叨叨">
-<meta property="og:description" content="前情提要在写上一篇《Android Keystore漫谈》时对数字证书和数字签名的区别感觉模棱两可，于是网上找了找资料发现了一篇简单易懂的文章，对证书和签名有了一个较清晰的概念：  数字签名信息实体经HASH函数后得到一个摘要，摘要经过私钥加密后形成数字签名。数字证书证书中心的信息+个人的信息+个人的公钥，经过证书中心的私钥加密后，得到数字证书。  虽然CSDN博客上已经有人对这篇文章翻译过，但是">
+<meta property="og:description" content="前情提要在写上一篇《Android Keystore漫谈》时对数字证书和数字签名的区别感觉模棱两可，于是网上找了找资料发现了一篇简单易懂的文章，对证书和签名有了一个较清晰的概念： 数字签名信息实体经HASH函数后得到一个摘要，摘要经过私钥加密后形成数字签名。 数字证书证书中心的信息+个人的信息+个人的公钥，经过证书中心的私钥加密后，得到数字证书。 虽然CSDN博客上已经有人对这篇文章翻译过，但是感">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-88d27e869dc4861f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-58255a654264fca0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
@@ -98,10 +98,10 @@
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-ddd31533aeae7bb6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-23761b197d518ecd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-b0222651fa9dbbdc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2019-08-25T15:24:29.859Z">
+<meta property="og:updated_time" content="2019-09-06T23:56:28.995Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一文读懂数字签名">
-<meta name="twitter:description" content="前情提要在写上一篇《Android Keystore漫谈》时对数字证书和数字签名的区别感觉模棱两可，于是网上找了找资料发现了一篇简单易懂的文章，对证书和签名有了一个较清晰的概念：  数字签名信息实体经HASH函数后得到一个摘要，摘要经过私钥加密后形成数字签名。数字证书证书中心的信息+个人的信息+个人的公钥，经过证书中心的私钥加密后，得到数字证书。  虽然CSDN博客上已经有人对这篇文章翻译过，但是">
+<meta name="twitter:description" content="前情提要在写上一篇《Android Keystore漫谈》时对数字证书和数字签名的区别感觉模棱两可，于是网上找了找资料发现了一篇简单易懂的文章，对证书和签名有了一个较清晰的概念： 数字签名信息实体经HASH函数后得到一个摘要，摘要经过私钥加密后形成数字签名。 数字证书证书中心的信息+个人的信息+个人的公钥，经过证书中心的私钥加密后，得到数字证书。 虽然CSDN博客上已经有人对这篇文章翻译过，但是感">
 <meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/291600-88d27e869dc4861f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
@@ -332,8 +332,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-25T23:19:48+08:00">
-                2019-08-25
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-22T21:15:48+08:00">
+                2017-12-22
               </time>
             
 
@@ -414,12 +414,14 @@
 
       
         <h1 id="前情提要"><a href="#前情提要" class="headerlink" title="前情提要"></a>前情提要</h1><p>在写上一篇《<a href="https://wjnovember.github.io/android_keystore">Android Keystore漫谈</a>》时对数字证书和数字签名的区别感觉模棱两可，于是网上找了找资料发现了一篇简单易懂的文章，对证书和签名有了一个较清晰的概念：</p>
-<blockquote>
-<p><strong>数字签名</strong><br><br>信息实体经HASH函数后得到一个摘要，摘要经过私钥加密后形成数字签名。<br><br><strong>数字证书</strong><br><br>证书中心的信息+个人的信息+个人的公钥，经过证书中心的私钥加密后，得到数字证书。</p>
-</blockquote>
+<h2 id="数字签名"><a href="#数字签名" class="headerlink" title="数字签名"></a>数字签名</h2><p>信息实体经HASH函数后得到一个摘要，摘要经过私钥加密后形成数字签名。</p>
+<h2 id="数字证书"><a href="#数字证书" class="headerlink" title="数字证书"></a>数字证书</h2><p>证书中心的信息+个人的信息+个人的公钥，经过证书中心的私钥加密后，得到数字证书。</p>
 <p>虽然CSDN博客上已经有人对这篇文章翻译过，但是感觉还是有必要自己翻译一遍，一来作为备份，二来也希望可以为简书用户们认识数字签名提供一个参考。</p>
-<h1 id="翻译内容"><a href="#翻译内容" class="headerlink" title="翻译内容"></a>翻译内容</h1><p><strong>主标题</strong>：数字签名是什么？<br><strong>副标题</strong>：数字签名的介绍<br><strong>作者</strong>：David Youd<br><strong>原文链接</strong>：<a href="http://www.youdzone.com/signature.html" target="_blank" rel="noopener">http://www.youdzone.com/signature.html</a><br><strong>译文</strong>：</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/291600-88d27e869dc4861f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<h1 id="翻译内容"><a href="#翻译内容" class="headerlink" title="翻译内容"></a>翻译内容</h1><h2 id="主标题"><a href="#主标题" class="headerlink" title="主标题"></a>主标题</h2><p>数字签名是什么？</p>
+<h2 id="副标题"><a href="#副标题" class="headerlink" title="副标题"></a>副标题</h2><p>数字签名的介绍</p>
+<h2 id="作者"><a href="#作者" class="headerlink" title="作者"></a>作者</h2><p>David Youd</p>
+<h2 id="原文链接"><a href="#原文链接" class="headerlink" title="原文链接"></a>原文链接</h2><p><a href="http://www.youdzone.com/signature.html" target="_blank" rel="noopener">http://www.youdzone.com/signature.html</a></p>
+<h2 id="译文"><a href="#译文" class="headerlink" title="译文"></a>译文</h2><p><img src="http://upload-images.jianshu.io/upload_images/291600-88d27e869dc4861f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
 <p>Bob有两把钥匙，一把叫做<strong>公钥</strong>（公共密钥），另一把叫做<strong>私钥</strong>（私有密钥）。</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/291600-58255a654264fca0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
 <p>Bob的<strong>公钥</strong>是可以给任何人的，但是<strong>私钥</strong>只能自己持有。密钥的作用是加密信息，加密信息意味着打乱信息，所以只有拿着密钥的人才可以解密这些加密的信息。公钥和私钥任意一个都可以用来加密，而另一个用于解密。比如：</p>
@@ -439,8 +441,11 @@
 <p><img src="http://upload-images.jianshu.io/upload_images/291600-b0222651fa9dbbdc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
 <p>这样Bob再发送消息给其他人，只要附加上<strong>数字证书</strong>，收信人便可检查公钥是否被篡改以进行正确的解密。那么收件人如何确认公钥正确呢？</p>
 <p>首先使用证书中心的公钥进行解密得到证书中心信息，查看证书中心是否是受信任的权威中心，然后检查证书中的个人信息是否是Bob的信息以确认证书中的公钥是否为Bob的公钥，当确认正确后可使用Bob的公钥进行信息完整性的验证。</p>
-<h3 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h3><p>本来打算照着原文的原话进行翻译，但是翻译过程中发现以翻译的习惯来写这篇文章会让语言变得拗口，所以仅以半翻半掰的方式将翻译内容描述完整。关于数字证书有一个非常好的实例，便是<strong>https协议</strong>，在《<a href="http://blog.csdn.net/until_v/article/details/40889565" target="_blank" rel="noopener">数字签名与数字证书的区别</a>》一文中有非常清晰的讲述。</p>
-<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="http://www.youdzone.com/signature.html" target="_blank" rel="noopener">What is a Digital Signature?</a><br><a href="http://blog.csdn.net/until_v/article/details/40889565" target="_blank" rel="noopener">数字签名与数字证书的区别</a></p>
+<h1 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h1><p>本来打算照着原文的原话进行翻译，但是翻译过程中发现以翻译的习惯来写这篇文章会让语言变得拗口，所以仅以半翻半掰的方式将翻译内容描述完整。关于数字证书有一个非常好的实例，便是<strong>https协议</strong>，在《<a href="http://blog.csdn.net/until_v/article/details/40889565" target="_blank" rel="noopener">数字签名与数字证书的区别</a>》一文中有非常清晰的讲述。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="http://www.youdzone.com/signature.html" target="_blank" rel="noopener">What is a Digital Signature?</a></li>
+<li><a href="http://blog.csdn.net/until_v/article/details/40889565" target="_blank" rel="noopener">数字签名与数字证书的区别</a></li>
+</ul>
 
       
     </div>
@@ -500,8 +505,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/guide_theory/" rel="next" title="万恶的引导设计（开篇）：理论篇">
-                <i class="fa fa-chevron-left"></i> 万恶的引导设计（开篇）：理论篇
+              <a href="/android_keystore/" rel="next" title="Android Keystore漫谈">
+                <i class="fa fa-chevron-left"></i> Android Keystore漫谈
               </a>
             
           </div>
@@ -510,8 +515,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/android_keystore/" rel="prev" title="Android Keystore漫谈">
-                Android Keystore漫谈 <i class="fa fa-chevron-right"></i>
+              <a href="/ue4_download_code/" rel="prev" title="UE4如何获取/下载虚幻4（Unreal Engine4）源码">
+                UE4如何获取/下载虚幻4（Unreal Engine4）源码 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -594,7 +599,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -605,7 +610,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -616,7 +621,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -690,7 +695,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前情提要"><span class="nav-number">1.</span> <span class="nav-text">前情提要</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#翻译内容"><span class="nav-number">2.</span> <span class="nav-text">翻译内容</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#写在最后"><span class="nav-number">2.0.1.</span> <span class="nav-text">写在最后</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">2.0.2.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前情提要"><span class="nav-number">1.</span> <span class="nav-text">前情提要</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数字签名"><span class="nav-number">1.1.</span> <span class="nav-text">数字签名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数字证书"><span class="nav-number">1.2.</span> <span class="nav-text">数字证书</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#翻译内容"><span class="nav-number">2.</span> <span class="nav-text">翻译内容</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#主标题"><span class="nav-number">2.1.</span> <span class="nav-text">主标题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#副标题"><span class="nav-number">2.2.</span> <span class="nav-text">副标题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#作者"><span class="nav-number">2.3.</span> <span class="nav-text">作者</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原文链接"><span class="nav-number">2.4.</span> <span class="nav-text">原文链接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#译文"><span class="nav-number">2.5.</span> <span class="nav-text">译文</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#写在最后"><span class="nav-number">3.</span> <span class="nav-text">写在最后</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
 
           </div>
