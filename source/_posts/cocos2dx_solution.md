@@ -15,3 +15,7 @@ https://github.com/cocos2d/cocos2d-x/pull/17248
 * 代码详情
 https://github.com/cocos2d/cocos2d-x/pull/17248/commits/b425bd7e470fefa497e96b9dbec7db778880e5cb
 https://github.com/cocos2d/cocos2d-x/pull/17324/commits/f29d51f2c36001f69843e38e7c87a0ba323fa812
+
+# 让RichText支持获取所有文字
+
+* 详见教程[RichText仿Label::getLetter()获取所有文字](https://wjnovember.github.io/richtext_getallletters/)
