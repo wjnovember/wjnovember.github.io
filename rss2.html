@@ -8,27 +8,38 @@
     <atom:link href="/rss2.html" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Mon, 16 Mar 2020 13:55:26 GMT</pubDate>
+    <pubDate>Sat, 11 Apr 2020 09:19:20 GMT</pubDate>
     <generator>http://hexo.io/</generator>
     
     <item>
-      <title>vs_to_unity</title>
-      <link>http://wjnovember.github.io/vs-to-unity/</link>
-      <guid>http://wjnovember.github.io/vs-to-unity/</guid>
-      <pubDate>Mon, 16 Mar 2020 13:46:02 GMT</pubDate>
+      <title>VsToUnity</title>
+      <link>http://wjnovember.github.io/VsToUnity-1/</link>
+      <guid>http://wjnovember.github.io/VsToUnity-1/</guid>
+      <pubDate>Sat, 11 Apr 2020 09:19:20 GMT</pubDate>
+      <description>
+      
+      </description>
+      
+      <comments>http://wjnovember.github.io/VsToUnity-1/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title>VsToUnity</title>
+      <link>http://wjnovember.github.io/VsToUnity/</link>
+      <guid>http://wjnovember.github.io/VsToUnity/</guid>
+      <pubDate>Sat, 11 Apr 2020 09:18:17 GMT</pubDate>
       <description>
       
         
         
-          &lt;p&gt;&lt;img src=&quot;/.io//1.png&quot; alt&gt;&lt;/p&gt;
-
+          &lt;img src=&quot;/VsToUnity/1.png&quot; title=&quot;This is an example image&quot;&gt;
         
       
       </description>
       
-      <content:encoded><![CDATA[<p><img src="/.io//1.png" alt></p>]]></content:encoded>
+      <content:encoded><![CDATA[<img src="/VsToUnity/1.png" title="This is an example image">]]></content:encoded>
       
-      <comments>http://wjnovember.github.io/vs-to-unity/#disqus_thread</comments>
+      <comments>http://wjnovember.github.io/VsToUnity/#disqus_thread</comments>
     </item>
     
     <item>
@@ -86,26 +97,6 @@
       <content:encoded><![CDATA[<h1 id="前情提要"><a href="#前情提要" class="headerlink" title="前情提要"></a>前情提要</h1><p>上一篇，我们了解了引导的一些理论知识，包括<strong>分段</strong>、<strong>分步</strong>的概念，<strong>强引导</strong>与<strong>弱引导</strong>，引导的<strong>触发</strong>、<strong>类别</strong>、<strong>操作</strong>、<strong>保存点</strong>等，本篇笔者将结合这些理论来聊聊引导的<strong>配表</strong>。</p><h1 id="场景代入"><a href="#场景代入" class="headerlink" title="场景代入"></a>场景代入</h1><p>继续以《率土之滨》游戏为例，假设策划提出要做一个<strong>技能学习</strong>引导，需求大概是这样的：</p><blockquote><p>当玩家点击某一张卡牌进入到卡牌信息页时，若卡牌等级达到10级，引导玩家点击已解锁的技能槽，进入技能选择页后，引导玩家选择一个可学习的技能，引导结束。</p></blockquote><p>基于理论篇的讲解，将引导拆分如下：</p><ul><li><strong>触发点</strong>：进入卡牌信息页</li><li><strong>触发条件</strong>：卡牌等级达到10级</li><li><strong>步骤1</strong>：弹出引导对话：“主公，您的武将已满足技能学习的条件，请学习技能提高武将的实力。”</li><li><strong>步骤2</strong>：引导点击空技能槽</li><li><strong>步骤3</strong>：引导点击技能列表中可学习的技能</li><li><strong>步骤4</strong>：引导点击确定按钮</li></ul><h1 id="配置步骤表"><a href="#配置步骤表" class="headerlink" title="配置步骤表"></a>配置步骤表</h1><p>抛开引导的触发，先来了解如何将引导的步骤配置到表里。配表前需要对表的结构进行设计，也就是表有哪些列：</p><ul><li><p>id<br>用以区分引导步骤，每个id对应不同的引导操作。</p></li><li><p>类型<br>用于区分某一步引导是对话，还是点击，亦或是其他的逻辑操作。</p></li><li><p>文本<br>用来配置对话中出现的文本内容。</p></li><li><p>操作<br>填写除对话以外的其他操作，比如点击技能槽，点击确定按钮。</p></li></ul><p>基于上述，表的结构设计如下：</p><table><thead><tr><th align="center">id</th><th align="center">类型</th><th align="center">文本</th><th align="center">操作</th></tr></thead><tbody><tr><td align="center">1</td><td align="center">对话</td><td align="center">主公，您的武将已满足技能学习的条件，请学习技能提高武将的实力。</td><td align="center"></td></tr><tr><td align="center">2</td><td align="center">点击</td><td align="center"></td><td align="center">点击空技能槽</td></tr><tr><td align="center">3</td><td align="center">点击</td><td align="center"></td><td align="center">点击可学习的技能</td></tr><tr><td align="center">4</td><td align="center">点击</td><td align="center"></td><td align="center">点击技能学习的确定按钮</td></tr></tbody></table><p>但是这样的配置，程序是读不懂的，需要调整一下：</p><ul><li>每一列加<strong>字段名</strong>，方便程序读取</li><li>每一列加<strong>字段类型</strong>，告诉程序这一列的数据类型</li><li>用数字来枚举类型，如：1表示对话，2表示点击</li><li>不同的操作也用数字来索引：<ul><li>1：点击空技能槽</li><li>2：点击技能列表中可学习的技能</li><li>3：点击技能学习确定按钮</li></ul></li><li>因为工具的需要，没有内容的单元格用<code>0</code>填充</li></ul><p>调整后的表结构就变成了这样：</p><table><thead><tr><th align="center">id</th><th align="center">类型</th><th align="center">文本</th><th align="center">操作</th></tr></thead><tbody><tr><td align="center">id</td><td align="center">type</td><td align="center">text</td><td align="center">operation</td></tr><tr><td align="center">B</td><td align="center">B</td><td align="center">S</td><td align="center">B</td></tr><tr><td align="center">1</td><td align="center">1</td><td align="center">主公，您的武将已满足技能学习的条件，请学习技能提高武将的实力。</td><td align="center">0</td></tr><tr><td align="center">2</td><td align="center">2</td><td align="center">0</td><td align="center">1</td></tr><tr><td align="center">3</td><td align="center">2</td><td align="center">0</td><td align="center">2</td></tr><tr><td align="center">4</td><td align="center">2</td><td align="center">0</td><td align="center">3</td></tr></tbody></table><blockquote><p><code>B</code>表示整型，<code>S</code>表示表示字符串类型。</p></blockquote><h1 id="配置触发表"><a href="#配置触发表" class="headerlink" title="配置触发表"></a>配置触发表</h1><p>如果说步骤表每一行针对的是引导的每一步，那么触发表的每一行针对的就是引导的每一段，触发表用于判定某一段引导是否达到触发条件，若是，则开始这一段引导。</p><p>触发表相比步骤表，结构稍微简单些，只需要配置三列：</p><ul><li><p>组别id<br>用于区分当前行判断的是哪一段引导。</p></li><li><p>触发点<br>也就是试图判断条件的那个点，比如玩家进入了卡牌信息界面，就判断当前卡牌是否满足条件，这个“进入卡牌信息界面”就是所谓的<strong>触发点</strong>。</p></li><li><p>触发条件<br>当触发点满足时，开始判断触发条件，若触发条件满足要求，则触发对应的引导。</p></li></ul><p>配表结构如下：</p><table><thead><tr><th align="center">组别id</th><th align="center">触发点</th><th align="center">触发条件</th></tr></thead><tbody><tr><td align="center">id</td><td align="center">point</td><td align="center">cond</td></tr><tr><td align="center">B</td><td align="center">B</td><td align="center">B</td></tr><tr><td align="center">1</td><td align="center">1</td><td align="center">1</td></tr></tbody></table><p>触发点id索引关系如下：</p><table><thead><tr><th align="center">id</th><th align="left">触发点</th></tr></thead><tbody><tr><td align="center">1</td><td align="left">进入卡牌信息界面</td></tr></tbody></table><p>触发条件id索引关系如下：</p><table><thead><tr><th align="center">id</th><th align="left">触发条件</th></tr></thead><tbody><tr><td align="center">1</td><td align="left">卡牌信息页的卡牌等级达到10级</td></tr></tbody></table><h1 id="未完待续"><a href="#未完待续" class="headerlink" title="未完待续"></a>未完待续</h1><p>本来想继续讲表的抽象和扩展的，但考虑到没有代码的结合，讲太多只会徒增读者们的困惑，所以本章只做快速的过渡讲解，后续配表将在代码篇之后呈现，还望读者大佬们海涵。另外文章中提到的填表规则并非固定，还需以实际项目的配表规则为准，本文仅以个例提供配表思路。</p>]]></content:encoded>
       
       <comments>http://wjnovember.github.io/guide_xlsx/#disqus_thread</comments>
-    </item>
-    
-    <item>
-      <title>Cocos-2dx疑难集锦</title>
-      <link>http://wjnovember.github.io/cocos2dx_solution/</link>
-      <guid>http://wjnovember.github.io/cocos2dx_solution/</guid>
-      <pubDate>Mon, 02 Sep 2019 13:35:03 GMT</pubDate>
-      <description>
-      
-        
-        
-          &lt;h1 id=&quot;让DrawNode支持Opacity&quot;&gt;&lt;a href=&quot;#让DrawNode支持Opacity&quot; class=&quot;headerlink&quot; title=&quot;让DrawNode支持Opacity&quot;&gt;&lt;/a&gt;让DrawNode支持Opacity&lt;/h1&gt;&lt;ul&gt;
-&lt;li&gt;
-        
-      
-      </description>
-      
-      <content:encoded><![CDATA[<h1 id="让DrawNode支持Opacity"><a href="#让DrawNode支持Opacity" class="headerlink" title="让DrawNode支持Opacity"></a>让DrawNode支持Opacity</h1><ul><li><p>Issue<br><a href="https://github.com/cocos2d/cocos2d-x/pull/17248" target="_blank" rel="noopener">https://github.com/cocos2d/cocos2d-x/pull/17248</a></p></li><li><p>代码详情<br><a href="https://github.com/cocos2d/cocos2d-x/pull/17248/commits/b425bd7e470fefa497e96b9dbec7db778880e5cb" target="_blank" rel="noopener">https://github.com/cocos2d/cocos2d-x/pull/17248/commits/b425bd7e470fefa497e96b9dbec7db778880e5cb</a><br><a href="https://github.com/cocos2d/cocos2d-x/pull/17324/commits/f29d51f2c36001f69843e38e7c87a0ba323fa812" target="_blank" rel="noopener">https://github.com/cocos2d/cocos2d-x/pull/17324/commits/f29d51f2c36001f69843e38e7c87a0ba323fa812</a></p></li></ul><h1 id="让RichText支持获取所有文字"><a href="#让RichText支持获取所有文字" class="headerlink" title="让RichText支持获取所有文字"></a>让RichText支持获取所有文字</h1><ul><li>详见教程<a href="https://wjnovember.github.io/richtext_getallletters/">RichText仿Label::getLetter()获取所有文字</a></li></ul>]]></content:encoded>
-      
-      <comments>http://wjnovember.github.io/cocos2dx_solution/#disqus_thread</comments>
     </item>
     
   </channel>
