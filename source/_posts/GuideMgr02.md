@@ -257,7 +257,7 @@ end
 先从触发的判断开始吧！触发的判断逻辑思维主要是传入对应的触发点，以及想要触发的引导分段id，然后在`GuideMgr.checkStart`方法里判断是否满足条件，若满足条件则调用`GuideMgr.start`方法开始指定分段引导的第一步。
 
 ```Lua
-function GuideMgr.checkStart(point, groupId)
+function GuideMgr.checkStart(point, group)
     if point == nil then
         return false
     end
@@ -268,6 +268,34 @@ function GuideMgr.checkStart(point, groupId)
 
     local targetGroupId
     local cadidateInfos
+
+    if group == nil then
+
+    elseif type(group) == "number" then
+
+    elseif type(group) == "
+     = GuideMgr.getPointValidInfos(point)
+end
+
+function GuideMgr.getPointValidInfos(point)
+    local ret = {}
+    local infos = GuideMgr.getAllInfos()
+    for k, v in pairs(infos) do
+        if GuideMgr.isTriggerPointValid(v, point) then
+            ret[#ret + 1] = v
+        end
+    end
+    return ret
+end
+
+function GuideMgr.getAllInfos()
+  -- 此处逻辑为 从GuideTrigger.csv中获取每一行信息，
+  -- 以key-value形式存到table中，表的_id一列的值对应key，当前行每一列信息放到一个table中作为value
+  -- 代码逻辑省略，不同项目获取表的内容逻辑不通
+end
+
+function GuideMgr.isTriggerPointValid(info, point)
+
 end
 ```
 
