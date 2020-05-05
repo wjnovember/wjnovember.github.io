@@ -236,7 +236,7 @@ GuideMgr = class("GuideMgr")
 GuideMgr._guideId = nil
 GuideMgr._finished = {}
 
-function GuideMgr.checkStart()
+function GuideMgr.checkTrigger()
 end
 
 function GuideMgr.finish()
@@ -254,61 +254,156 @@ end
 
 ## 触发判断
 
-先从触发的判断开始吧！触发的判断逻辑思维主要是传入对应的触发点，以及想要触发的引导分段id，然后在`GuideMgr.checkStart`方法里判断是否满足条件，若满足条件则调用`GuideMgr.start`方法开始指定分段引导的第一步。
+先从触发的判断开始吧！触发的判断逻辑思维主要是传入对应的触发点，以及想要触发的引导分段id，然后在`GuideMgr.checkStart`方法里判断是否满足条件，若满足条件则调用`GuideMgr.start`方法开始分段引导的第一步。
 
 ```Lua
-function GuideMgr.checkStart(point, group)
+function GuideMgr.checkTrigger(point, group)
+    -- No point, no trigger.
     if point == nil then
         return false
     end
 
+    -- Do not trigger a new guide when guiding.
     if GuideMgr.isGuiding() then
         return false
     end
 
-    local targetGroupId
+    -- Init the candidate infos.
     local cadidateInfos
-
     if group == nil then
+        candidateInfos = GuideMgr.getAllInfos()
 
     elseif type(group) == "number" then
+        cadidateInfos = {GuideMgr.getInfoByGroupId(group)}
 
-    elseif type(group) == "
-     = GuideMgr.getPointValidInfos(point)
+    elseif type(group) == "table" then
+        for i = 1, #group do
+            local groupId = group[i]
+            candidateInfos[#candidateInfos + 1] = GuideMgr.getInfoByGroupId(groupI)
+        end
+    end
+
+    -- Filter infos by trigger point.
+    candidateInfos = GuideMgr.getPointValidInfos(point, candidateInfos)
+
+    -- Filter infos by trigger condition.
+    candidateInfos = GuideMgr.getConditionValidInfos(candidateInfos)
+
+    -- Check candidate infos empty.
+    if #candidateInfos == 0 then
+        return false
+    end
+
+    -- Sort by priority and group id.
+    table.sort(candidateInfos, function(ele1, ele2)
+        if ele1._priority == ele2._priority then
+            return ele1._groupId < ele2._groupId
+        else
+            return ele1._priority > ele2._priority
+        end
+    end)
+
+    -- Start guide first step.
+    local triggerGroupId = candidateInfos[1]
+    local guideId = triggerGroupId * 100 + 1
+    GuideMgr.start(guideId)
+    return true
 end
+```
 
-function GuideMgr.getPointValidInfos(point)
+其中`GuideMgr.getAllInfos`方法是从GuideTrigger.csv中获取每一行触发信息，以数组的形式返回。不同的代码习惯有不同的读表逻辑，这里就不贴出详细代码了。
+
+`GuideMgr.getInfoByGroupId`方法是从GuideTrigger.csv中通过`_groupId`一列的值，找出对应的触发信息，以数组的形式返回。
+
+`GuideMgr.getPointValidInfos`方法是在触发信息中筛选出相同触发点的信息，以数组形式返回。详细的触发点信息在`GuideMgr.isTriggerPointValid`方法中处理。传入的触发点可以是`number`类别，仅表示触发点；也可以是`table`类别，内包含触发点和触发点参数，结果如下：
+
+```Lua
+{
+    _point = GuideMgr.Point.enter_scene,
+    _param = {
+        _sceneId = Data.SceneId.main_scene
+    }
+}
+```
+
+`GuideMgr.getPointValidInfos`和`GuideMgr.isTriggerPointValid`详细代码如下：
+
+```Lua
+function GuideMgr.getPointValidInfos(point, infos)
     local ret = {}
-    local infos = GuideMgr.getAllInfos()
-    for k, v in pairs(infos) do
-        if GuideMgr.isTriggerPointValid(v, point) then
-            ret[#ret + 1] = v
+    for i = 1, #infos do
+        local info = infos[i]
+        if GuideMgr.isTriggerPointValid(info, point) then
+            ret[#ret + 1] = info
         end
     end
     return ret
 end
 
-function GuideMgr.getAllInfos()
-  -- 此处逻辑为 从GuideTrigger.csv中获取每一行信息，
-  -- 以key-value形式存到table中，表的_id一列的值对应key，当前行每一列信息放到一个table中作为value
-  -- 代码逻辑省略，不同项目获取表的内容逻辑不通
-end
-
 function GuideMgr.isTriggerPointValid(info, point)
+    local param
 
+    -- Parse param.
+    if type(point) == "table" then
+        param = point._param
+        point = point._point
+    end
+
+    -- Different trigger point.
+    if info._point ~= point then
+        return false
+    end
+
+    -- Special handling.
+    if point == GuideMgr.Point.enter_scene then
+        local sceneName = info._pointParam.scene
+        return Data.SceneId[sceneName] == param._sceneId
+    end
+
+    -- Common handling.
+    return true
 end
 ```
 
-参数1：
-point 引导触发点
-可以传number，仅表示触发点；
-也可以传table，结构为：
-{
-  _point = 触发点
-  _cond = 触发条件
-}
+筛选出
 
-参数2：
-groupId 引导分段id
-可以传number，表示判断单段引导的触发；
-也可以传array，表示在这些段引导中，按顺序寻找满足条件的 
+```Lua
+function GuideMgr.getConditionValidInfos(infos)
+    local ret = {}
+    for i = 1, #infos do
+        local isValid = true
+        local info = infos[i]
+        local conds = info._conds
+        local params = string.split(info._params, "|")
+
+        for j = 1, #conds do
+            if not GuideMgr.isConditionValid(conds[j], params[j]) then
+                isValid = false
+                break
+            end
+        end
+
+        if isValid then
+            ret[#ret + 1] = info
+        end
+    end
+    return ret
+end
+
+function GuideMgr.isConditionValid(info)
+    local condition = info._cond
+    local param = info._condParam
+
+    if condition == GuideMgr.Cond.current_scene then
+        -- Get current scene
+        local scene = ...
+        return Data.SceneId[param.scene] == scene._sceneId
+
+    elseif condition == GuideMgr.Cond.hero_by_num_level then
+        -- Check condition valid
+        -- ...
+    end
+
+    return true
+end
+```
