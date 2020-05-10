@@ -10,7 +10,7 @@ tags:
 
 # 前情提要
 
-上文主要讲解了引导设计的一些理论概念，包括：引导分段、引导步骤、引导的触发、引导的操作以及引导的保存点。其中引导的触发分为触发点和触发条件，此外还提到了引导的多条件判断；引导操作提到了操作的分类、操作分类和操作参数及扩展。本文将基于引导的理论概念，进行实操演练，主要包含配表和代码框架的初步编写。
+上文主要讲解了引导设计的一些理论概念，包括：引导分段、引导步骤、引导的触发、引导的操作以及引导的保存点。其中引导的触发分为触发点和触发条件，此外还提到了引导的多条件判断；引导操作提到了操作的分类、操作定义和操作参数及扩展。本文将基于引导的理论概念，进行实操演练，主要包含配表和代码框架的初步编写。
 
 # 配表
 
@@ -29,7 +29,7 @@ tags:
 
 ### ID
 
-ID表示引导步骤的唯一标识，以数字格式填写，通常同一段引导里的步骤ID以连续的数字相连。上图中展示的是卡牌进阶引导的所有步骤，一共分为8步。
+ID表示引导步骤的唯一标识，为数字类型，通常同一段引导里的步骤ID以连续的数字相连。上图中展示的是卡牌进阶引导的所有步骤，一共分为8步。
 
 步骤表是要配置当前游戏所有的引导步骤的，那么不同分段的引导的步骤如何区分呢？
 
@@ -77,12 +77,12 @@ ID表示引导步骤的唯一标识，以数字格式填写，通常同一段引
 
 ### 操作参数
 
-操作参数是对操作的补充，对做相同事情但操作对象有略微差别的一种说明。以卡牌进阶引导中，拖动卡池里的材料卡为例。加入卡牌进阶需要消耗两张卡池中的同名卡，这时候需要有两步引导操作，分别是：
+操作参数是对操作的补充，对做相同事情但操作对象有略微差别的一种说明。以卡牌进阶引导中，拖动卡池里的材料卡为例。假如卡牌进阶需要消耗两张卡池中的同名卡，这时候需要有两步引导操作，分别是：
 
 * 拖动卡池中第一张材料卡到待消耗区域
 * 拖动卡池中第二张材料卡到待消耗区域
 
-这两步引导做的事相同的事情，但是拖动的卡牌略有不同，这时可以将“拖动卡池中的材料卡到待消耗区域”定义成一种操作，加上操作参数：第几张卡。
+这两步引导做的是相同的事情，但是拖动的卡牌略有不同，这时可以将“拖动卡池中的材料卡到待消耗区域”定义成一种操作，加上操作参数：第几张卡。
 
 考虑到操作的补充参数可能不止一种，这里使用Json格式的字符串填写，方便扩展。
 
@@ -96,13 +96,13 @@ ID表示引导步骤的唯一标识，以数字格式填写，通常同一段引
 
 ### 保存点
 
-保存点的必要性在前文《理论篇》已经提及，保存点的逻辑操作时，在当前步的操作已经做完，即将进入下一步前，往服务端发送一个引导id，表示下一次重新登录时，引导从那一步ID开始。填0表示不往服务端发送保存点。
+保存点的必要性在前文《理论篇》已经提及，保存点的逻辑操作是，在当前步的操作已经做完，即将进入下一步前，往服务端发送一个引导ID，表示下一次重新登录时，引导从那一步ID开始。填0表示不往服务端发送保存点。
 
-那为什么表里面会配置100？100这个引导id并没有在表里出现呀？而且为什么引导走到了第7步还要往服务端发送引导id为1的点呢？
+那为什么表里面会配置100？100这个引导ID并没有在表里出现呀？而且为什么引导走到了第7步还要往服务端发送引导ID为1的点呢？
 
-其实这里的保存点已经不再表示引导id了，这里的保存点是一个**差值**，填1表示将当前步的下一步引导id发送给服务端保存，而100则表示结束当前引导分段，并标记当前分段引导结束，后续不再触发。
+其实这里的保存点不是引导ID，而是一个**差值**，填1表示将当前步的下一步引导ID发送给服务端保存，填2表示当前步骤的后面第2不的引导ID发送到服务端保存，而100则表示结束当前引导分段，并标记当前分段引导已完成，后续不再触发。
 
-之所以填**差值**而不直接填**引导id**，是因为引导的需求是在不断地变化的，很可能一段很长的引导，在前面步骤插入了一步，那么后续的引导id都将往后+1，这样保存点也要跟着变动，保存点多的情况下很容易出现漏改的情况，因此使用**差值**可以减少变动。
+之所以填**差值**而不直接填**引导ID**的值，是因为引导的需求是在不断地变化的，很可能一段很长的引导，在前面步骤插入了一步，那么后续的引导ID都将往后+1，这样保存点也要跟着变动，保存点多的情况下很容易出现漏改的情况，因此使用**差值**可以减少变动。
 
 一般情况下，引导保存点在当前步骤以后，所以默认引导保存点的值只有大于0的时候才有意义。
 
@@ -118,11 +118,11 @@ ID表示引导步骤的唯一标识，以数字格式填写，通常同一段引
 
 ### 分段ID
 
-分段ID是引导分段的唯一标识，结合步骤表的引导id以100作为区间规则，我们默认：1\~100的引导分段ID是0，101\~200的分段ID是1，后续引导分段以此类推。
+分段ID是引导分段的唯一标识，结合步骤表的引导ID以100作为区间规则，我们默认：1\~100的引导分段ID是0，101\~200的分段ID是1，后续引导分段以此类推。
 
 ### 触发点、触发点参数
 
-触发点的概念在前文《理论篇》中已做详细讲解，这里补充一下触发点参数及定义。与操作参数类似，触发点参数是对触发点逻辑的补充，有了参数的补充，触发点可以做一定的逻辑上的抽象，定义如下：
+触发点的概念在前文《理论篇》中已做详细讲解，这里补充一下触发点参数及定义。与操作参数类似，触发点参数是对触发点逻辑的补充，有了参数的补充，触发点可以做一些逻辑上的抽象，定义如下：
 
 ```
 // 触发点及参数的定义
@@ -132,7 +132,7 @@ level：英雄等级
 
 例子：
 {'level':20}
-有英雄等级达到20级时，判断引导是否满足触发条件
+当英雄升级到20级时，判断引导是否满足触发条件
 
 2. 当打开某个场景时，判断引导触发条件
 参数：
@@ -147,7 +147,7 @@ scene：场景名字
 
 ### 触发条件、触发条件参数
 
-触发条件的概念在前文《理论篇》中也做过讲解，这里也仅做补充说明。触发条件的填写与触发点类似，唯一不同的是：触发条件的配置是数组，需要支持多条件的填写，数字定义以`|`隔开，参数的填写也同理，多个Json之间用`|`隔开，当不需要参数时，用0代替Json字符串。多个触发条件之间是**并**的关系。定义如下：
+触发条件的概念在前文《理论篇》中也做过讲解，这里也仅做补充说明。触发条件的填写与触发点类似，唯一不同的是：触发条件的配置是数组，需要支持多条件的填写，数字定义以`|`隔开，参数的填写也同理，多个Json字符串之间用`|`隔开，当不需要参数时，在参数列填0即可。多个触发条件之间是**并**的关系。定义如下：
 
 ```
 // 触发条件及参数的定义
@@ -168,7 +168,7 @@ num：同名卡数量
 
 例子：
 {'level':20,'num':2}
-当卡池中有卡牌等级达到，且同名卡数量至少有2张时，触发引导
+当卡池中有卡牌等级达到20级，且同名卡数量至少有2张时，触发引导
 ```
 
 了解了触发表的各列含义，我们将其串联起来理解，便是：
@@ -187,12 +187,14 @@ num：同名卡数量
 
 # 编码
 
+> 友情提示：请读者们将思维切换到编码思维。
+
 创建一个引导类，命名为GuideMgr.lua（Guide Manager）。
 
-引导分段，所以需要有触发的判断和当前段引导的终止：
+引导是分段触发的，所以需要有触发的判断和当前段引导的终止：
 
 ```Lua
-function GuideMgr.checkStart()
+function GuideMgr.checkTrigger()
 
 end
 
@@ -220,7 +222,19 @@ GuideMgr._guideId
 GuideMgr._finished = {}
 ```
 
-记录了引导id以后，需要留一个接口，用来获取引导步骤表里面的对应步骤信息：
+这两个值一般在客户端收到登录包时，从服务器拿数据并解析得到。GuideMgr._finished的数据结构大概是这样的：
+
+```Lua
+GuideMgr._finished = {
+    [1] = true,
+    [3] = true,
+    [11] = true
+}
+```
+
+其中的1、3、11表示引导的分段ID，每当有新的引导完成时，该引导分段ID都将记录在这个结构里。
+
+记录了引导ID以后，需要留一个接口，用来获取引导步骤表里面的对应步骤信息：
 
 ```Lua
 function GuideMgr.getInfo()
@@ -228,7 +242,7 @@ function GuideMgr.getInfo()
 end
 ```
 
-定义了上述几个方法后，就可以开始搭建引导框架类的模子了：
+定义了上述几个方法后，就可以开始搭建引导的框架了：
 
 ```Lua
 GuideMgr = class("GuideMgr")
@@ -269,19 +283,20 @@ function GuideMgr.checkTrigger(point, group)
     end
 
     -- Init the candidate infos.
-    local cadidateInfos
+    local candidateInfos
     if group == nil then
         candidateInfos = GuideMgr.getAllInfos()
 
-    elseif type(group) == "number" then
-        cadidateInfos = {GuideMgr.getInfoByGroupId(group)}
-
-    elseif type(group) == "table" then
-        for i = 1, #group do
-            local groupId = group[i]
-            candidateInfos[#candidateInfos + 1] = GuideMgr.getInfoByGroupId(groupI)
-        end
+    elseif type(group) == "number" or type(group) == "table" then
+        candidateInfos = GuideMgr.getInfosByGroup(group)
     end
+
+    if candidateInfos == nil then
+        return false
+    end
+
+    -- Filter infos by finished.
+    candidateInfos = GuideMgr.getUnfinishedInfos(candidateInfos)
 
     -- Filter infos by trigger point.
     candidateInfos = GuideMgr.getPointValidInfos(point, candidateInfos)
@@ -303,19 +318,51 @@ function GuideMgr.checkTrigger(point, group)
         end
     end)
 
-    -- Start guide first step.
-    local triggerGroupId = candidateInfos[1]
+    -- Start first guide step.
+    local info = candidateInfos[1]
+    local triggerGroupId = info._groupId
     local guideId = triggerGroupId * 100 + 1
     GuideMgr.start(guideId)
     return true
 end
 ```
 
-其中`GuideMgr.getAllInfos`方法是从GuideTrigger.csv中获取每一行触发信息，以数组的形式返回。不同的代码习惯有不同的读表逻辑，这里就不贴出详细代码了。
+`GuideMgr.isGuiding`方法判断目前是否在引导中，通过GuideMgr._guideId是否大于0来区分，因为每走一步引导，GuideMgr._guideId都会被赋值，而这个值就是引导步骤表GuideStep.csv的`_id`一列的值。当引导结束时，GuideMgr._guideId会被赋值为0。代码如下：
 
-`GuideMgr.getInfoByGroupId`方法是从GuideTrigger.csv中通过`_groupId`一列的值，找出对应的触发信息，以数组的形式返回。
+```Lua
+function GuideMgr.isGuiding()
+    return GuideMgr._guideId and GuideMgr._guideId > 0
+end
+```
 
-`GuideMgr.getPointValidInfos`方法是在触发信息中筛选出相同触发点的信息，以数组形式返回。详细的触发点信息在`GuideMgr.isTriggerPointValid`方法中处理。传入的触发点可以是`number`类别，仅表示触发点；也可以是`table`类别，内包含触发点和触发点参数，结果如下：
+其中`GuideMgr.getAllInfos`方法是从GuideTrigger.csv中获取每一行触发信息，以数组的形式返回。不同的项目组有不同的读表逻辑，这里就不贴出详细代码了。
+
+`GuideMgr.getInfosByGroup`方法是从GuideTrigger.csv中通过`_groupId`一列的值，筛选出指定引导分段的触发信息，以数组的形式返回。
+
+`GuideMgr.getUnfinishedInfos`方法是为了过滤掉已经触发过的引导，一般引导只会走一次，所以已经走过的引导不再触发。思路是从触发表中拿到`_groupId`的值，与GuideMgr._finished进行比对，若存在该值，则表示引导已经触发过。代码如下：
+
+```Lua
+function GuideMgr.getUnfinishedInfos(infos)
+    if infos == nil then
+        return
+    end
+
+    local ret = {}
+    for i = 1, #infos do
+        local info = infos[i]
+        if not GuideMgr.isFinished(info._groupId) then
+            ret[#ret + 1] = info
+        end
+    end
+    return ret
+end
+
+function GuideMgr.isFinished(groupId)
+    return GuideMgr._finished[groupId] == true
+end
+```
+
+`GuideMgr.getPointValidInfos`方法是在触发信息中筛选出相同**触发点**的信息，以数组形式返回。详细的触发点信息判断在`GuideMgr.isTriggerPointValid`方法中处理。传入的触发点变量可以是`number`类别，仅表示触发点；也可以是`table`类别，内包含触发点和触发点参数，结构如下：
 
 ```Lua
 {
@@ -356,16 +403,20 @@ function GuideMgr.isTriggerPointValid(info, point)
 
     -- Special handling.
     if point == GuideMgr.Point.enter_scene then
+        -- Compare with the info in GuideTrigger.csv.
         local sceneName = info._pointParam.scene
         return Data.SceneId[sceneName] == param._sceneId
+
+    else
+        -- More point param check.
+        -- ...
     end
 
-    -- Common handling.
     return true
 end
 ```
 
-筛选出
+筛选出满足触发点的触发信息后，继续通过`GuideMgr.getConditionValidInfos`方法筛选出**触发条件**满足的信息。详细判断逻辑在`GuideMgr.isConditionValid`方法中，通过传入`触发条件定义`和`触发条件参数`，具体逻辑具体判断。代码如下：
 
 ```Lua
 function GuideMgr.getConditionValidInfos(infos)
@@ -373,7 +424,9 @@ function GuideMgr.getConditionValidInfos(infos)
     for i = 1, #infos do
         local isValid = true
         local info = infos[i]
+        -- Array already parsed.
         local conds = info._conds
+        -- Parse param array.
         local params = string.split(info._params, "|")
 
         for j = 1, #conds do
@@ -390,20 +443,148 @@ function GuideMgr.getConditionValidInfos(infos)
     return ret
 end
 
-function GuideMgr.isConditionValid(info)
-    local condition = info._cond
-    local param = info._condParam
-
+function GuideMgr.isConditionValid(condition, param)
     if condition == GuideMgr.Cond.current_scene then
-        -- Get current scene
+        -- Get current scene.
         local scene = ...
         return Data.SceneId[param.scene] == scene._sceneId
 
     elseif condition == GuideMgr.Cond.hero_by_num_level then
-        -- Check condition valid
+        -- Check condition validation.
         -- ...
     end
 
+    return false
+end
+```
+
+过滤出满足触发点和触发条件的触发信息后，对信息按照优先级进行排序，排序后取第一条触发信息里的引导分段ID（_groupId），将分段ID转为当前分段引导的第一步引导ID，传入`GuideMgr.start`方法中开始当前分段的引导。
+
+## 开始引导
+
+触发判断筛选出符合要求的引导分段后开始引导，`GuideMgr.start`方法通过传入引导步骤ID，做当前步骤的引导操作，如：立绘说话、引导点击、其他引导效果等。`GuideMgr.starat`代码如下：
+
+```Lua
+function GuideMgr.start(guideId)
+    guideId = guideId or M._guideId
+
+    if guideId == nil then
+        return false
+    end
+
+    -- Check guide info validation.
+    local info = GuideMgr.getInfo(guideId)
+    if info == nil then
+        -- Guide info not exists.
+        GuideMgr.finish()
+        return false
+    end
+
+    -- Set guide id.
+    GuideMgr._guideId = guideId
+
+    -- Set view
+    GuideMgr.setView(info)
     return true
 end
 ```
+
+`GuideMgr.start`传入的参数——引导步骤ID（下称“引导ID”），当没有传参时，默认使用之前记录的引导ID。通过引导ID判断对应的引导步骤信息是否存在，若存在，将引导ID记录下来，并将对应的引导步骤信息传入视图层，做进一步的操作。
+
+`GuideMgr.getInfo`方法通过传入引导ID，从步骤表GuideStep.csv中读取对应`_id`的信息，若没有传参，则默认使用当前已记录的引导ID。代码如下：
+
+```Lua
+function GuideMgr.getInfo(guideId)
+    guideId = guideId or M._guideId
+    if guideId == nil then
+        return
+    end
+
+    -- Get info in GuideStep.csv by _id.
+    -- ...
+end
+```
+
+## 下一步引导
+
+`GuideMgr.next`是引导从当前步走向下一步的逻辑方法。
+
+首先判断当前步骤的引导信息是否存在，不存在则结束当前引导，这个逻辑是一个容错，一般情况下不会存在：调用`GuideMgr.next`时，当前步骤信息不存在的情况。
+
+然后判断当前步骤是否存在保存点，存在则将保存点对应的引导ID保存到服务端。
+
+最后引导ID加1，传入`GuideMgr.start`方法中，开始下一步引导。
+
+代码如下：
+
+```Lua
+function GuideMgr.next()
+    -- Check current step info validation.
+    local info = GuideMgr.getInfo()
+    if info == nil then
+        GuideMgr.finish()
+        return false
+    end
+
+    -- Check saving guide id.
+    GuideMgr.checkSave(info)
+
+    -- Next guide step id.
+    local guideId = M._guideId + 1
+    return GuideMgr.start(guideId)
+end
+```
+
+保存点的逻辑是读取GuideStep.csv的`_saveId`一列，若对应的值大于0，则将该值加上当前步骤的ID（`_saveId`填的数值是相对值）所得的值，传入服务器进行保存。代码如下：
+
+```Lua
+function GuideMgr.checkSave(info)
+    if info == nil then
+        return false
+    end
+
+    local saveId = info._saveId
+    if saveId > 0 then
+        saveId = info._id + saveId
+        -- Save the id to the server.
+        GuideMgr.saveGuideId(saveId)
+    end
+end
+```
+
+`GuideMgr.saveGuideId`方法做的逻辑是将传入的id发送到服务端进行保存。
+
+## 结束引导
+
+结束引导主要做重置数据、移除视图的操作，先看下代码：
+
+```Lua
+function GuideMgr.finish()
+    -- Guide is not started.
+    if not GuideMgr.isGuiding() then
+        return false
+    end
+
+    --[[ Reset data ]]--
+    -- Save guide group.
+    local guideId = GuideMgr._guideId
+    local groupId = math.floor(guideId / 100)
+    GuideMgr.saveGuideGroup(groupId)
+
+    -- Reset guide id.
+    GuideMgr.saveGuideId(0)
+    GuideMgr._guideId = 0
+
+    --[[ Remove view ]]--
+    GuideMgr.removeView()
+    return true
+end
+```
+
+`GuideMgr.saveGuideGroup`往服务端保存一个引导分段ID，表示当前分段的引导已经完成，后面不再触发；实际的逻辑操作类似于把分段ID加到服务端的GuideMgr._finished结构里。
+
+`GuideMgr.removeView`做视图的移除操作，考虑到篇幅的限制，视图相关的逻辑将在下一篇文章中讲解。
+
+# 下篇预告
+
+下一篇文章将继续本文的**实操篇**进行视图逻辑的讲解，主要包含：引导手指、高亮框、文本框的添加，点击、触摸限制逻辑的判断等，读者们看完下篇文章，基本可以自己写一个引导了。考虑到工作的原因，文章更新会比较慢，还请大家海涵！
