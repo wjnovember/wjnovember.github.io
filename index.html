@@ -289,6 +289,175 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wjnovember.github.io/GuideMgr02/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="代码咖啡">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar_sidebar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="程序员叨叨叨">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/GuideMgr02/" itemprop="url">从零开始设计游戏引导框架（二）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-19T13:11:50+08:00">
+                2020-04-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/网瘾少年的游戏开发之旅/" itemprop="url" rel="index">
+                    <span itemprop="name">网瘾少年的游戏开发之旅</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/GuideMgr02/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/GuideMgr02/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/GuideMgr02/" class="leancloud_visitors" data-flag-title="从零开始设计游戏引导框架（二）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          前情提要上文主要讲解了引导设计的一些理论概念，包括：引导分段、引导步骤、引导的触发、引导的操作以及引导的保存点。其中引导的触发分为触发点和触发条件，此外还提到了引导的多条件判断；引导操作提到了操作的分类、操作定义和操作参数及扩展。本文将基于引导的理论概念，进行实操演练，主要包含配表和代码框架的初步编
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/GuideMgr02/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://wjnovember.github.io/GuideMgr01/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -403,7 +572,7 @@
       
         
           
-          背景叨叨叨大学毕业后入坑Cocos游戏开发已经快三年了，参与了两三个游戏的开发，经历过三四次颠覆式的版本迭代，而其中涉足最深的莫过于游戏引导框架的设计开发，一路走来踩过许多坑，感觉有必要写一个引导框架设计的系列博客，就叫《从零开始设计游戏引导框架》吧！文章基于Cocos-2dx平台，使用Lua脚本开
+          背景叨叨叨大学毕业后入坑Cocos游戏开发已经快三年了，参与了两三个游戏的开发，经历过三四次颠覆式的版本迭代，其中涉足最深的莫过于游戏引导框架的设计开发，一路走来踩过许多坑，感觉有必要写一个引导框架设计的系列博客，就叫《从零开始设计游戏引导框架》吧！文章基于Cocos-2dx平台，使用Lua脚本开发
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1813,177 +1982,6 @@ Issuehttps://github.com/cocos2d/cocos2d-x/pull/17248
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wjnovember.github.io/digital_signature/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="代码咖啡">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar_sidebar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="程序员叨叨叨">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/digital_signature/" itemprop="url">一文读懂数字签名</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-22T21:15:48+08:00">
-                2017-12-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android开发从入门到炸机/" itemprop="url" rel="index">
-                    <span itemprop="name">Android开发从入门到炸机</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/digital_signature/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/digital_signature/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/digital_signature/" class="leancloud_visitors" data-flag-title="一文读懂数字签名">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          前情提要在写上一篇《Android Keystore漫谈》时对数字证书和数字签名的区别感觉模棱两可，于是网上找了找资料发现了一篇简单易懂的文章，对证书和签名有了一个较清晰的概念：
-数字签名信息实体经HASH函数后得到一个摘要，摘要经过私钥加密后形成数字签名。
-数字证书证书中心的信息+个人的信息+个人
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/digital_signature/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2036,7 +2034,7 @@ Issuehttps://github.com/cocos2d/cocos2d-x/pull/17248
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-count">25</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

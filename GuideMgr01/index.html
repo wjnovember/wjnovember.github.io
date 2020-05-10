@@ -81,13 +81,13 @@
 
 
 
-<meta name="description" content="背景叨叨叨大学毕业后入坑Cocos游戏开发已经快三年了，参与了两三个游戏的开发，经历过三四次颠覆式的版本迭代，而其中涉足最深的莫过于游戏引导框架的设计开发，一路走来踩过许多坑，感觉有必要写一个引导框架设计的系列博客，就叫《从零开始设计游戏引导框架》吧！文章基于Cocos-2dx平台，使用Lua脚本开发，涉及配表和代码编写，有不足之处，望读者们批评指正！ 本文是系列文章的第一篇，先从理论层面开始梳理">
+<meta name="description" content="背景叨叨叨大学毕业后入坑Cocos游戏开发已经快三年了，参与了两三个游戏的开发，经历过三四次颠覆式的版本迭代，其中涉足最深的莫过于游戏引导框架的设计开发，一路走来踩过许多坑，感觉有必要写一个引导框架设计的系列博客，就叫《从零开始设计游戏引导框架》吧！文章基于Cocos-2dx平台，使用Lua脚本开发，涉及配表和代码编写，有不足之处，望读者们批评指正！ 本文是系列文章的第一篇，先从理论层面开始梳理吧">
 <meta name="keywords" content="游戏开发,引导设计">
 <meta property="og:type" content="article">
 <meta property="og:title" content="从零开始设计游戏引导框架（一）">
 <meta property="og:url" content="http://wjnovember.github.io/GuideMgr01/index.html">
 <meta property="og:site_name" content="程序员叨叨叨">
-<meta property="og:description" content="背景叨叨叨大学毕业后入坑Cocos游戏开发已经快三年了，参与了两三个游戏的开发，经历过三四次颠覆式的版本迭代，而其中涉足最深的莫过于游戏引导框架的设计开发，一路走来踩过许多坑，感觉有必要写一个引导框架设计的系列博客，就叫《从零开始设计游戏引导框架》吧！文章基于Cocos-2dx平台，使用Lua脚本开发，涉及配表和代码编写，有不足之处，望读者们批评指正！ 本文是系列文章的第一篇，先从理论层面开始梳理">
+<meta property="og:description" content="背景叨叨叨大学毕业后入坑Cocos游戏开发已经快三年了，参与了两三个游戏的开发，经历过三四次颠覆式的版本迭代，其中涉足最深的莫过于游戏引导框架的设计开发，一路走来踩过许多坑，感觉有必要写一个引导框架设计的系列博客，就叫《从零开始设计游戏引导框架》吧！文章基于Cocos-2dx平台，使用Lua脚本开发，涉及配表和代码编写，有不足之处，望读者们批评指正！ 本文是系列文章的第一篇，先从理论层面开始梳理吧">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://wjnovember.github.io/GuideMgr01/img_01.jpg">
 <meta property="og:image" content="http://wjnovember.github.io/GuideMgr01/img_02.jpg">
@@ -96,10 +96,10 @@
 <meta property="og:image" content="http://wjnovember.github.io/GuideMgr01/img_05.jpg">
 <meta property="og:image" content="http://wjnovember.github.io/GuideMgr01/img_card_01.png">
 <meta property="og:image" content="http://wjnovember.github.io/GuideMgr01/img_upgrade_01.png">
-<meta property="og:updated_time" content="2020-04-11T15:19:28.698Z">
+<meta property="og:updated_time" content="2020-05-02T05:48:06.791Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="从零开始设计游戏引导框架（一）">
-<meta name="twitter:description" content="背景叨叨叨大学毕业后入坑Cocos游戏开发已经快三年了，参与了两三个游戏的开发，经历过三四次颠覆式的版本迭代，而其中涉足最深的莫过于游戏引导框架的设计开发，一路走来踩过许多坑，感觉有必要写一个引导框架设计的系列博客，就叫《从零开始设计游戏引导框架》吧！文章基于Cocos-2dx平台，使用Lua脚本开发，涉及配表和代码编写，有不足之处，望读者们批评指正！ 本文是系列文章的第一篇，先从理论层面开始梳理">
+<meta name="twitter:description" content="背景叨叨叨大学毕业后入坑Cocos游戏开发已经快三年了，参与了两三个游戏的开发，经历过三四次颠覆式的版本迭代，其中涉足最深的莫过于游戏引导框架的设计开发，一路走来踩过许多坑，感觉有必要写一个引导框架设计的系列博客，就叫《从零开始设计游戏引导框架》吧！文章基于Cocos-2dx平台，使用Lua脚本开发，涉及配表和代码编写，有不足之处，望读者们批评指正！ 本文是系列文章的第一篇，先从理论层面开始梳理吧">
 <meta name="twitter:image" content="http://wjnovember.github.io/GuideMgr01/img_01.jpg">
 
 
@@ -411,7 +411,7 @@
       
 
       
-        <h1 id="背景叨叨叨"><a href="#背景叨叨叨" class="headerlink" title="背景叨叨叨"></a>背景叨叨叨</h1><p>大学毕业后入坑Cocos游戏开发已经快三年了，参与了两三个游戏的开发，经历过三四次颠覆式的版本迭代，而其中涉足最深的莫过于游戏引导框架的设计开发，一路走来踩过许多坑，感觉有必要写一个引导框架设计的系列博客，就叫《<strong>从零开始设计游戏引导框架</strong>》吧！文章基于Cocos-2dx平台，使用Lua脚本开发，涉及配表和代码编写，有不足之处，望读者们批评指正！</p>
+        <h1 id="背景叨叨叨"><a href="#背景叨叨叨" class="headerlink" title="背景叨叨叨"></a>背景叨叨叨</h1><p>大学毕业后入坑Cocos游戏开发已经快三年了，参与了两三个游戏的开发，经历过三四次颠覆式的版本迭代，其中涉足最深的莫过于游戏引导框架的设计开发，一路走来踩过许多坑，感觉有必要写一个引导框架设计的系列博客，就叫《<strong>从零开始设计游戏引导框架</strong>》吧！文章基于Cocos-2dx平台，使用Lua脚本开发，涉及配表和代码编写，有不足之处，望读者们批评指正！</p>
 <p>本文是系列文章的第一篇，先从理论层面开始梳理吧！</p>
 <h1 id="引导的作用"><a href="#引导的作用" class="headerlink" title="引导的作用"></a>引导的作用</h1><p>假如一款全新的游戏上市，新的玩法、新的角色、新的场景摆在玩家面前，玩家一进入游戏而没有被告知玩法，一切的操作都需要玩家自己去摸索，那么这款游戏给人的感觉是“生硬”的，往往这一类游戏很难让玩家接受并耐着性子玩下去。</p>
 <p>这时候如果给这个游戏加一个开场引导，交代游戏的背景，引导玩家按照核心玩法点击各个按钮，并告知每一步操作的作用，这样游戏会更能被玩家接受。</p>
@@ -602,7 +602,50 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 拖动操作定义</span><br><span class="line">301. 在进阶面板拖动第n张材料卡到进阶消耗框 n表示第几张</span><br></pre></td></tr></table></figure>
 
 <p>相应的，引导流程表也需要多加一列：</p>
-<p>|id|类别|操作|操作参数|对话内容|说话人|<br>|:–:|:–:|:–:|:–|:–|:–|:–|<br>|_id|_type|_action|_actParam|_text|_role|<br>|H|H|H|H|D|H|<br>|5|3|301|1||0|<br>|6|3|301|2||0|</p>
+<table>
+<thead>
+<tr>
+<th align="left">id</th>
+<th align="left">类别</th>
+<th align="left">操作</th>
+<th align="left">操作参数</th>
+<th align="left">对话内容</th>
+<th align="left">说话人</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">_id</td>
+<td align="left">_type</td>
+<td align="left">_action</td>
+<td align="left">_actParam</td>
+<td align="left">_text</td>
+<td align="left">_role</td>
+</tr>
+<tr>
+<td align="left">H</td>
+<td align="left">H</td>
+<td align="left">H</td>
+<td align="left">H</td>
+<td align="left">D</td>
+<td align="left">H</td>
+</tr>
+<tr>
+<td align="left">5</td>
+<td align="left">3</td>
+<td align="left">301</td>
+<td align="left">1</td>
+<td align="left"></td>
+<td align="left">0</td>
+</tr>
+<tr>
+<td align="left">6</td>
+<td align="left">3</td>
+<td align="left">301</td>
+<td align="left">2</td>
+<td align="left"></td>
+<td align="left">0</td>
+</tr>
+</tbody></table>
 <p>上述配表，表示：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">第5步，在进阶面板拖动第1张材料卡到进阶消耗框</span><br><span class="line">第6步，在进阶面板拖动第2张材料卡到进阶消耗框</span><br></pre></td></tr></table></figure>
 
@@ -611,11 +654,102 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">// 点击操作定义</span><br><span class="line">201. 点击自己卡池里满足进阶条件的一张卡牌</span><br><span class="line">参数：</span><br><span class="line">id：卡牌的id</span><br><span class="line">lv：卡牌的等级</span><br><span class="line">sameNum：同名卡数量</span><br><span class="line"></span><br><span class="line">例：</span><br><span class="line">&#123;&apos;id&apos;:1,&apos;lv&apos;:20,&apos;sameNum&apos;:2&#125;</span><br><span class="line">点击卡池中id为1，等级至少为20，且同名卡数量超过2张的卡牌</span><br><span class="line"></span><br><span class="line">// 拖动操作定义</span><br><span class="line">301. 在进阶面板拖动第n张材料卡到进阶消耗框</span><br><span class="line">参数：</span><br><span class="line">index：表示第几张材料卡</span><br></pre></td></tr></table></figure>
 
 <p>引导流程表就变成了这样：</p>
-<p>|id|类别|操作|操作参数|对话内容|说话人|<br>|:–:|:–:|:–:|:–|:–|:–|:–|<br>|_id|_type|_action|_actParam|_text|_role|<br>|H|H|H|S|D|H|<br>|1|1|0|0|主公，您有一个英雄已经满足进阶条件了，我们现在来看看吧！|1|<br>|2|2|201|{‘id’:10001,’lv’:20,’moreThan’:2}||0|<br>|3|2|202|0||0|<br>|4|1|0|0|现在请主公将材料卡拖动到消耗框里。|1|<br>|5|3|301|{‘index’:1}|0|0|<br>|6|3|301|{‘index’:2}|0|0|<br>|7|2|203|0||0|<br>|8|1|0|0|恭喜主公成功进阶武将！|1|</p>
+<table>
+<thead>
+<tr>
+<th align="left">id</th>
+<th align="left">类别</th>
+<th align="left">操作</th>
+<th align="left">操作参数</th>
+<th align="left">对话内容</th>
+<th align="left">说话人</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">_id</td>
+<td align="left">_type</td>
+<td align="left">_action</td>
+<td align="left">_actParam</td>
+<td align="left">_text</td>
+<td align="left">_role</td>
+</tr>
+<tr>
+<td align="left">H</td>
+<td align="left">H</td>
+<td align="left">H</td>
+<td align="left">S</td>
+<td align="left">D</td>
+<td align="left">H</td>
+</tr>
+<tr>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">主公，您有一个英雄已经满足进阶条件了，我们现在来看看吧！</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">2</td>
+<td align="left">2</td>
+<td align="left">201</td>
+<td align="left">{‘id’:10001,’lv’:20,’moreThan’:2}</td>
+<td align="left"></td>
+<td align="left">0</td>
+</tr>
+<tr>
+<td align="left">3</td>
+<td align="left">2</td>
+<td align="left">202</td>
+<td align="left">0</td>
+<td align="left"></td>
+<td align="left">0</td>
+</tr>
+<tr>
+<td align="left">4</td>
+<td align="left">1</td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">现在请主公将材料卡拖动到消耗框里。</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">5</td>
+<td align="left">3</td>
+<td align="left">301</td>
+<td align="left">{‘index’:1}</td>
+<td align="left">0</td>
+<td align="left">0</td>
+</tr>
+<tr>
+<td align="left">6</td>
+<td align="left">3</td>
+<td align="left">301</td>
+<td align="left">{‘index’:2}</td>
+<td align="left">0</td>
+<td align="left">0</td>
+</tr>
+<tr>
+<td align="left">7</td>
+<td align="left">2</td>
+<td align="left">203</td>
+<td align="left">0</td>
+<td align="left"></td>
+<td align="left">0</td>
+</tr>
+<tr>
+<td align="left">8</td>
+<td align="left">1</td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">恭喜主公成功进阶武将！</td>
+<td align="left">1</td>
+</tr>
+</tbody></table>
 <p>至此，引导的操作，暂告一段落，若这一块读者们没有看懂，且先放放，后续会做详细讲解。</p>
 <h1 id="引导的保存点"><a href="#引导的保存点" class="headerlink" title="引导的保存点"></a>引导的保存点</h1><p>在产品里，有这么一句话，叫“你永远不知道你的用户是怎么使用你的产品的”。</p>
 <p>游戏也类似，永远不要指望玩家一口气把你写的那一段引导流畅的跑完。在引导过程中，玩家很可能经历：游戏BUG闪退、上课玩游戏被老师抓到等情况，一旦类似的情况发生，引导肯定会中途断掉，而如果玩家再重新上线，看到之前走过的漫长的引导又要重新走一遍时，有很大的概率，玩家是没有耐心继续玩下去的。</p>
-<p>更何况，有些操作时不可重复的，比如玩家走引导，用系统送的货币抽卡，如果重新走一遍，很有可能第二次抽卡货币就不够了，这样的异常很容易导致卡死的现象，这无疑会劝退一大波玩家。</p>
+<p>更何况，有些操作是不可重复的，比如玩家走引导，用系统送的货币抽卡，如果重新走一遍，很有可能第二次抽卡货币就不够了，这样的异常会导致引导卡死，这无疑会劝退一大波玩家。</p>
 <p>因此，<strong>保存点</strong>这一概念加入到引导中，以<strong>抽卡引导</strong>为例：</p>
 <p>在点击抽卡按钮的那一步操作里，将引导的保存点设置为下一步引导的id，这样下次重新登录后，引导就会从点抽卡按钮之后的那一步开始继续引导了。</p>
 <p>这里先简单讲解下概念，后续实操篇会详细讲解。</p>
@@ -690,6 +824,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/GuideMgr02/" rel="prev" title="从零开始设计游戏引导框架（二）">
+                从零开始设计游戏引导框架（二） <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -771,7 +909,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-count">25</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

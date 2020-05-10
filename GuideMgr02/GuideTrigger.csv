@@ -1,0 +1,6 @@
+﻿ID,分段ID,触发点,触发点参数,触发条件,触发条件参数
+_id,_groupId,_point,_pointParam,_conds,_condsParam
+H,H,H,S,[H,S
+1,0,1,{'level':20},1|2,"{'scene':'HeroesScene'}|{'num':2,'level':20}"
+2,0,2,{'scene':'HeroesScene'},2,"{'num':2,'level':20}"
+3,1,3,0,0,0
