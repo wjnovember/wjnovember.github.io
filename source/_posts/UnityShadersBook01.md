@@ -11,7 +11,7 @@ tags:
 **渲染流水线**的工作任务是：将三维场景里的物体投到屏幕上，生成一张二维图像。
 可分为三个阶段：**应用阶段**、**几何阶段**、**光栅化阶段**。
 
-![](https://cdn.nlark.com/yuque/0/2021/png/667274/1636213447325-d71b5c59-65d5-4b27-b954-9d62b043bf99.png)
+![](UnityShadersBook01/img_01.png)
 
 * **应用阶段**
 CPU负责的阶段，应用主导，开发者有绝对的控制权，主要有三个任务：
@@ -32,12 +32,12 @@ GPU负责的阶段，从上一阶段接过图元在屏幕空间的数据，差�
 * **把数据加载到显存**
 数据加载到显存后，RAM的数据就可以移除了。但从硬盘加载到RAM过程十分耗时，CPU依然要访问数据，所以有些RAM中的数据不会马上移除。
 
-![](https://cdn.nlark.com/yuque/0/2021/png/667274/1636255921750-a61883fd-e32e-4b67-ab63-2463851cc0f9.png?x-oss-process=image%2Fresize%2Cw_750%2Climit_0)
+![](UnityShadersBook01/img_02.png)
 
 * **设置渲染状态**
 这些状态定义了场景中的网格是怎么被渲染的。
 
-![](https://cdn.nlark.com/yuque/0/2021/png/667274/1636256121580-0176ed3e-116a-4716-88f7-cc830d134876.png?x-oss-process=image%2Fresize%2Cw_750%2Climit_0)
+![](UnityShadersBook01/img_03.png)
 
 * **调用Draw Call**
 Draw Call就是CPU发起命令，告诉GPU去执行一个渲染过程。一次DC（Draw Call）会指向本次调用需要渲染的图源列表。
@@ -45,7 +45,7 @@ Draw Call就是CPU发起命令，告诉GPU去执行一个渲染过程。一次DC
 # GPU流水线
 GPU从CPU那里拿到顶点数据后，经过**几何阶段**和**光栅化阶段**将场景里的物体绘制到屏幕中。
 
-![](https://cdn.nlark.com/yuque/0/2021/png/667274/1636256893311-6876cae8-8457-415a-a75c-578670f8a910.png)
+![](UnityShadersBook01/img_04.png)
 
 * **几何阶段**
   * 顶点着色器
@@ -73,11 +73,11 @@ GPU从CPU那里拿到顶点数据后，经过**几何阶段**和**光栅化阶�
 ## 顶点着色器
 顶点着色器需要完成工作主要有：**坐标转换**和**逐顶点光照**。
 
-![](https://cdn.nlark.com/yuque/0/2021/png/667274/1636258348880-5f61daec-ae32-4314-8b35-4ba972f38b22.png)
+![](UnityShadersBook01/img_05.png)
 
 坐标转换，将模型的顶点坐标从模型空间转换到其次裁剪空间。
 
-![](https://cdn.nlark.com/yuque/0/2021/png/667274/1636258414694-1e3f7395-c2a7-4ea5-94de-f7e7aa6f8caf.png)
+![](UnityShadersBook01/img_06.png)
 
 需要注意：
 OpenGL中NDC的z分量范围是[-1, 1]
@@ -94,7 +94,7 @@ NDC，全称Normalized Device Coordinates，归一化的设备坐标。（后续
 * 完全在视野范围外
 被剔除，不会进入下一流水线阶段。
 
-![](https://cdn.nlark.com/yuque/0/2021/png/667274/1636258977422-afc79763-005b-4cb7-8c86-7f59ed1af6e5.png)
+![](UnityShadersBook01/img_07.png)
 
 ## 屏幕映射
 屏幕映射前，顶点的坐标仍然在三维坐标系下，屏幕映射的任务是将每个图元的x、y坐标转换到屏幕坐标系下。
@@ -102,7 +102,7 @@ NDC，全称Normalized Device Coordinates，归一化的设备坐标。（后续
 
 屏幕坐标系在OpenGL和DirectX之间的差异：
 
-![](https://cdn.nlark.com/yuque/0/2021/png/667274/1636270163778-140af187-8cd9-42fb-8ba9-ee51d4bc6843.png)
+![](UnityShadersBook01/img_08.png)
 
 ## 三角形设置
 光栅化的第一个流水线阶段。
@@ -119,18 +119,18 @@ NDC，全称Normalized Device Coordinates，归一化的设备坐标。（后续
 DirectX中也被称为**像素着色器（Pixel Shader）**。
 片元着色器的输入是顶点着色器的输出差值得到的结果，片元着色器的输出是一个或多个颜色值。
 
-![](https://cdn.nlark.com/yuque/0/2021/png/667274/1636271363390-4e01f026-3052-492f-b083-f1a50f1da76b.png)
+![](UnityShadersBook01/img_09.png)
 
 ## 逐片元操作
 OpenGL里称为**逐片元操作**，DirectX中称为**输出合并阶段**。这个阶段有几个主要任务：
 * 决定每个片元可见性，涉及：深度测试、模板测试等。
 * 通过测试后的片元与颜色缓冲区的颜色进行合并/混合。
 
-![](https://cdn.nlark.com/yuque/0/2021/png/667274/1636271706161-cf961793-d40d-4f5e-831b-56490d081bee.png)
+![](UnityShadersBook01/img_10.png)
 
 深度测试、模板测试的简化流程图：
 
-![](https://cdn.nlark.com/yuque/0/2021/png/667274/1636271807768-5ff5ccbb-266b-4d87-b319-b2c9b4aedc13.png?x-oss-process=image%2Fresize%2Cw_750%2Climit_0)
+![](UnityShadersBook01/img_11.png)
 
 * **模板测试**
 高度可配置。
@@ -142,7 +142,7 @@ OpenGL里称为**逐片元操作**，DirectX中称为**输出合并阶段**。�
 与模板测试类似，将当前片元的深度值和深度缓冲区的深度值进行比较，比较函数可由开发者设置，通常这个比较函数是小于等于的关系，也就是显示距离相机更近的物体。
 如果深度测试没有通过，它没有权利更改深度缓冲区中的值；如果通过了，开发者可以指定是否用这个片元的深度值盖掉缓冲区中的深度值——通过开启/关闭深度写入来控制。
 
-![](https://cdn.nlark.com/yuque/0/2021/png/667274/1636272525328-090af578-5dce-4ee3-928c-9acfae346fe1.png)
+![](UnityShadersBook01/img_12.png)
 
 * **混合**
 高度可配置。
