@@ -89,18 +89,18 @@
 <meta property="og:site_name" content="程序员叨叨叨">
 <meta property="og:description" content="背景叨叨叨大学毕业后入坑Cocos游戏开发已经快三年了，参与了两三个游戏的开发，经历过三四次颠覆式的版本迭代，其中涉足最深的莫过于游戏引导框架的设计开发，一路走来踩过许多坑，感觉有必要写一个引导框架设计的系列博客，就叫《从零开始设计游戏引导框架》吧！文章基于Cocos-2dx平台，使用Lua脚本开发，涉及配表和代码编写，有不足之处，望读者们批评指正！ 本文是系列文章的第一篇，先从理论层面开始梳理吧">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://wjnovember.github.io/.io//img_01.jpg">
-<meta property="og:image" content="http://wjnovember.github.io/.io//img_02.jpg">
-<meta property="og:image" content="http://wjnovember.github.io/.io//img_03.jpg">
-<meta property="og:image" content="http://wjnovember.github.io/.io//img_04.jpg">
-<meta property="og:image" content="http://wjnovember.github.io/.io//img_05.jpg">
-<meta property="og:image" content="http://wjnovember.github.io/.io//img_card_01.png">
-<meta property="og:image" content="http://wjnovember.github.io/.io//img_upgrade_01.png">
+<meta property="og:image" content="http://wjnovember.github.io/GuideMgr01/img_01.jpg">
+<meta property="og:image" content="http://wjnovember.github.io/GuideMgr01/img_02.jpg">
+<meta property="og:image" content="http://wjnovember.github.io/GuideMgr01/img_03.jpg">
+<meta property="og:image" content="http://wjnovember.github.io/GuideMgr01/img_04.jpg">
+<meta property="og:image" content="http://wjnovember.github.io/GuideMgr01/img_05.jpg">
+<meta property="og:image" content="http://wjnovember.github.io/GuideMgr01/img_card_01.png">
+<meta property="og:image" content="http://wjnovember.github.io/GuideMgr01/img_upgrade_01.png">
 <meta property="og:updated_time" content="2021-11-07T09:06:10.058Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="从零开始设计游戏引导框架（一）">
 <meta name="twitter:description" content="背景叨叨叨大学毕业后入坑Cocos游戏开发已经快三年了，参与了两三个游戏的开发，经历过三四次颠覆式的版本迭代，其中涉足最深的莫过于游戏引导框架的设计开发，一路走来踩过许多坑，感觉有必要写一个引导框架设计的系列博客，就叫《从零开始设计游戏引导框架》吧！文章基于Cocos-2dx平台，使用Lua脚本开发，涉及配表和代码编写，有不足之处，望读者们批评指正！ 本文是系列文章的第一篇，先从理论层面开始梳理吧">
-<meta name="twitter:image" content="http://wjnovember.github.io/.io//img_01.jpg">
+<meta name="twitter:image" content="http://wjnovember.github.io/GuideMgr01/img_01.jpg">
 
 
 
@@ -424,15 +424,15 @@
 <h1 id="引导是分段的"><a href="#引导是分段的" class="headerlink" title="引导是分段的"></a>引导是分段的</h1><p>然而游戏不仅只有开场引导，随着游戏进度的深入，玩家会接触越来越多的玩法操作，每个玩法都有其专属的引导。这时一个概念需要被树立：<strong>引导是分段的，一段引导对应一个玩法介绍。</strong></p>
 <p>拿率土之滨举例子！</p>
 <p>进入游戏后，玩家的主城被流寇抢夺，引导人物出来说几句话，然后引导玩家进行点击操作，这是<strong>游戏开场引导</strong>。</p>
-<img src="/.io//img_01.jpg" title="引导人物对话">
+<img src="/GuideMgr01/img_01.jpg" title="引导人物对话">
 
-<img src="/.io//img_02.jpg" title="引导点击操作">
+<img src="/GuideMgr01/img_02.jpg" title="引导点击操作">
 
 <p>在一系列引导操作后，玩家可以自由操作了。这时玩家点击“演武”按钮进入了演武界面，一个新的引导——<strong>演武引导</strong>出现了，它会告诉玩家演武功能的基本操作。</p>
-<img src="/.io//img_03.jpg" title="演武引导">
+<img src="/GuideMgr01/img_03.jpg" title="演武引导">
 
 <p>从演武界面出来后，玩家进入招募界面，<strong>招募引导</strong>会告知玩家点指定卡包抽卡。</p>
-<img src="/.io//img_04.jpg" title="招募引导">
+<img src="/GuideMgr01/img_04.jpg" title="招募引导">
 
 <p>引导会根据需要，在玩家首次进入某个界面或满足条件时触发，以帮助玩家理解对应玩法。</p>
 <p>每一个功能点都可以以一段引导辅助说明。</p>
@@ -446,12 +446,12 @@
 </ul>
 <p>一段引导就是这样一步接一步进行的。当策划提出一个引导需求时，最多只会给出大致流程，至于如何将一段引导拆分成步骤，需要程序员自行梳理。</p>
 <p>分步，是一种思维方式，如何合理拆分，让代码更容易维护，是一个日积月累的过程。</p>
-<img src="/.io//img_05.jpg">
+<img src="/GuideMgr01/img_05.jpg">
 
 <h1 id="引导的触发"><a href="#引导的触发" class="headerlink" title="引导的触发"></a>引导的触发</h1><p>引导的触发，是针对一段引导而言，一段引导是交代<strong>做什么事情</strong>，而触发则是交代<strong>什么时候</strong>做事。</p>
 <p>为了让读者们更容易理解，我们代入一个场景。</p>
 <h2 id="场景代入"><a href="#场景代入" class="headerlink" title="场景代入"></a>场景代入</h2><p>假设在一个卡牌养成类游戏中，卡牌有等级，可以进阶（每进阶一级，黄色星星会有一颗变成红色），大概像这样：</p>
-<img src="/.io//img_card_01.png" title="蓝框框：等级，红框框：星级（阶）">
+<img src="/GuideMgr01/img_card_01.png" title="蓝框框：等级，红框框：星级（阶）">
 
 <p>（蓝色框框：等级，红色框框：星级 或 “阶”）</p>
 <p>接下来策划提出要做一个卡牌的进阶引导，已知进阶的条件是：</p>
@@ -515,7 +515,7 @@
 <p>以之前的“卡牌进阶引导”为例，当触发引导时，引导步骤如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1. NPC说话：“主公，您有一个英雄已经满足进阶条件了，我们现在来看看吧！”</span><br><span class="line">2. 引导点击满足进阶条件的卡牌，进入卡牌详情页</span><br><span class="line">3. 引导点击卡牌详情页的进阶按钮，进入卡牌进阶界面</span><br><span class="line">4. NPC说话：“现在请主公将材料卡拖动到消耗框里。”</span><br><span class="line">5. 引导从卡牌列表框中拖动一张同名卡到消耗框中</span><br><span class="line">6. 引导点击进阶按钮确认进阶</span><br><span class="line">7. NPC说话：“恭喜主公成功进阶武将！”</span><br></pre></td></tr></table></figure>
 
-<img src="/.io//img_upgrade_01.png">
+<img src="/GuideMgr01/img_upgrade_01.png">
 
 <p>根据上述操作步骤，对操作定义如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">// 操作类别定义</span><br><span class="line">1. 立绘对话</span><br><span class="line">2. 点击</span><br><span class="line">3. 拖动</span><br><span class="line"></span><br><span class="line">// 具体操作定义</span><br><span class="line">0. 无操作</span><br><span class="line"></span><br><span class="line">// 点击操作定义</span><br><span class="line">201. 点击自己卡池里满足进阶条件的一张卡牌</span><br><span class="line">202. 点击卡牌详情界面的进阶按钮</span><br><span class="line">203. 点击进阶面板的进阶按钮</span><br><span class="line"></span><br><span class="line">// 拖动操作定义</span><br><span class="line">301. 在进阶面板拖动第1张材料卡到进阶消耗框</span><br><span class="line"></span><br><span class="line">// 对话在流程表中填写具体对话内容和人物即可，无需定义</span><br><span class="line">// 说话人物定义</span><br><span class="line">0. 无人物</span><br><span class="line">1. NPC</span><br></pre></td></tr></table></figure>

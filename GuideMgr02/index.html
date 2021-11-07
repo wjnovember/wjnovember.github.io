@@ -89,14 +89,14 @@
 <meta property="og:site_name" content="程序员叨叨叨">
 <meta property="og:description" content="前情提要上文主要讲解了引导设计的一些理论概念，包括：引导分段、引导步骤、引导的触发、引导的操作以及引导的保存点。其中引导的触发分为触发点和触发条件，此外还提到了引导的多条件判断；引导操作提到了操作的分类、操作定义和操作参数及扩展。本文将基于引导的理论概念，进行实操演练，主要包含配表和代码框架的初步编写。 配表考虑到引导的触发和操作逻辑模块的不同，引导相关的表将分成两张，一张是引导的触发表，另一张是">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://wjnovember.github.io/.io//img_guide_step_01.png">
-<meta property="og:image" content="http://wjnovember.github.io/.io//img_guide_step_02.png">
-<meta property="og:image" content="http://wjnovember.github.io/.io//img_guide_trigger_01.png">
+<meta property="og:image" content="http://wjnovember.github.io/GuideMgr02/img_guide_step_01.png">
+<meta property="og:image" content="http://wjnovember.github.io/GuideMgr02/img_guide_step_02.png">
+<meta property="og:image" content="http://wjnovember.github.io/GuideMgr02/img_guide_trigger_01.png">
 <meta property="og:updated_time" content="2021-11-07T09:06:10.092Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="从零开始设计游戏引导框架（二）">
 <meta name="twitter:description" content="前情提要上文主要讲解了引导设计的一些理论概念，包括：引导分段、引导步骤、引导的触发、引导的操作以及引导的保存点。其中引导的触发分为触发点和触发条件，此外还提到了引导的多条件判断；引导操作提到了操作的分类、操作定义和操作参数及扩展。本文将基于引导的理论概念，进行实操演练，主要包含配表和代码框架的初步编写。 配表考虑到引导的触发和操作逻辑模块的不同，引导相关的表将分成两张，一张是引导的触发表，另一张是">
-<meta name="twitter:image" content="http://wjnovember.github.io/.io//img_guide_step_01.png">
+<meta name="twitter:image" content="http://wjnovember.github.io/GuideMgr02/img_guide_step_01.png">
 
 
 
@@ -414,13 +414,13 @@
 <li>GuideStep.csv 引导步骤表</li>
 </ul>
 <p>因为不同的团队会有自己的配表习惯，所以这里的配表格式仅以笔者的习惯为例，读者们主要了解配表分哪几列，每列配表的数据结构如何即可。</p>
-<h2 id="步骤表"><a href="#步骤表" class="headerlink" title="步骤表"></a>步骤表</h2><img src="/.io//img_guide_step_01.png">
+<h2 id="步骤表"><a href="#步骤表" class="headerlink" title="步骤表"></a>步骤表</h2><img src="/GuideMgr02/img_guide_step_01.png">
 
 <p>上图是基于前一篇文章里提到的卡牌卡牌进阶引导进行了基本的配表操作，接下来对每一列的配置作详细说明。</p>
 <h3 id="ID"><a href="#ID" class="headerlink" title="ID"></a>ID</h3><p>ID表示引导步骤的唯一标识，为数字类型，通常同一段引导里的步骤ID以连续的数字相连。上图中展示的是卡牌进阶引导的所有步骤，一共分为8步。</p>
 <p>步骤表是要配置当前游戏所有的引导步骤的，那么不同分段的引导的步骤如何区分呢？</p>
 <p>这里需要对ID的范围进行划分，笔者习惯以100作为一段引导的ID区间，如何理解呢？比如这里除了进阶引导外，还有一个卡牌重置引导，那么卡牌重置引导步骤的id范围可以规定在101~200之间，我们可以将这个引导的起始id设置为从101开始，配到表里面大概是这样的：</p>
-<img src="/.io//img_guide_step_02.png">
+<img src="/GuideMgr02/img_guide_step_02.png">
 
 <p>绿框里的内容表示卡牌进阶引导，红框里的内容表示卡牌重置引导。若后续还有其他引导，可以从201开始，以此类推。</p>
 <h3 id="类别"><a href="#类别" class="headerlink" title="类别"></a>类别</h3><p>类别表示操作的分类，按照前文《理论篇》提到的分类方法，在类别这一列填写类别定义的数字。</p>
@@ -447,7 +447,7 @@
 <p>其实这里的保存点不是引导ID，而是一个<strong>差值</strong>，填1表示将当前步的下一步引导ID发送给服务端保存，填2表示当前步骤的后面第2不的引导ID发送到服务端保存，而100则表示结束当前引导分段，并标记当前分段引导已完成，后续不再触发。</p>
 <p>之所以填<strong>差值</strong>而不直接填<strong>引导ID</strong>的值，是因为引导的需求是在不断地变化的，很可能一段很长的引导，在前面步骤插入了一步，那么后续的引导ID都将往后+1，这样保存点也要跟着变动，保存点多的情况下很容易出现漏改的情况，因此使用<strong>差值</strong>可以减少变动。</p>
 <p>一般情况下，引导保存点在当前步骤以后，所以默认引导保存点的值只有大于0的时候才有意义。</p>
-<h2 id="触发表"><a href="#触发表" class="headerlink" title="触发表"></a>触发表</h2><img src="/.io//img_guide_trigger_01.png">
+<h2 id="触发表"><a href="#触发表" class="headerlink" title="触发表"></a>触发表</h2><img src="/GuideMgr02/img_guide_trigger_01.png">
 
 <p>上图是集成了卡牌进阶引导和卡牌重置引导的引导触发表，接下来对触发表的各列配置进行说明。</p>
 <h3 id="ID-1"><a href="#ID-1" class="headerlink" title="ID"></a>ID</h3><p>引导触发表的ID，无实际意义，仅表示序列。</p>
