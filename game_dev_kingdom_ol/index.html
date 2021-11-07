@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/avatar_32x32.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/avatar_16x16.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="游戏,">
+
+
+
+
+
+  <link rel="alternate" href="/rss2.html" title="程序员叨叨叨" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="抱歉，名字只为博眼球，妹有诽谤的意思，请各位读者多包涵—_—||（秒怂~~） 温馨提示：本文仅针对游戏发展国原版与OL版本进行比对提出个人看法，并非对OL版本本身玩法提出的质疑。若读者阅读本文感到不适，可随时关掉本页窗口。对于本文的拙见，还望轻喷。  原作对于我的意义第一次接触《游戏发展国》是在我高中的时候，那时候高三，没有个人电脑，又想毕业后填报软件开发相关的专业，所以这款游戏是当时的我感觉唯">
+<meta name="keywords" content="游戏">
+<meta property="og:type" content="article">
+<meta property="og:title" content="借IP上位？关于《游戏发展国OL》VS原作的所思所想">
+<meta property="og:url" content="http://wjnovember.github.io/game_dev_kingdom_ol/index.html">
+<meta property="og:site_name" content="程序员叨叨叨">
+<meta property="og:description" content="抱歉，名字只为博眼球，妹有诽谤的意思，请各位读者多包涵—_—||（秒怂~~） 温馨提示：本文仅针对游戏发展国原版与OL版本进行比对提出个人看法，并非对OL版本本身玩法提出的质疑。若读者阅读本文感到不适，可随时关掉本页窗口。对于本文的拙见，还望轻喷。  原作对于我的意义第一次接触《游戏发展国》是在我高中的时候，那时候高三，没有个人电脑，又想毕业后填报软件开发相关的专业，所以这款游戏是当时的我感觉唯">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/291600-e2e02986845581ee.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/291600-c4bbc388428bdba2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/291600-76005be0621631ba.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/291600-8ebf81a4cb7760b3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/291600-727ce062777c5e07.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/291600-461f4b223750c01b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/291600-1fd87c0658229dd1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/291600-d6cb01f912d16226.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/291600-155750c2ed4c6621.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/291600-9ff6204850cd1833.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/291600-e5217cd7c56788c5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2021-11-07T09:06:10.109Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="借IP上位？关于《游戏发展国OL》VS原作的所思所想">
+<meta name="twitter:description" content="抱歉，名字只为博眼球，妹有诽谤的意思，请各位读者多包涵—_—||（秒怂~~） 温馨提示：本文仅针对游戏发展国原版与OL版本进行比对提出个人看法，并非对OL版本本身玩法提出的质疑。若读者阅读本文感到不适，可随时关掉本页窗口。对于本文的拙见，还望轻喷。  原作对于我的意义第一次接触《游戏发展国》是在我高中的时候，那时候高三，没有个人电脑，又想毕业后填报软件开发相关的专业，所以这款游戏是当时的我感觉唯">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/291600-e2e02986845581ee.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"hide","offset":12,"b2t":true,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: 'P169SBHT9P',
+      apiKey: 'aff6672534638c8530052ce885f3d28a',
+      indexName: 'blog_NAME',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"输入关键词就可以搜索啦~","hits_empty":"T.T 没有找到与“ ${query} ”相关的文章","hits_stats":"找到 ${hits} 篇文章，耗时 ${time} 毫秒！"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://wjnovember.github.io/game_dev_kingdom_ol/">
+
+
+
+
+
+  <title>借IP上位？关于《游戏发展国OL》VS原作的所思所想 | 程序员叨叨叨</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">程序员叨叨叨</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一枚程序猿的叨叨日常</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-首页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-目录">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            目录
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-时光机">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            时光机
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wjnovember.github.io/game_dev_kingdom_ol/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="代码咖啡">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar_sidebar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="程序员叨叨叨">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">借IP上位？关于《游戏发展国OL》VS原作的所思所想</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-29T13:28:10+08:00">
+                2018-12-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/舌尖上的游戏/" itemprop="url" rel="index">
+                    <span itemprop="name">舌尖上的游戏</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/game_dev_kingdom_ol/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/game_dev_kingdom_ol/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/game_dev_kingdom_ol/" class="leancloud_visitors" data-flag-title="借IP上位？关于《游戏发展国OL》VS原作的所思所想">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>抱歉，名字只为博眼球，妹有诽谤的意思，请各位读者多包涵—_—||（秒怂~~）</p>
+<p><strong>温馨提示</strong>：本文仅针对游戏发展国原版与OL版本进行比对提出个人看法，并非对OL版本本身玩法提出的质疑。若读者阅读本文感到不适，可随时关掉本页窗口。对于本文的拙见，还望轻喷。</p>
+</blockquote>
+<h1 id="原作对于我的意义"><a href="#原作对于我的意义" class="headerlink" title="原作对于我的意义"></a>原作对于我的意义</h1><p>第一次接触《游戏发展国》是在我高中的时候，那时候高三，没有个人电脑，又想毕业后填报软件开发相关的专业，所以这款游戏是当时的我感觉唯一可以如此近距离地接近自己梦想的媒介。玩的时候，我是假想自己坐在电脑前，敲打着一行行神秘的代码。第一次玩这个游戏花了我大约一周的时间，后来高中毕业后上了大学，偶尔心里感觉空落落的时候会把这个游戏下回来，看着熟悉的像素风，仿佛自己回到了青涩的高中时期。这时候，这款游戏是我对枯燥高三冲刺时期感觉到唯一可以喘息的一种追忆。</p>
+<h1 id="原作：入坑以后，我经历了什么？"><a href="#原作：入坑以后，我经历了什么？" class="headerlink" title="原作：入坑以后，我经历了什么？"></a>原作：入坑以后，我经历了什么？</h1><p>说实话，原作《游戏发展国》单单就核心玩法来说，以我感觉是偏“单一化”的，简言之，称之为“<strong>简</strong>”。但就是因为其“<strong>简</strong>”，让我感觉这个游戏做得很单纯、很纯粹。在这个游戏里，我只要保证在经济稳定的基础上做出尽可能好的游戏即可，<strong>我只要关注游戏开发就好</strong>。这也是为什么我愿意在《游戏发展国》一次次卸载后再一次次重装回去的原因，我可以在充斥着各种多元化游戏的今天回去感受这款游戏给我带来的最纯粹的东西。</p>
+<p>如果只有单纯的“<strong>简</strong>”，我觉得这款游戏是没有灵魂的。真正能吸引玩家眼球，抓住玩家口味的是这款游戏的<strong>未知性</strong>和<strong>惊喜感</strong>。相信每一部漫威电影主剧情结束后，电影院都有相对过半的观众愿意等上三五分钟，只为了看那一点时长仅有三十秒的彩蛋，这就是所谓的未知性和惊喜感。</p>
+<p>那么这份未知惊喜从何而来呢？接下来我列举一下自己的想法：</p>
+<h2 id="员工"><a href="#员工" class="headerlink" title="员工"></a>员工</h2><p>员工给我的惊喜感来自于神秘的角色解锁。设想一下，你在玩游戏的过程中，突然弹出一个消息告诉你，一个神秘的X先生在人才市场求职，设想有哪个人物那么厉害，求个职还会有报导。当时我的第一个想法是：<strong>这个人物值得入手</strong>，然后想到的是：<strong>接下来应该还会有更厉害的人物出现</strong>，于是这个游戏有了灵魂，从一开始单纯地做游戏的单一转为对神秘人物的期待。</p>
+<h2 id="公司扩展"><a href="#公司扩展" class="headerlink" title="公司扩展"></a>公司扩展</h2><p>公司扩展给我带来的惊喜感在前期。一开始我以为这个游戏就是我作为老板带领四个员工一起做游戏开发的故事，后来发现，当公司收入达到一定程度的时候，我居然可以把公司搬到更大的地方，这时候之前总是盯着一块小地方的<strong>审美疲劳一下子被打破了</strong>，我开始期待下一次公司扩展是什么时候，下一次扩展后的公司是什么样子的。虽然公司在扩展到8个人以后，公司就不再扩展了，但是个人认为这一份惊喜感值得被延续，至于如何延续，我们继续往下看。（嘻嘻，卖个关子~）</p>
+<h2 id="游戏组合"><a href="#游戏组合" class="headerlink" title="游戏组合"></a>游戏组合</h2><p>游戏组合一块，个人觉得，它是《游戏发展国》里面最大的系统。各种类型、各种内容的排列组合，给玩家一种“<strong>你可以通过自己的想象，创造出任何你能想到的游戏</strong>”的感觉。在开发一款新游戏之前，我会尽可能地去回忆我现实生活中曾经玩过或见到过的各种游戏，然后以此为原型，选择对应类别、内容，分配好我觉得恰当的点数进行开发。</p>
+<p>另一个我觉得原作做的比较好的点就是，<strong>在游戏开发完成后输入游戏的名字</strong>，因为在一款游戏开发前，玩家肯定已经想好了这款游戏的预期名字，当因为停电等不可抗因素导致这款游戏的数值不是很客观时，我就可以选择换一个“搓一点”的名字糊弄一下，然后在以后的开发中重新尝试。在起名字方面，原作做的比较讨巧的一点是，游戏的默认名字永远是“<strong>第X部游戏</strong>”，这样的名字对于像我这样有信仰又带着点强迫症的玩家来说肯定是不能忍的，<strong>我一定要把游戏名字改掉</strong>，这样反而可以开启玩家的脑洞，去设想一些有趣的游戏名字。</p>
+<p>本来想列举更多，比如：主机市场、年度评奖等等，但是说太多担心读者阅读疲劳，毕竟这篇文章的主旨是两个版本游戏的对比而非原作的详细分析。</p>
+<h1 id="吐槽开始：同名不同核，被千篇一律同化的OL版本"><a href="#吐槽开始：同名不同核，被千篇一律同化的OL版本" class="headerlink" title="吐槽开始：同名不同核，被千篇一律同化的OL版本"></a>吐槽开始：同名不同核，被千篇一律同化的OL版本</h1><p><img src="https://upload-images.jianshu.io/upload_images/291600-e2e02986845581ee.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="游戏发展国（原作）"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/291600-c4bbc388428bdba2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="游戏发展国OL"></p>
+<p>之前因为空落落（对，没错，我又空虚了^_^Y），从<a href="https://www.taptap.com/search/%E6%B8%B8%E6%88%8F%E5%8F%91%E5%B1%95%E5%9B%BD" target="_blank" rel="noopener">TapTap</a>上下了<strong>游戏发展国</strong>（TapTap上叫游戏开发物语），无意间看到即将公测的<strong>游戏发展国OL</strong>。既然是相同的名字，Icon又是那么得相像，心想：“嗯！是开罗授权的，肯定不会让大家失望！”于是一边玩着原作，一边期待着OL新作的公测。</p>
+<p>昨晚在逛AppStore的时候看到游戏发展国OL已经可以下载了，瞬间心情大好——<strong>瞳孔放大、心跳加速，腰不疼了，腿不酸了，连前一天的项目公测守夜的倦意都没了</strong>，带着仅有的36%的电量（当时手机没带充电线）下载了这款<strong>游戏发展国OL</strong>。然鹅……</p>
+<p>“然鹅”之前先叨叨一下，之前原作《游戏发展国》让我被<strong>开罗</strong>圈粉，开罗开发的很多游戏我都玩过，如：<strong>冒险迷宫村</strong>、<strong>口袋学院2</strong>、<strong>方程式大奖赛</strong>、<strong>暖暖温泉乡</strong>等不下10款，有一段时间，甚至整个手机桌面全是开罗的游戏，我想，将其称之为<strong>情怀</strong>应该不为过吧！在知乎上搜<strong><a href="https://www.zhihu.com/question/50379529" target="_blank" rel="noopener">开罗游戏中，你会推荐哪款？</a></strong>可以看到拥有和我一样的<strong>情怀</strong>的玩家应该不在少数，下面截几张图分享给读者们：</p>
+<hr>
+<p><img src="https://upload-images.jianshu.io/upload_images/291600-76005be0621631ba.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="没！当初的感觉也是：决定就是你了！"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/291600-8ebf81a4cb7760b3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/291600-727ce062777c5e07.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/291600-461f4b223750c01b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<hr>
+<p>然鹅，满心期待地打开游戏发展国OL，发现这款与经典神作同名的游戏完美地避过了所有的经典玩法……</p>
+<h2 id="我是谁？我在哪里？我在做什么？现在是公元几几年？美国总统是不是奥巴马？"><a href="#我是谁？我在哪里？我在做什么？现在是公元几几年？美国总统是不是奥巴马？" class="headerlink" title="我是谁？我在哪里？我在做什么？现在是公元几几年？美国总统是不是奥巴马？"></a>我是谁？我在哪里？我在做什么？现在是公元几几年？美国总统是不是奥巴马？</h2><p>这是赤果果地把开罗粉丝的智商按在地上摩擦系列；<br>这已经不是游戏发展国了；<br>这是AppStore上搜养成类游戏能搜到一箩筐的东西；<br>这也是我为何第一天半夜下了这个游戏，第二天就要写这篇文章的原因。</p>
+<p>呼——平静。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/291600-1fd87c0658229dd1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="游戏发展国"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/291600-d6cb01f912d16226.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="游戏发展国OL"></p>
+<p>诚恳地说，这款游戏如果不叫<strong>游戏发展国OL</strong>，而叫其他名字，如：<strong>我的游戏公司</strong>，那么它在TapTap上的评分应该会比目前的高很多。可以想象，很多玩家因为<strong>游戏发展国</strong>五个字下载了这款游戏，而进游戏后发现它完全是另一种玩法，多少会恼羞成怒，感觉被骗了。不过放平心态，如果对它期望并没有那么高，那么其本身还是有很多值得称赞的地方，比如：不氪金也可以玩下去、无广告、游戏画质好评等。<strong>但是</strong>：谁教我们这篇文章的主要内容就是<strong>比对原作与OL</strong>，所以该吐槽的地方还是会继续，哈哈哈哈哈…</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/291600-155750c2ed4c6621.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="开罗粉评价"></p>
+<h1 id="我心目中的《游戏发展国OL》"><a href="#我心目中的《游戏发展国OL》" class="headerlink" title="我心目中的《游戏发展国OL》"></a>我心目中的《游戏发展国OL》</h1><p>在对比前，我先谈谈我设想的这款OL版本游戏的样子。</p>
+<h2 id="画风"><a href="#画风" class="headerlink" title="画风"></a>画风</h2><p>在下载游戏前，我已经看到了OL版本的Icon，所以我确信这款游戏的<strong>画风</strong>不是像素风，而是偏Prifix的《Township》类似的画风，在画风的改变上，这款游戏给人一种舒爽的感觉。而我对OL的设想也是基于这种风格展开的。</p>
+<h2 id="公司"><a href="#公司" class="headerlink" title="公司"></a>公司</h2><p>公司依然保持原有的元素，<strong>老板桌</strong>、<strong>员工工作区</strong>、<strong>HR服务台</strong>，这三个元素是我对原作公司里印象最深的三块。这三个元素在OL中也是有的，但是相比其他各种纷杂的区域，这三个元素变得弱化了，所以进入公司场景的时候，没有给我一种<strong>回家</strong>的感觉。</p>
+<p>然后是公司规模上，原作中公司以研发游戏为主，所以我设想的新作也是单单纯纯的游戏开发。可能为了改变一直处于这种单一模式下给玩家带来的倦意，我会设想公司后期加入转型、上市、收购、合作等其他功能，但是绝对不会在一开始就给玩家呈现所有。<strong>要做差异化，要做创新，也是纵向往深入钻，而非横向扩展。</strong></p>
+<p><strong>玩家关注点有限，请将重点突出出来。</strong> 下图呈现的OL版本在玩家走完新手引导后就将所有解锁的、未解锁的全部呈现了出来，眼花缭乱；全部呈现出来也没关系，但是未解锁地方能不能不要占比那么大；占比大也没关系，但你好歹让这个场景可以缩放可以吗？！缩放！你说气不气人，2333…</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/291600-9ff6204850cd1833.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<h2 id="员工-1"><a href="#员工-1" class="headerlink" title="员工"></a>员工</h2><p>员工<strong>角色</strong>上，依然保留原有角色的样子，这样可以给老玩家更有代入感，有一种<strong>我们又回来了</strong>的体验。当然OL可以加入一些新的角色，但是在初期，老面孔的数量一定要比新面孔的多，这样才不会有一种<strong>走错片场</strong>的感觉，代入感很重要。</p>
+<p>然后是员工<strong>解锁</strong>上，之前也提到过，<strong>保持神秘感</strong>是抓住玩家眼球的关键，所以一定不能有类似于员工图鉴的东西，就算有也不能把后期员工的肖像和数据暴露出来。同时解锁条件也不要公布出来，让玩家自己去探索，而且条件不能太高，最好带点波动性和随机性。对于目前OL上员工用<strong>白绿蓝紫橙</strong>目前常用的品质分阶来限定死每个员工的优劣，我不知道这是一种增益Buff还是减益Buff，可能我更偏向于不用分阶，这样可以削弱玩家对员工差异在视觉上的冲击，从而将更多的关注力转到游戏开发上。而<strong>首充送阿布法拉国王</strong>也是我不希望看到的，至少前期不要这样，前期最重要的是老玩家的代入感，降低老玩家的排斥感。如果这款游戏不是玩家认识的游戏发展国，玩家就会产生这样的想法：<strong>我都不认识你，凭什么给你钱！</strong></p>
+<p>接着是员工<strong>属性</strong>上，既然选择用<strong>游戏发展国</strong>作为名字，就要尽可能真实地还原玩家对原作的认识，避免或减少与原作中已经给玩家根深蒂固印象的元素的直接碰撞。比如：员工多了星级，体力可以补充，升级打散为经验点，紫卡等级添加了天赋属性，这些如今市面上千篇一律的东西全部一股脑地照办了过来。拜托！这个是游戏发展国！<strong>如果改动的东西偏离了游戏要表达的初衷，那这些东西都是糟粕！</strong>既然它不叫其他名字，请保持他的初衷。既然它叫游戏发展国，尽管OL版本是完完整整地复刻，我们也会玩得津津有味。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/291600-e5217cd7c56788c5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p>然后是员工<strong>互动</strong>上，也就是原作中一个员工跑到另一个员工身边说：“听我说…”，然后另一个员工点点头说：“我懂了”；或者是开发过程中，一个员工自信满满地跑向了老板，说：“老板，我想在创造性上改善一下项目”，然后你因为资金不足回绝了他，然后员工叹着气说：“哎！真没劲啊…”。这些看似不起眼的细节都是被OL忽略的开罗精神（有没有觉得OL版本中的员工更像是机器人），也是我设想中的新作必不可少的东西。</p>
+<h2 id="随机性"><a href="#随机性" class="headerlink" title="随机性"></a>随机性</h2><p>之前讲了这么多静态的，现在讲讲动态的。（哈哈，代码敲多了…）游戏发展国之所以能成为我心目中养成类游戏的神作，更多因素是来自它的<strong>不可预知性</strong>。我们都知道，原作一款游戏的开发流程分为这样几个阶段：脚本制作-绘画-作曲-DEBUG，每个阶段，玩家都可以选择哪一名员工来负责这一阶段，每个员工根据自己的能力进行会随机地增加游戏指定属性的点数，如果连续地让一名员工负责同一模块，员工就会产生厌烦的情绪，从而点数会下降。这种不可预知性让玩家在开发每一款游戏时的心情跌宕起伏（抓住玩家的心），也是原作核心玩法的核心。想必OL版本的策划没有深入地玩过原作，或者为了做差异化砍掉了这一块核心要素，我想这应该也是评论里很多玩家给两星三星的原因吧！</p>
+<h2 id="差异化、扩展化"><a href="#差异化、扩展化" class="headerlink" title="差异化、扩展化"></a>差异化、扩展化</h2><p>唉！吐槽吐累了，键盘手敲估计也到极限了，加个速直接跳到扩展吧！（好吧！我承认是我黔驴技穷，想不出什么其他东西了…）既然是OL，并且它叫<strong>游戏发展国OL</strong>（对，没错，是游戏发展国online），它肯定会增加玩家间交互的功能，而且不能什么东西都照抄照搬！（你咋这么自信，搞得你真的能想出什么独到的想法一样…）好吧！那就想到啥说些啥吧！毕竟现在已经晚上十一点了，精力到极限了，现在还在公司加(hua)班(shui)。</p>
+<p><strong>聊天频道</strong>：这应该是在线游戏最基本的交互功能了吧！有啥游戏经验，让玩家自己去交流吧！</p>
+<p><strong>年度游戏评选</strong>：这个不是原作中有嘛！嗯…我指的是把由NPC年度评奖改为玩家之间评奖，虽然没想好怎样一个评选机制，以及玩家时间（原作中的时间会静止，OL版本时间不会）不一致的“年度”不一致的问题，但是总归用脑子是可以解决的，如果一个不够，就再加个猪脑。</p>
+<p><strong>专项称号</strong>：每个玩家肯定都有自己偏爱的游戏类型，开发的数量多了，到达一定条件便可申请专项称号。想法来源于现实生活，如Prifix专项于休闲类游戏、Capcom专项于炒冷饭、CD Project专项于容忍盗版游戏，借鉴这个想法，让公司的游戏开发增加自身Buff，这样也不会偏离游戏开发的初衷。当然前提是游戏中不要有出现干涉玩家选择指定类型游戏的现象出现，比如像OL版本里NPC大亨买断游戏的现象。</p>
+<p><strong>合作开发</strong>：Online嘛！重要的是玩家间交互，公司发展到一定规模后解锁玩家间合作开发3A大作的功能，三人成一小队，派出自己的得力干将两名，玩家间分配好各自员工的职业搭配，争取让游戏品质做得更高。光有合作没有竞争，那么合作就失去了意义。增加一个年度3A盛宴，评选出各类优秀的作品，获奖者奖励相比普通年度评选更丰厚，刺激玩家好好学习，天天向上！</p>
+<p><strong>随机灾难</strong>：之前提到了随机性，原作中一个经典但是玩家不想遇到的情况就是突然停电、同类型游戏提前上市，将这些原作中的元素提升到OL层面，增加游戏的刺激性，如：版号禁止发售，哈哈哈哈哈哈…</p>
+<p>其实，之前提到的公司转型、上市、收购也都是可以考虑扩展的东西，只是这些功能容易分散玩家关注核心玩法的注意力，我在这里不能自圆其说，就不瞎扯淡了吧!</p>
+<h1 id="原作-VS-OnLine"><a href="#原作-VS-OnLine" class="headerlink" title="原作 VS OnLine"></a><del>原作 VS OnLine</del></h1><p>额……说好的原作和OnLine对比，好像刚刚都说完了，那这一块就删掉吧！</p>
+<p>（ 读者：(꒪Д꒪)ノ ）</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>再小的鼓励也是一种支持!</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="代码咖啡 WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="代码咖啡 Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/游戏/" rel="tag"># 游戏</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/ps_batch/" rel="next" title="PS批处理，带你体验计算机的速度">
+                <i class="fa fa-chevron-left"></i> PS批处理，带你体验计算机的速度
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/vs_nuget/" rel="prev" title="Visual Studio 2017添加NuGet包管理器">
+                Visual Studio 2017添加NuGet包管理器 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar_sidebar.png" alt="代码咖啡">
+            
+              <p class="site-author-name" itemprop="name">代码咖啡</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss2.html" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/wjnovember" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:wnovember@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.jianshu.com/u/9b87ba5fc959" title="我的简书" target="_blank">我的简书</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://runnerwoo.com/" title="老班长的博客" target="_blank">老班长的博客</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#原作对于我的意义"><span class="nav-number">1.</span> <span class="nav-text">原作对于我的意义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#原作：入坑以后，我经历了什么？"><span class="nav-number">2.</span> <span class="nav-text">原作：入坑以后，我经历了什么？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#员工"><span class="nav-number">2.1.</span> <span class="nav-text">员工</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#公司扩展"><span class="nav-number">2.2.</span> <span class="nav-text">公司扩展</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#游戏组合"><span class="nav-number">2.3.</span> <span class="nav-text">游戏组合</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#吐槽开始：同名不同核，被千篇一律同化的OL版本"><span class="nav-number">3.</span> <span class="nav-text">吐槽开始：同名不同核，被千篇一律同化的OL版本</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#我是谁？我在哪里？我在做什么？现在是公元几几年？美国总统是不是奥巴马？"><span class="nav-number">3.1.</span> <span class="nav-text">我是谁？我在哪里？我在做什么？现在是公元几几年？美国总统是不是奥巴马？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#我心目中的《游戏发展国OL》"><span class="nav-number">4.</span> <span class="nav-text">我心目中的《游戏发展国OL》</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#画风"><span class="nav-number">4.1.</span> <span class="nav-text">画风</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#公司"><span class="nav-number">4.2.</span> <span class="nav-text">公司</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#员工-1"><span class="nav-number">4.3.</span> <span class="nav-text">员工</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#随机性"><span class="nav-number">4.4.</span> <span class="nav-text">随机性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#差异化、扩展化"><span class="nav-number">4.5.</span> <span class="nav-text">差异化、扩展化</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#原作-VS-OnLine"><span class="nav-number">5.</span> <span class="nav-text">原作 VS OnLine</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2016 &mdash; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">代码咖啡</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: '8vMRQb0bSf05Hd5zFNhrSHXz-gzGzoHsz',
+        appKey: 'uD8TcECp3UshQsLS1vxEocGy',
+        placeholder: '欢迎评论留言哦~',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("8vMRQb0bSf05Hd5zFNhrSHXz-gzGzoHsz", "uD8TcECp3UshQsLS1vxEocGy");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/avatar_32x32.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/avatar_16x16.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Git,">
+
+
+
+
+
+  <link rel="alternate" href="/rss2.html" title="程序员叨叨叨" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="在前面几篇中，笔者曾多次和大家提到过Github网站，作为全球最大的同性交友网站，想必，各位小伙伴们也是迫不及待地在这个网站上找到自己的知己。如同在百合网相亲一样，我们需要上传个人信息供其他人了解自己，在Github上，代码就是我们的名片。今天笔者带大家熟悉一下几个常用的Git指令。 Git常用命令速查表 这张表包含了大部分项目上传用到的命令，笔者将按照上传一个项目的流程过一下Git命令。 上传代">
+<meta name="keywords" content="Git">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git指令，版本管理神器——程序员的入门技能">
+<meta property="og:url" content="http://wjnovember.github.io/git_basic/index.html">
+<meta property="og:site_name" content="程序员叨叨叨">
+<meta property="og:description" content="在前面几篇中，笔者曾多次和大家提到过Github网站，作为全球最大的同性交友网站，想必，各位小伙伴们也是迫不及待地在这个网站上找到自己的知己。如同在百合网相亲一样，我们需要上传个人信息供其他人了解自己，在Github上，代码就是我们的名片。今天笔者带大家熟悉一下几个常用的Git指令。 Git常用命令速查表 这张表包含了大部分项目上传用到的命令，笔者将按照上传一个项目的流程过一下Git命令。 上传代">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-2a9d3e2e5ab123b8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-9378ea1489257a9e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-2a347bace9ad7467.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-06f2a59451417656.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-928be475eb3f8c73.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-30404e246f38dc49.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-98f7f51eb6b76365.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-e3dc7fc8b2c5dd5b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-d038979e60c3d045.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-fd15bf59916887d6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-f47bd3471980c035.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-0f70c61afef5332a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2021-11-07T09:06:10.110Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Git指令，版本管理神器——程序员的入门技能">
+<meta name="twitter:description" content="在前面几篇中，笔者曾多次和大家提到过Github网站，作为全球最大的同性交友网站，想必，各位小伙伴们也是迫不及待地在这个网站上找到自己的知己。如同在百合网相亲一样，我们需要上传个人信息供其他人了解自己，在Github上，代码就是我们的名片。今天笔者带大家熟悉一下几个常用的Git指令。 Git常用命令速查表 这张表包含了大部分项目上传用到的命令，笔者将按照上传一个项目的流程过一下Git命令。 上传代">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/291600-2a9d3e2e5ab123b8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"hide","offset":12,"b2t":true,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: 'P169SBHT9P',
+      apiKey: 'aff6672534638c8530052ce885f3d28a',
+      indexName: 'blog_NAME',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"输入关键词就可以搜索啦~","hits_empty":"T.T 没有找到与“ ${query} ”相关的文章","hits_stats":"找到 ${hits} 篇文章，耗时 ${time} 毫秒！"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://wjnovember.github.io/git_basic/">
+
+
+
+
+
+  <title>Git指令，版本管理神器——程序员的入门技能 | 程序员叨叨叨</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">程序员叨叨叨</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一枚程序猿的叨叨日常</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-首页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-目录">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            目录
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-时光机">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            时光机
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wjnovember.github.io/git_basic/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="代码咖啡">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar_sidebar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="程序员叨叨叨">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Git指令，版本管理神器——程序员的入门技能</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-11-02T17:41:04+08:00">
+                2016-11-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机外围技能储备/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机外围技能储备</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/git_basic/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/git_basic/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/git_basic/" class="leancloud_visitors" data-flag-title="Git指令，版本管理神器——程序员的入门技能">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在前面几篇中，笔者曾多次和大家提到过<a href="https://www.github.com" target="_blank" rel="noopener">Github网站</a>，作为全球最大的同性交友网站，想必，各位小伙伴们也是迫不及待地在这个网站上找到自己的知己。如同在百合网相亲一样，我们需要上传个人信息供其他人了解自己，在Github上，代码就是我们的名片。今天笔者带大家熟悉一下几个常用的Git指令。</p>
+<h1 id="Git常用命令速查表"><a href="#Git常用命令速查表" class="headerlink" title="Git常用命令速查表"></a>Git常用命令速查表</h1><p><img src="http://upload-images.jianshu.io/upload_images/291600-2a9d3e2e5ab123b8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p>这张表包含了大部分项目上传用到的命令，笔者将按照上传一个项目的流程过一下Git命令。</p>
+<h1 id="上传代码流程"><a href="#上传代码流程" class="headerlink" title="上传代码流程"></a>上传代码流程</h1><h2 id="注册Github账号"><a href="#注册Github账号" class="headerlink" title="注册Github账号"></a>注册Github账号</h2><p><img src="http://upload-images.jianshu.io/upload_images/291600-9378ea1489257a9e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="注册Github账号"></p>
+<p>进入<a href="https://github.com/join?source=header-home" target="_blank" rel="noopener">Github网站</a>注册账号，注册流程在此不多讲解。</p>
+<h2 id="新建Github仓库"><a href="#新建Github仓库" class="headerlink" title="新建Github仓库"></a>新建Github仓库</h2><p><img src="http://upload-images.jianshu.io/upload_images/291600-2a347bace9ad7467.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="新建Github仓库"></p>
+<p><strong>仓库</strong>指的就是Github网站上存放代码的地方，每个项目一个仓库，点击<a href="https://github.com/new" target="_blank" rel="noopener">这里</a>新建项目。新建时，有一个<strong>Initialize this repository with a README</strong>选项，如果勾选，会在新建项目过程中生成一个<strong>README.md</strong>的文件，md指的是Markdown文件，其作用是对描述项目的，以比较有名的<strong>ButterKnife</strong>为例（如下图所示），将编辑好的Markdown文件命名为<code>README.md</code>，放到项目根目录即可。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-06f2a59451417656.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Butter Knife说明页"></p>
+<p>新建完毕后，若出现下图所示内容，表示新建项目完毕：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-928be475eb3f8c73.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Github项目结构"></p>
+<h2 id="配置Git命令环境"><a href="#配置Git命令环境" class="headerlink" title="配置Git命令环境"></a>配置Git命令环境</h2><p>Git命令需要在对应的环境下才能使用，下载配置Git命令环境，点击<a href="http://git-scm.com/downloads" target="_blank" rel="noopener">这里</a>进入Git下载页面：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-30404e246f38dc49.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="git下载页面"></p>
+<h2 id="上传本地工程代码"><a href="#上传本地工程代码" class="headerlink" title="上传本地工程代码"></a>上传本地工程代码</h2><p>笔者以安卓工程为例，打开命令行，进入项目根目录，进行如下操作：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">// 进入项目根目录，当前项目名为Mitu，本地项目名和远程仓库的命长可以不一致</span><br><span class="line">cd /Volumes/J_Eric/J_workRoom/AndroidStudio/MiTu</span><br><span class="line">// 初始化本地项目的git，会在当前目录下生成一个.git文件夹，所有的git配置都在其中</span><br><span class="line">git init</span><br><span class="line">// 建立远程连接，项目连接可在Github相应目录下得到，如下图</span><br><span class="line">git remote add origin https://github.com/inerdstack/MyFirstProject.git</span><br><span class="line">// 添加账户信息：账户名</span><br><span class="line">git config user.name &quot;inerdstack&quot;</span><br><span class="line">// 添加账户信息：绑定的邮箱</span><br><span class="line">git config user.email &quot;wjnovember@gmail.com&quot;</span><br><span class="line">// 添加本地项目文件（夹子）,&quot;.&quot;或&quot;-A&quot;表示添加所有文件</span><br><span class="line">// 若添加个别文件，可以输入文件路径，多个文件之间以空格隔开</span><br><span class="line">git add .</span><br><span class="line">// 添加本次提交描述</span><br><span class="line">git commit -m &quot;我的第一次提交&quot;</span><br><span class="line">// 因为我们远程新建项目的时候，自动生成了README.md的文件</span><br><span class="line">// 所以我们需要将远程的文件先拉到本地，与本地文件进行合并比较</span><br><span class="line">// master表示项目的分支，默认主分支（master）</span><br><span class="line">git pull origin master</span><br><span class="line">// 拉到本地后，进行核查，如果文件不存在冲突，则进行上传，将本地项目推上去</span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-98f7f51eb6b76365.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="得到远程链接"></p>
+<p>至此，项目上传完毕，同时Github网站的仓库页面变成下图所示内容：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-e3dc7fc8b2c5dd5b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="远程代码"></p>
+<p>以上讲解的是HTTPS的上传方式，接下来讲解SSH的方式上传，与HTTPS基本一致，区别有以下两点：</p>
+<ul>
+<li>在git push命令前添加项目的deploy key</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-d038979e60c3d045.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Add deploy key"></p>
+<p>在Terminal中输入：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 生成key</span><br><span class="line">ssh-keygen -t rsa -C &quot;Github的注册邮箱地址&quot;</span><br><span class="line">// 打开key文件所在的文件夹，默认路径：~/.ssh</span><br><span class="line">open ~/.ssh</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-fd15bf59916887d6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=".ssh文件"></p>
+<p>打开id_rsa.pub文件，复制所有内容，进入Github仓库里的Deploy key设置页面，点击<strong>Add deploy key</strong>，在key项粘贴复制的内容，输入标题（命名最好与目前设备相关），点击<strong>Add key</strong>完成key的添加。</p>
+<ul>
+<li>git remote add origin链接</li>
+</ul>
+<p>如下图所示：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-f47bd3471980c035.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="SSH"></p>
+<h1 id="创建分支"><a href="#创建分支" class="headerlink" title="创建分支"></a>创建分支</h1><p>在实际开发中，开发者会把上线的代码和开发时的代码区分开，需要创建新分支（注意与默认的主分支<code>master</code>区别开），上线的代码放到主分支上，开发代码一般放在新分支，命名为<code>dev</code>（或其他名称）。</p>
+<p>创建分支分两部分：</p>
+<h2 id="远程创建分支"><a href="#远程创建分支" class="headerlink" title="远程创建分支"></a>远程创建分支</h2><p><img src="http://upload-images.jianshu.io/upload_images/291600-0f70c61afef5332a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="远程创建分支"></p>
+<p>在远端的项目仓库中，点击branch，在输入框输入新分支的名称，按回车键完成远程分支的创建，新建的分支，其文件默认与master的一样。</p>
+<h2 id="本地创建分支并上传"><a href="#本地创建分支并上传" class="headerlink" title="本地创建分支并上传"></a>本地创建分支并上传</h2><p>打开Terminal，在本地项目根目录下，实现如下操作：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// 创建一个新的分支</span><br><span class="line">git checkout -b &quot;debug&quot;</span><br><span class="line">// 拉分支上的代码到本地，实现代码同步</span><br><span class="line">git pull origin debug</span><br><span class="line">// 推本地的代码到远程的分支</span><br><span class="line">git push origin debug</span><br></pre></td></tr></table></figure>
+
+<h1 id="克隆工程"><a href="#克隆工程" class="headerlink" title="克隆工程"></a>克隆工程</h1><p>开发过程中，当有新的成员加入时，需要拿到项目的代码，可使用<strong>克隆</strong>将远程的代码同步到本地，Terminal命令如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 将远程的仓库克隆到本地</span><br><span class="line">git clone https://github.com/inerdstack/MyFirstProject.git</span><br><span class="line">// 若想远程克隆其他分支上的代码，则添加-b 分支名</span><br><span class="line">git clone -b debug https://github.com/inerdstack/MyFirstProject.git</span><br></pre></td></tr></table></figure>
+
+<h1 id="分支合并"><a href="#分支合并" class="headerlink" title="分支合并"></a>分支合并</h1><p>当项目上线时，开发分支的代码同步到主分支，需要用到分支的<strong>合并</strong>，打开命令行，进行如下操作：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 将当前分值切换到主分支</span><br><span class="line">git checkout master</span><br><span class="line">// 将次分支的文件合并到主分支</span><br><span class="line">git merge origin/debug</span><br></pre></td></tr></table></figure>
+
+<p>通过以上指令，可以实现<code>debug</code>分支的代码向<code>master</code>分支的合并。</p>
+<h1 id="冲突解决"><a href="#冲突解决" class="headerlink" title="冲突解决"></a>冲突解决</h1><p><strong>文件冲突</strong>在分支合并的时候会经常用到，比如A对x文件的第n行代码进行了更改，B对x文件的对应代码也进行了更改，当进行merge操作的时候就会发生冲突。这时候就需要A、B两名程序员针对冲突的地方进行沟通，达成一致修改方案后，对文件对应代码位置进行修改，标记冲突为<code>resolved</code>，文件的冲突状态消失，然后上传代码即可。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>再小的鼓励也是一种支持!</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="代码咖啡 WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="代码咖啡 Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Git/" rel="tag"># Git</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog_backup/" rel="next" title="跨设备同步博客，让你走到哪儿，写到哪儿">
+                <i class="fa fa-chevron-left"></i> 跨设备同步博客，让你走到哪儿，写到哪儿
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/win-install-disk/" rel="prev" title="一招搞定Windows无法安装到GPT分区形式磁盘疑难">
+                一招搞定Windows无法安装到GPT分区形式磁盘疑难 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar_sidebar.png" alt="代码咖啡">
+            
+              <p class="site-author-name" itemprop="name">代码咖啡</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss2.html" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/wjnovember" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:wnovember@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.jianshu.com/u/9b87ba5fc959" title="我的简书" target="_blank">我的简书</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://runnerwoo.com/" title="老班长的博客" target="_blank">老班长的博客</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Git常用命令速查表"><span class="nav-number">1.</span> <span class="nav-text">Git常用命令速查表</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#上传代码流程"><span class="nav-number">2.</span> <span class="nav-text">上传代码流程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#注册Github账号"><span class="nav-number">2.1.</span> <span class="nav-text">注册Github账号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#新建Github仓库"><span class="nav-number">2.2.</span> <span class="nav-text">新建Github仓库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置Git命令环境"><span class="nav-number">2.3.</span> <span class="nav-text">配置Git命令环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#上传本地工程代码"><span class="nav-number">2.4.</span> <span class="nav-text">上传本地工程代码</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#创建分支"><span class="nav-number">3.</span> <span class="nav-text">创建分支</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#远程创建分支"><span class="nav-number">3.1.</span> <span class="nav-text">远程创建分支</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本地创建分支并上传"><span class="nav-number">3.2.</span> <span class="nav-text">本地创建分支并上传</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#克隆工程"><span class="nav-number">4.</span> <span class="nav-text">克隆工程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分支合并"><span class="nav-number">5.</span> <span class="nav-text">分支合并</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#冲突解决"><span class="nav-number">6.</span> <span class="nav-text">冲突解决</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2016 &mdash; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">代码咖啡</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: '8vMRQb0bSf05Hd5zFNhrSHXz-gzGzoHsz',
+        appKey: 'uD8TcECp3UshQsLS1vxEocGy',
+        placeholder: '欢迎评论留言哦~',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("8vMRQb0bSf05Hd5zFNhrSHXz-gzGzoHsz", "uD8TcECp3UshQsLS1vxEocGy");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

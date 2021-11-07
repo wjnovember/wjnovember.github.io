@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/avatar_32x32.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/avatar_16x16.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="博客,">
+
+
+
+
+
+  <link rel="alternate" href="/rss2.html" title="程序员叨叨叨" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="备注：该教程基于Hexo 2.x版本。  前情提要几个月前，写过几篇关于Hexo博客搭建的教程，最近几天，发现有一些读者私信一些Hexo搭建过程中遇到的问题，于是笔者重新燃起Hexo博客的兴趣，花了一两天的时间重新将Hexo博客搭建了一下，并通过配置实现了一些附加功能，写下此篇教程，希望可以帮助读者们深入了解Hexo博客的使用。 本篇教程基于NexT主题的博客配置，实现更换主题、评论、打赏等功能">
+<meta name="keywords" content="博客">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2小时还你一个集打赏、评论、RSS功能于一身的个性化博客">
+<meta property="og:url" content="http://wjnovember.github.io/blog_advanced/index.html">
+<meta property="og:site_name" content="程序员叨叨叨">
+<meta property="og:description" content="备注：该教程基于Hexo 2.x版本。  前情提要几个月前，写过几篇关于Hexo博客搭建的教程，最近几天，发现有一些读者私信一些Hexo搭建过程中遇到的问题，于是笔者重新燃起Hexo博客的兴趣，花了一两天的时间重新将Hexo博客搭建了一下，并通过配置实现了一些附加功能，写下此篇教程，希望可以帮助读者们深入了解Hexo博客的使用。 本篇教程基于NexT主题的博客配置，实现更换主题、评论、打赏等功能">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-b83b62262041a552.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-e53768fa6014081b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-a98ec710fd6b30b5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-6322b239804a6b9e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-1abc682d4f4c9d0c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-aae8029a499ce300.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/350">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-d01c7b97bd74641f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/300">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-b4fe31987d2d2820.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-7c3ee709ce89010e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/400">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-406e48d89492c2a8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-873b0d38fcc6adfe.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-3e0dec2281c46e83.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-19c1082a43fbac79.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-6c0f70e126d3d214.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-39c0a90a589b5ed4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/350">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-7d845e9f7813684a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/500">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-80a532accf68abe8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-2f482b12b6e5ed3a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-db3e4570db72fe5a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-f76e6a040c19eef5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-e3bffdb065acdff8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-20222e583f1f4c61.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-a3c8fd57e38b785c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-a114303ec633d628.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-47b6f370eeb9384f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-ebe85e15adad1960.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-9bfefff56f9884d3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-0a317ed31a11027a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-961cf82d2e506b28.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-48049f258dfded85.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-b978ffc2b560c77c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-0a280494cde74c9f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-132c68eec03fb97e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-6996375a604d5e7c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-f644825841dbb010.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-2b48ae358539d93f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-004e6ede8b77527c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2021-11-07T09:06:10.105Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="2小时还你一个集打赏、评论、RSS功能于一身的个性化博客">
+<meta name="twitter:description" content="备注：该教程基于Hexo 2.x版本。  前情提要几个月前，写过几篇关于Hexo博客搭建的教程，最近几天，发现有一些读者私信一些Hexo搭建过程中遇到的问题，于是笔者重新燃起Hexo博客的兴趣，花了一两天的时间重新将Hexo博客搭建了一下，并通过配置实现了一些附加功能，写下此篇教程，希望可以帮助读者们深入了解Hexo博客的使用。 本篇教程基于NexT主题的博客配置，实现更换主题、评论、打赏等功能">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/291600-b83b62262041a552.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"hide","offset":12,"b2t":true,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: 'P169SBHT9P',
+      apiKey: 'aff6672534638c8530052ce885f3d28a',
+      indexName: 'blog_NAME',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"输入关键词就可以搜索啦~","hits_empty":"T.T 没有找到与“ ${query} ”相关的文章","hits_stats":"找到 ${hits} 篇文章，耗时 ${time} 毫秒！"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://wjnovember.github.io/blog_advanced/">
+
+
+
+
+
+  <title>2小时还你一个集打赏、评论、RSS功能于一身的个性化博客 | 程序员叨叨叨</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">程序员叨叨叨</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一枚程序猿的叨叨日常</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-首页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-目录">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            目录
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-时光机">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            时光机
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wjnovember.github.io/blog_advanced/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="代码咖啡">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar_sidebar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="程序员叨叨叨">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">2小时还你一个集打赏、评论、RSS功能于一身的个性化博客</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-13T13:15:43+08:00">
+                2017-03-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/零基础学习博客搭建/" itemprop="url" rel="index">
+                    <span itemprop="name">零基础学习博客搭建</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/blog_advanced/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/blog_advanced/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/blog_advanced/" class="leancloud_visitors" data-flag-title="2小时还你一个集打赏、评论、RSS功能于一身的个性化博客">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p><strong>备注</strong>：该教程基于Hexo 2.x版本。</p>
+</blockquote>
+<h1 id="前情提要"><a href="#前情提要" class="headerlink" title="前情提要"></a>前情提要</h1><p>几个月前，写过几篇关于<a href="https://wjnovember.github.io/blog_basic/">Hexo博客搭建的教程</a>，最近几天，发现有一些读者私信一些Hexo搭建过程中遇到的问题，于是笔者重新燃起Hexo博客的兴趣，花了一两天的时间重新将Hexo博客搭建了一下，并通过配置实现了一些附加功能，写下此篇教程，希望可以帮助读者们深入了解Hexo博客的使用。</p>
+<p>本篇教程基于NexT主题的博客配置，实现更换主题、评论、打赏等功能，接下来根据这些功能进行分点描述。</p>
+<h1 id="搭建基本Hexo博客"><a href="#搭建基本Hexo博客" class="headerlink" title="搭建基本Hexo博客"></a>搭建基本Hexo博客</h1><p>Hexo博客基本搭建参考：《<a href="https://wjnovember.github.io/blog_basic/">全民博客时代的到来——20分钟简要教程</a>》一文，笔者按照教程的顺序一步一步来，是没有出现错误的，如果读者们在搭建的时候遇到了问题不知如何解决，可以自行查阅网上资料，或私信笔者。</p>
+<h1 id="Hexo博客绑定域名"><a href="#Hexo博客绑定域名" class="headerlink" title="Hexo博客绑定域名"></a>Hexo博客绑定域名</h1><p>关于Hexo博客如何绑定自己的域名，详情可参阅《<a href="https://wjnovember.github.io/blog_domain/">域名绑定，让你的博客拥有自己的个性</a>》一文。</p>
+<h1 id="更换Hexo主题"><a href="#更换Hexo主题" class="headerlink" title="更换Hexo主题"></a>更换Hexo主题</h1><p>笔者更换后的主题为<a href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="noopener">NexT</a>。首先将NexT的主题源文件下载到本地，可使用Git克隆指令或直接在网页上通过Zip包的形式下载，Git指令如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/iissnan/hexo-theme-next</span><br></pre></td></tr></table></figure>
+
+<p>下载后，将压缩包解压缩，将根目录文件夹的名称修改为<code>next</code>，并将其移到Hexo的主题目录下，主题目录的路径为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hexo博客根目录/themes/</span><br></pre></td></tr></table></figure>
+
+<p>效果如下图所示：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-b83b62262041a552.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="NexT主题包"></p>
+<p>在Hexo根目录下有一个以<code>_config.yml</code>命名的文件（下称<strong>站点配置文件</strong>），用文本编辑器打开，在其中找到<code>theme</code>属性，将其由<code>landscape</code>改为<code>next</code>。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-e53768fa6014081b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="修改主题"></p>
+<p>然后在Hexo根目录执行<strong>部署Hexo</strong>指令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// 清理缓存</span><br><span class="line">hexo clean</span><br><span class="line">// 生成文件</span><br><span class="line">hexo generate</span><br><span class="line">// 部署</span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>随即，可在远程的博客上看到修改主题后的样式。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-a98ec710fd6b30b5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="NexT主题样式"></p>
+<h1 id="设置Hexo主题模式"><a href="#设置Hexo主题模式" class="headerlink" title="设置Hexo主题模式"></a>设置Hexo主题模式</h1><p>Hexo主题支持多种不同的模式，通过配置，让NexT主题显示不一样的样式。在NexT根目录下有一个同样名为<code>_config.yml</code>的配置文件，为了区分hexo根目录下的<code>_config.yml</code>，将前者称为<strong>主题配置文件</strong>，在其中找到<code>scheme</code>属性，如下图所示：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-6322b239804a6b9e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="scheme属性"></p>
+<p>NexT主题默认使用<code>Muse</code>模式，读者可根据自己的喜好，选择其中一种模式。</p>
+<blockquote>
+<p><strong>温馨提示：</strong> 在不想要效果的一行最前面加上<code>#</code>，在想要的效果一样去掉最前面的<code>#</code>。</p>
+</blockquote>
+<h1 id="设置预览摘要"><a href="#设置预览摘要" class="headerlink" title="设置预览摘要"></a>设置预览摘要</h1><p>设置完模式后，读者们会发现，首页文章列表中，每一篇文章都显示了所有内容，看起来不舒服，这时可以启用预览摘要模式，在<strong>主题配置文件</strong>中找到<code>auto_excerpt</code>属性，将<code>enable</code>设置为<code>true</code>，<code>length</code>表示预览显示的最大字数，如下图所示：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-1abc682d4f4c9d0c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="设置预览摘要"></p>
+<p>设置完毕后，调用<strong>部署指令</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// 清理缓存</span><br><span class="line">hexo clean</span><br><span class="line">// 生成文件</span><br><span class="line">hexo generate</span><br><span class="line">// 部署</span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>温馨提示：</strong> 上述的部署指令中<code>hexo deploy</code>可以换成<code>hexo server</code>，两者的区别在于，前者是将博客部署到远程的Github上，而后者是运行在本地，通过<code>http://localhost:4000</code>在浏览器中访问，方便调试，但是最终本地博客还是需要<code>hexo deploy</code>指令将其部署至Github上。</p>
+</blockquote>
+<h1 id="添加评论功能"><a href="#添加评论功能" class="headerlink" title="添加评论功能"></a>添加评论功能</h1><p>NexT目前出到5.1.0版本，功能模块已经相当的丰富。NexT主题集成了评论系统，只需要设置相关的属性即可实现功能，其目前支持<strong>多说</strong>、<strong>Disqus</strong>、<strong>Facebook评论</strong>、<strong>Hyper评论</strong>、<strong>网页云跟帖</strong>等，其中“多说”是NexT推荐的评论系统，但是多说评论系统不稳定，经常会出现服务异常等问题：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-aae8029a499ce300.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/350" alt="“多说”服务异常"></p>
+<p>所以笔者查阅了网上，找到了另一款名为<strong>友言</strong>的评论系统，它也是NexT集成自带的，可以直接拿来用的。下面对其配置进行讲解：</p>
+<h2 id="注册友言账号"><a href="#注册友言账号" class="headerlink" title="注册友言账号"></a>注册友言账号</h2><p>打开<a href="http://www.uyan.cc/" target="_blank" rel="noopener">友言官网</a>，注册账号，再次不作过多讲解。</p>
+<h2 id="获取uid"><a href="#获取uid" class="headerlink" title="获取uid"></a>获取uid</h2><p>注册完登录后，在首页单击<strong>后台管理</strong>按钮，进入后台界面可看到用户ID，将其复制下来。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-d01c7b97bd74641f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/300" alt="获取uid"></p>
+<h2 id="设置uid"><a href="#设置uid" class="headerlink" title="设置uid"></a>设置uid</h2><p>打开<strong>主题配置文件</strong>，找到属性<code>youyan_uid</code>，然后在<code>:</code>后添加之前复制的uid：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-b4fe31987d2d2820.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"></p>
+<blockquote>
+<p><strong>温馨提示</strong>：所有属性的设置，<code>:</code>后必须有一个空格。</p>
+</blockquote>
+<p>使用hexo指令部署博客，可看到实现的评论功能，如下图所示：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-7c3ee709ce89010e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/400" alt="友言评论功能"></p>
+<blockquote>
+<p><strong>温馨提示：</strong> 在笔者配置评论功能的时候，笔者遇到了一个问题：<em>本地博客有评论功能，而远程博客却没有</em> 。折腾了一下午，始终不知原因。后来，当笔者对博客绑定自己的域名后，发现远程的博客自动出现了评论功能，这里不清楚是域名的缘故还是<em>hexo generate</em>存在未刷新的缘故。若读者们遇到这个情况，可以先放放，配置其他功能。</p>
+</blockquote>
+<h1 id="添加打赏功能"><a href="#添加打赏功能" class="headerlink" title="添加打赏功能"></a>添加打赏功能</h1><p>打赏是笔者协作的强大动力，写作的同时可以收到一笔打赏小费，那是再好不过！这里讲解一下打赏功能的实现，其本质是放一张收款二维码图片。</p>
+<h2 id="获取微信收款二维码"><a href="#获取微信收款二维码" class="headerlink" title="获取微信收款二维码"></a>获取微信收款二维码</h2><p>微信二维码的获取途径还是比较容易的，按照<a href="http://jingyan.baidu.com/article/b907e627b641b646e6891c6b.html" target="_blank" rel="noopener">这个教程</a>即可实现，读者们也可以预先设置收款的金额。</p>
+<h2 id="获取支付宝收款二维码"><a href="#获取支付宝收款二维码" class="headerlink" title="获取支付宝收款二维码"></a>获取支付宝收款二维码</h2><p>笔者上网查了很多关于支付宝收款二维码的相关信息，奈何得到的结果不是版本不一致就是商家认证，找了好久，终于找到一个符合要求的<a href="http://blog.csdn.net/china8848/article/details/53504223" target="_blank" rel="noopener">教程</a>，读者们可别被“商家平台”这几个字吓到了，普通用户一样可以开通，且不需要相关证件的认证，读者们可根据这个教程获得自己的支付宝收款二维码。</p>
+<h2 id="添加二维码图片资源"><a href="#添加二维码图片资源" class="headerlink" title="添加二维码图片资源"></a>添加二维码图片资源</h2><p>将二维码图片放到<code>NexT根目录/source/images/</code>文件夹下即可。</p>
+<h2 id="开启打赏功能"><a href="#开启打赏功能" class="headerlink" title="开启打赏功能"></a>开启打赏功能</h2><p>找到<strong>主题配置文件</strong>，在最后添加打赏的配置信息:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">reward_comment: 打赏文字提示</span><br><span class="line">wechatpay: 图片链接或图片相对路径</span><br><span class="line">alipay: 图片链接或图片相对路径</span><br></pre></td></tr></table></figure>
+
+<p>信息配置如下图：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-406e48d89492c2a8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="开启打赏功能"></p>
+<p>效果图如下：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-873b0d38fcc6adfe.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="打赏功能效果图"></p>
+<h1 id="设置侧边栏显示效果"><a href="#设置侧边栏显示效果" class="headerlink" title="设置侧边栏显示效果"></a>设置侧边栏显示效果</h1><p>鉴于个人喜好，笔者不是很喜欢在打开一篇文章的时候，刚想好好品读，却因为侧边栏的出现扰乱视觉，所以想对侧边栏的显示进行设置。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-3e0dec2281c46e83.gif?imageMogr2/auto-orient/strip" alt="侧边栏在文章加载好时出现"></p>
+<p>在<strong>主题配置文件</strong>中，找到<code>sidebar</code>的<code>display</code>属性，<code>display</code>属性有四种显示模式：分别为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">post    // 默认显示方式</span><br><span class="line">always  // 一直显示</span><br><span class="line">hide    // 初始隐藏</span><br><span class="line">remove  // 移除侧边栏</span><br></pre></td></tr></table></figure>
+
+<p>笔者将其设置为<code>hide</code>模式，如下图所示：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-19c1082a43fbac79.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="设置侧边栏显示效果"></p>
+<p>读者们可根据个人喜好进行设置。</p>
+<h1 id="添加菜单选项"><a href="#添加菜单选项" class="headerlink" title="添加菜单选项"></a>添加菜单选项</h1><p>默认情况下，菜单导航栏有<strong>首页</strong>、<strong>归档</strong>、<strong>关于</strong>三个选项，此外笔者还添加了<strong>分类</strong>、<strong>标签</strong>。在<strong>主题配置文件</strong>中，找到<code>menu</code>属性，并去掉<code>categories</code>、 <code>tags</code>的的注释（前面的<code>#</code>），如下图所示：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-6c0f70e126d3d214.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="菜单选项设置"></p>
+<p>然后在Hexo根目录执行指令如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// 添加分类页面</span><br><span class="line">hexo new page &quot;categories&quot;</span><br><span class="line">// 添加标签页面</span><br><span class="line">hexo new page &quot;tags&quot;</span><br><span class="line">// 添加关于页面</span><br><span class="line">hexo new page &quot;about&quot;</span><br></pre></td></tr></table></figure>
+
+<p>在<code>Hexo根目录/source/</code>文件夹下创建三个文件夹，命名分别为：categories、tags、about文件夹，在这些文件夹中分别会创建一个以<code>index</code>命名的Markdown文件，对这三个Markdown文件内容进行修改，使之分别为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: 分类</span><br><span class="line">date: 2017-03-12 22:06:24</span><br><span class="line">type: &quot;categories&quot;</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: 标签</span><br><span class="line">date: 2017-03-12 17:27:16</span><br><span class="line">type: &quot;tags&quot;</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: 关于</span><br><span class="line">date: 2017-03-12 22:07:26</span><br><span class="line">type: &quot;about&quot;</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+
+<p>完成文件的修改，部署Hexo即可。</p>
+<h1 id="添加搜索功能"><a href="#添加搜索功能" class="headerlink" title="添加搜索功能"></a>添加搜索功能</h1><p><img src="http://upload-images.jianshu.io/upload_images/291600-39c0a90a589b5ed4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/350" alt="导航菜单栏"></p>
+<p>搜索功能源于第三方服务——<strong>Algolia</strong>，接下来看看配置：</p>
+<h2 id="注册Algolia，创建Index"><a href="#注册Algolia，创建Index" class="headerlink" title="注册Algolia，创建Index"></a>注册Algolia，创建Index</h2><p>在<a href="https://www.algolia.com/" target="_blank" rel="noopener">Algolia官网</a>注册一个账户，完成账户注册后，创建Index，如下图：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-7d845e9f7813684a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/500" alt="创建Index"></p>
+<h2 id="安装Hexo-Algolia"><a href="#安装Hexo-Algolia" class="headerlink" title="安装Hexo Algolia"></a>安装Hexo Algolia</h2><p>在Hexo根目录执行如下指令，进行Hexo Algolia的安装：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save hexo-algolia</span><br></pre></td></tr></table></figure>
+
+<p>若出现安装失败，或发现安装成功后搜索功能可以搜索但是不可以点击搜索到的文章，是因为5.1.0版本NexT在<code>package.json</code>文件的配置中存在错误。到Hexo的根目录，在其中找到<code>package.json</code>文件，修改其中的<code>hexo-algolia</code>属性值为<code>^0.2.0</code>，如下图所示：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-80a532accf68abe8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="修改package.json文件"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;hexo-algolia&quot;: &quot;^0.2.0&quot;</span><br></pre></td></tr></table></figure>
+
+<p>然后重新执行安装指令。</p>
+<h2 id="获取Key，修改站点配置"><a href="#获取Key，修改站点配置" class="headerlink" title="获取Key，修改站点配置"></a>获取Key，修改站点配置</h2><p>完成Hexo Algolia后，回到Algolia官网的Dashboard，在左侧导航栏选择<code>API Keys</code>，跳转到如下页面：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-2f482b12b6e5ed3a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="获取Key"></p>
+<p>基于这个页面的Key，编辑<strong>站点配置文件</strong>，在文件内容最后添加如下图所示的信息，包括 <code>ApplicationID</code>、<code>Search-Only API Key</code>、 <code>Admin API Key</code>和<code>indexName</code>，其中<code>apiKey</code>就是<code>Search-Only API Key</code>：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-db3e4570db72fe5a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Algolia配置信息"></p>
+<h2 id="更新Index"><a href="#更新Index" class="headerlink" title="更新Index"></a>更新Index</h2><p>配置好Key后，在Hexo根目录执行<code>hexo algolia</code>更新Index，若出现下图所示内容，则表示更新成功：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-f76e6a040c19eef5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="更新Index"></p>
+<p>若更新失败，则返回上面<strong>安装Hexo Algolia</strong>的步骤，查看一下hexo-algolia是否安装成功，并核实一下package.json信息是否正确。</p>
+<h2 id="启用配置搜索功能"><a href="#启用配置搜索功能" class="headerlink" title="启用配置搜索功能"></a>启用配置搜索功能</h2><p>打开<strong>主题配置文件</strong>，找到<code>algolia_search</code>属性，将其<code>enable</code>子属性改为<code>true</code>，再找到其子属性<code>labels</code>，修改相应的提示文本，使之更加适合自己的风格，属性配置如下图所示：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-e3bffdb065acdff8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="启用配置搜索功能"></p>
+<p>部署Hexo，可在博客中看到效果如下：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-20222e583f1f4c61.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="找到搜索结果"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-a3c8fd57e38b785c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="未找到搜索结果"></p>
+<h1 id="添加阅读次数统计"><a href="#添加阅读次数统计" class="headerlink" title="添加阅读次数统计"></a>添加阅读次数统计</h1><p>笔者以为，写技术博客一方面作为个人知识积累外，更重要的是让读者通过阅读有所收获。阅读量作为评价一篇文章质量好坏的参考因素，可以为作者继续创作带来信心。阅读次数统计是基于第三方服务——<strong>LeanCloud</strong>实现的，配置详情如下：</p>
+<h2 id="创建LeanCloud账号"><a href="#创建LeanCloud账号" class="headerlink" title="创建LeanCloud账号"></a>创建LeanCloud账号</h2><p>进入<a href="https://leancloud.cn/" target="_blank" rel="noopener">LeanCloud官网</a>，完成注册。</p>
+<h2 id="创建应用"><a href="#创建应用" class="headerlink" title="创建应用"></a>创建应用</h2><p>登录LeanCloud，进入控制台，单击<strong>创建应用</strong>按钮，输入新应用名称，选择<strong>开发版</strong>，单击<strong>创建</strong>按钮完成创建，如下图所示：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-a114303ec633d628.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="创建应用"></p>
+<h2 id="创建Class"><a href="#创建Class" class="headerlink" title="创建Class"></a>创建Class</h2><p>进入到刚刚创建的应用中，选择左侧导航栏的<strong>存储</strong>，点击<strong>创建Class</strong>，将Class名称填为<code>Counter</code>，选择<strong>无限制</strong>选项，然后单击<strong>创建Class</strong>按钮完成Class的创建，如下图所示：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-47b6f370eeb9384f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="创建Class"></p>
+<p>点击创建好的Counter其本质是一张结构表，用来记录文章的浏览量，如下图所示），这里的表可以直接对文章阅读次数进行修改，所以如果想要追求阅读次数，可以在表上直接进行修改。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-ebe85e15adad1960.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="Counter表"></p>
+<h2 id="配置Key"><a href="#配置Key" class="headerlink" title="配置Key"></a>配置Key</h2><p>在左侧导航栏的设置界面，单击<strong>应用Key</strong>可以看到应用的<code>App ID</code>和<code>App Key</code>。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-9bfefff56f9884d3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="Key"></p>
+<p>复制ID和Key，然后将其配置到<strong>主题配置文件</strong>中。在文件中找到<code>leancloud_visitors</code>属性，将<code>enable</code>设置为<code>true</code>，粘贴之前复制的ID和Key粘贴到相应的属性中。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-0a317ed31a11027a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="配置ID和Key"></p>
+<p>至此，阅读次数统计添加完成，其效果图如下所示：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-961cf82d2e506b28.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="添加阅读次数统计"></p>
+<h1 id="添加RSS"><a href="#添加RSS" class="headerlink" title="添加RSS"></a>添加RSS</h1><p>RSS是一种订阅方式，可以方便读者获取博客的最新内容，话不多说，先配置，再来看效果。</p>
+<h2 id="安装-hexo-generator-feed-插件"><a href="#安装-hexo-generator-feed-插件" class="headerlink" title="安装 hexo-generator-feed 插件"></a>安装 <a href="https://github.com/hexojs/hexo-generator-feed" target="_blank" rel="noopener">hexo-generator-feed</a> 插件</h2><p>RSS需要Feed链接，通过<code>hexo-generator-feed</code>插件来生成。在Hexo根目录执行安装指令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-generator-feed --save</span><br></pre></td></tr></table></figure>
+
+<h2 id="配置feed信息"><a href="#配置feed信息" class="headerlink" title="配置feed信息"></a>配置feed信息</h2><p>在<strong>站点配置文件</strong>中追加配置信息，如下图所示：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-48049f258dfded85.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="RSS配置"></p>
+<p><code>feed</code>属性下的各个子属性的含义，feed官方给出的解释如下：</p>
+<ul>
+<li>type - Feed type. (atom/rss2)</li>
+<li>path - Feed path. (Default: atom.xml/rss2.xml)</li>
+<li>limit - Maximum number of posts in the feed (Use 0 or false to show all posts)</li>
+<li>hub - URL of the PubSubHubbub hubs (Leave it empty if you don’t use it)</li>
+<li>content - (optional) set to ‘true’ to include the contents of the entire post in the feed.</li>
+</ul>
+<p>配置后，效果如下：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-b978ffc2b560c77c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="RSS效果"></p>
+<p>单击RSS按钮，跳转如下界面：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-0a280494cde74c9f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p>若点击订阅的文章出现无法访问的情况，可检查域名是否有过改动。</p>
+<h1 id="添加社交链接"><a href="#添加社交链接" class="headerlink" title="添加社交链接"></a>添加社交链接</h1><p>社交链接可以是Github链接、其他博客平台链接、技术栈链接等。配置步骤如下：</p>
+<h2 id="添加链接"><a href="#添加链接" class="headerlink" title="添加链接"></a>添加链接</h2><p>在<strong>主题配置文件</strong>中找到<code>social</code>属性，在下方添加社交链接，格式为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">社交平台名称：链接</span><br></pre></td></tr></table></figure>
+
+<p>笔者添加的内容：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-132c68eec03fb97e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="添加社交链接"></p>
+<h2 id="添加链接图标"><a href="#添加链接图标" class="headerlink" title="添加链接图标"></a>添加链接图标</h2><p>读者们可根据自己喜好，选择是否启用显示链接的图标。链接的图标全部来自于<a href="http://fontawesome.io/" target="_blank" rel="noopener">Font Awesome</a> ，配置方式也很简单，在<strong>主题配置文件</strong>中找到<code>social_icons</code>，修改其状态值为<code>true</code>，然后配置对应链接的图标，格式为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">社交平台名称: Font Awesome中的图标的名字（区分大小写）</span><br></pre></td></tr></table></figure>
+
+<p>如下图所示：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-6996375a604d5e7c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="添加链接图标"></p>
+<p>如笔者添加的社交链接是Font Awesome平台没有的图标，博客中会显示默认的图标：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-f644825841dbb010.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="默认图标"></p>
+<h1 id="添加友情链接功能"><a href="#添加友情链接功能" class="headerlink" title="添加友情链接功能"></a>添加友情链接功能</h1><p>笔者身边有很多志同道合的好友，也都有用其他框架搭建的博客，写的文章多了，希望可以获得更多的流量，这时好友之间就可以互相帮忙，在自己的博客上添加好友的博客链接。接下来看一下友情链接的配置：</p>
+<p>在<strong>主题配置文件</strong>中找到<code>links</code>属性，修改<code>links_title</code>属性的值为“友情链接”（也可以是其他文案），然后添加上好友的博客名称和博客地址，格式如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">博客名称: 博客链接</span><br></pre></td></tr></table></figure>
+
+<p>笔者的配置信息：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-2b48ae358539d93f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p>部署Hexo，效果如下：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-004e6ede8b77527c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="友情链接"></p>
+<h1 id="写在后面"><a href="#写在后面" class="headerlink" title="写在后面"></a>写在后面</h1><p>其实笔者本篇教程是在阅读完NexT的官方配置文档后写的，考虑到文档内容较多，且其中很多功能一般用不到，就挑选了一些常用的功能。对于本文描述不清楚的地方，有疑问的读者们，可在文章下方留言，亦可参阅官方文档进行对比配置，最后附上官方文档的链接供读者们参阅：<br><a href="http://theme-next.iissnan.com/" target="_blank" rel="noopener">http://theme-next.iissnan.com/</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>再小的鼓励也是一种支持!</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="代码咖啡 WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="代码咖啡 Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/博客/" rel="tag"># 博客</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/constraintlayout_doc/" rel="next" title="细细品读！深入浅出，官方文档看ConstraintLayout">
+                <i class="fa fa-chevron-left"></i> 细细品读！深入浅出，官方文档看ConstraintLayout
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/android_keystore/" rel="prev" title="Android Keystore漫谈">
+                Android Keystore漫谈 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar_sidebar.png" alt="代码咖啡">
+            
+              <p class="site-author-name" itemprop="name">代码咖啡</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss2.html" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/wjnovember" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:wnovember@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.jianshu.com/u/9b87ba5fc959" title="我的简书" target="_blank">我的简书</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://runnerwoo.com/" title="老班长的博客" target="_blank">老班长的博客</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前情提要"><span class="nav-number">1.</span> <span class="nav-text">前情提要</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#搭建基本Hexo博客"><span class="nav-number">2.</span> <span class="nav-text">搭建基本Hexo博客</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hexo博客绑定域名"><span class="nav-number">3.</span> <span class="nav-text">Hexo博客绑定域名</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#更换Hexo主题"><span class="nav-number">4.</span> <span class="nav-text">更换Hexo主题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#设置Hexo主题模式"><span class="nav-number">5.</span> <span class="nav-text">设置Hexo主题模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#设置预览摘要"><span class="nav-number">6.</span> <span class="nav-text">设置预览摘要</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#添加评论功能"><span class="nav-number">7.</span> <span class="nav-text">添加评论功能</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#注册友言账号"><span class="nav-number">7.1.</span> <span class="nav-text">注册友言账号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获取uid"><span class="nav-number">7.2.</span> <span class="nav-text">获取uid</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置uid"><span class="nav-number">7.3.</span> <span class="nav-text">设置uid</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#添加打赏功能"><span class="nav-number">8.</span> <span class="nav-text">添加打赏功能</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#获取微信收款二维码"><span class="nav-number">8.1.</span> <span class="nav-text">获取微信收款二维码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获取支付宝收款二维码"><span class="nav-number">8.2.</span> <span class="nav-text">获取支付宝收款二维码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加二维码图片资源"><span class="nav-number">8.3.</span> <span class="nav-text">添加二维码图片资源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开启打赏功能"><span class="nav-number">8.4.</span> <span class="nav-text">开启打赏功能</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#设置侧边栏显示效果"><span class="nav-number">9.</span> <span class="nav-text">设置侧边栏显示效果</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#添加菜单选项"><span class="nav-number">10.</span> <span class="nav-text">添加菜单选项</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#添加搜索功能"><span class="nav-number">11.</span> <span class="nav-text">添加搜索功能</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#注册Algolia，创建Index"><span class="nav-number">11.1.</span> <span class="nav-text">注册Algolia，创建Index</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Hexo-Algolia"><span class="nav-number">11.2.</span> <span class="nav-text">安装Hexo Algolia</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获取Key，修改站点配置"><span class="nav-number">11.3.</span> <span class="nav-text">获取Key，修改站点配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更新Index"><span class="nav-number">11.4.</span> <span class="nav-text">更新Index</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启用配置搜索功能"><span class="nav-number">11.5.</span> <span class="nav-text">启用配置搜索功能</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#添加阅读次数统计"><span class="nav-number">12.</span> <span class="nav-text">添加阅读次数统计</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建LeanCloud账号"><span class="nav-number">12.1.</span> <span class="nav-text">创建LeanCloud账号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建应用"><span class="nav-number">12.2.</span> <span class="nav-text">创建应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建Class"><span class="nav-number">12.3.</span> <span class="nav-text">创建Class</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置Key"><span class="nav-number">12.4.</span> <span class="nav-text">配置Key</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#添加RSS"><span class="nav-number">13.</span> <span class="nav-text">添加RSS</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-hexo-generator-feed-插件"><span class="nav-number">13.1.</span> <span class="nav-text">安装 hexo-generator-feed 插件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置feed信息"><span class="nav-number">13.2.</span> <span class="nav-text">配置feed信息</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#添加社交链接"><span class="nav-number">14.</span> <span class="nav-text">添加社交链接</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#添加链接"><span class="nav-number">14.1.</span> <span class="nav-text">添加链接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加链接图标"><span class="nav-number">14.2.</span> <span class="nav-text">添加链接图标</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#添加友情链接功能"><span class="nav-number">15.</span> <span class="nav-text">添加友情链接功能</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#写在后面"><span class="nav-number">16.</span> <span class="nav-text">写在后面</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2016 &mdash; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">代码咖啡</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: '8vMRQb0bSf05Hd5zFNhrSHXz-gzGzoHsz',
+        appKey: 'uD8TcECp3UshQsLS1vxEocGy',
+        placeholder: '欢迎评论留言哦~',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("8vMRQb0bSf05Hd5zFNhrSHXz-gzGzoHsz", "uD8TcECp3UshQsLS1vxEocGy");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

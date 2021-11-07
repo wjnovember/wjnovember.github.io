@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/avatar_32x32.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/avatar_16x16.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="游戏开发,引导设计,">
+
+
+
+
+
+  <link rel="alternate" href="/rss2.html" title="程序员叨叨叨" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="背景叨叨叨大学毕业后入坑Cocos游戏开发已经快三年了，参与了两三个游戏的开发，经历过三四次颠覆式的版本迭代，其中涉足最深的莫过于游戏引导框架的设计开发，一路走来踩过许多坑，感觉有必要写一个引导框架设计的系列博客，就叫《从零开始设计游戏引导框架》吧！文章基于Cocos-2dx平台，使用Lua脚本开发，涉及配表和代码编写，有不足之处，望读者们批评指正！ 本文是系列文章的第一篇，先从理论层面开始梳理吧">
+<meta name="keywords" content="游戏开发,引导设计">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从零开始设计游戏引导框架（一）">
+<meta property="og:url" content="http://wjnovember.github.io/GuideMgr01/index.html">
+<meta property="og:site_name" content="程序员叨叨叨">
+<meta property="og:description" content="背景叨叨叨大学毕业后入坑Cocos游戏开发已经快三年了，参与了两三个游戏的开发，经历过三四次颠覆式的版本迭代，其中涉足最深的莫过于游戏引导框架的设计开发，一路走来踩过许多坑，感觉有必要写一个引导框架设计的系列博客，就叫《从零开始设计游戏引导框架》吧！文章基于Cocos-2dx平台，使用Lua脚本开发，涉及配表和代码编写，有不足之处，望读者们批评指正！ 本文是系列文章的第一篇，先从理论层面开始梳理吧">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://wjnovember.github.io/.io//img_01.jpg">
+<meta property="og:image" content="http://wjnovember.github.io/.io//img_02.jpg">
+<meta property="og:image" content="http://wjnovember.github.io/.io//img_03.jpg">
+<meta property="og:image" content="http://wjnovember.github.io/.io//img_04.jpg">
+<meta property="og:image" content="http://wjnovember.github.io/.io//img_05.jpg">
+<meta property="og:image" content="http://wjnovember.github.io/.io//img_card_01.png">
+<meta property="og:image" content="http://wjnovember.github.io/.io//img_upgrade_01.png">
+<meta property="og:updated_time" content="2021-11-07T09:06:10.058Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="从零开始设计游戏引导框架（一）">
+<meta name="twitter:description" content="背景叨叨叨大学毕业后入坑Cocos游戏开发已经快三年了，参与了两三个游戏的开发，经历过三四次颠覆式的版本迭代，其中涉足最深的莫过于游戏引导框架的设计开发，一路走来踩过许多坑，感觉有必要写一个引导框架设计的系列博客，就叫《从零开始设计游戏引导框架》吧！文章基于Cocos-2dx平台，使用Lua脚本开发，涉及配表和代码编写，有不足之处，望读者们批评指正！ 本文是系列文章的第一篇，先从理论层面开始梳理吧">
+<meta name="twitter:image" content="http://wjnovember.github.io/.io//img_01.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"hide","offset":12,"b2t":true,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: 'P169SBHT9P',
+      apiKey: 'aff6672534638c8530052ce885f3d28a',
+      indexName: 'blog_NAME',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"输入关键词就可以搜索啦~","hits_empty":"T.T 没有找到与“ ${query} ”相关的文章","hits_stats":"找到 ${hits} 篇文章，耗时 ${time} 毫秒！"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://wjnovember.github.io/GuideMgr01/">
+
+
+
+
+
+  <title>从零开始设计游戏引导框架（一） | 程序员叨叨叨</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">程序员叨叨叨</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一枚程序猿的叨叨日常</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-首页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-目录">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            目录
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-时光机">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            时光机
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wjnovember.github.io/GuideMgr01/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="代码咖啡">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar_sidebar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="程序员叨叨叨">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">从零开始设计游戏引导框架（一）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-11T20:00:00+08:00">
+                2020-04-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/游戏人生/" itemprop="url" rel="index">
+                    <span itemprop="name">游戏人生</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/GuideMgr01/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/GuideMgr01/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/GuideMgr01/" class="leancloud_visitors" data-flag-title="从零开始设计游戏引导框架（一）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="背景叨叨叨"><a href="#背景叨叨叨" class="headerlink" title="背景叨叨叨"></a>背景叨叨叨</h1><p>大学毕业后入坑Cocos游戏开发已经快三年了，参与了两三个游戏的开发，经历过三四次颠覆式的版本迭代，其中涉足最深的莫过于游戏引导框架的设计开发，一路走来踩过许多坑，感觉有必要写一个引导框架设计的系列博客，就叫《<strong>从零开始设计游戏引导框架</strong>》吧！文章基于Cocos-2dx平台，使用Lua脚本开发，涉及配表和代码编写，有不足之处，望读者们批评指正！</p>
+<p>本文是系列文章的第一篇，先从理论层面开始梳理吧！</p>
+<h1 id="引导的作用"><a href="#引导的作用" class="headerlink" title="引导的作用"></a>引导的作用</h1><p>假如一款全新的游戏上市，新的玩法、新的角色、新的场景摆在玩家面前，玩家一进入游戏而没有被告知玩法，一切的操作都需要玩家自己去摸索，那么这款游戏给人的感觉是“生硬”的，往往这一类游戏很难让玩家接受并耐着性子玩下去。</p>
+<p>这时候如果给这个游戏加一个开场引导，交代游戏的背景，引导玩家按照核心玩法点击各个按钮，并告知每一步操作的作用，这样游戏会更能被玩家接受。</p>
+<p>有时候，为了引起玩家的兴趣，开场引导中往往会加入更有代入感的剧情，加上华丽的美术特效，让玩家在玩游戏的过程中分泌更多的快乐素（多巴胺）。</p>
+<p>至此，引导的作用就知晓了：</p>
+<ul>
+<li>增加代入感</li>
+<li>交代核心玩法</li>
+</ul>
+<h1 id="引导是分段的"><a href="#引导是分段的" class="headerlink" title="引导是分段的"></a>引导是分段的</h1><p>然而游戏不仅只有开场引导，随着游戏进度的深入，玩家会接触越来越多的玩法操作，每个玩法都有其专属的引导。这时一个概念需要被树立：<strong>引导是分段的，一段引导对应一个玩法介绍。</strong></p>
+<p>拿率土之滨举例子！</p>
+<p>进入游戏后，玩家的主城被流寇抢夺，引导人物出来说几句话，然后引导玩家进行点击操作，这是<strong>游戏开场引导</strong>。</p>
+<img src="/.io//img_01.jpg" title="引导人物对话">
+
+<img src="/.io//img_02.jpg" title="引导点击操作">
+
+<p>在一系列引导操作后，玩家可以自由操作了。这时玩家点击“演武”按钮进入了演武界面，一个新的引导——<strong>演武引导</strong>出现了，它会告诉玩家演武功能的基本操作。</p>
+<img src="/.io//img_03.jpg" title="演武引导">
+
+<p>从演武界面出来后，玩家进入招募界面，<strong>招募引导</strong>会告知玩家点指定卡包抽卡。</p>
+<img src="/.io//img_04.jpg" title="招募引导">
+
+<p>引导会根据需要，在玩家首次进入某个界面或满足条件时触发，以帮助玩家理解对应玩法。</p>
+<p>每一个功能点都可以以一段引导辅助说明。</p>
+<h1 id="每段引导分步骤"><a href="#每段引导分步骤" class="headerlink" title="每段引导分步骤"></a>每段引导分步骤</h1><p>上面说的<strong>引导分段</strong>只是从功能层面定义，而引导里具体做什么是需要程序员去定义拆分的，简言之，<strong>引导需要分步骤</strong>。</p>
+<p>以率土的开场引导为例，玩家进入游戏:</p>
+<ul>
+<li>第1步，流寇部队进攻玩家主城；</li>
+<li>第2步，流寇将领出现在屏幕上，说一句话；</li>
+<li>第3步，引导主人公出现，说一句话；</li>
+<li>第4步，引导玩家点击地图格……</li>
+</ul>
+<p>一段引导就是这样一步接一步进行的。当策划提出一个引导需求时，最多只会给出大致流程，至于如何将一段引导拆分成步骤，需要程序员自行梳理。</p>
+<p>分步，是一种思维方式，如何合理拆分，让代码更容易维护，是一个日积月累的过程。</p>
+<img src="/.io//img_05.jpg">
+
+<h1 id="引导的触发"><a href="#引导的触发" class="headerlink" title="引导的触发"></a>引导的触发</h1><p>引导的触发，是针对一段引导而言，一段引导是交代<strong>做什么事情</strong>，而触发则是交代<strong>什么时候</strong>做事。</p>
+<p>为了让读者们更容易理解，我们代入一个场景。</p>
+<h2 id="场景代入"><a href="#场景代入" class="headerlink" title="场景代入"></a>场景代入</h2><p>假设在一个卡牌养成类游戏中，卡牌有等级，可以进阶（每进阶一级，黄色星星会有一颗变成红色），大概像这样：</p>
+<img src="/.io//img_card_01.png" title="蓝框框：等级，红框框：星级（阶）">
+
+<p>（蓝色框框：等级，红色框框：星级 或 “阶”）</p>
+<p>接下来策划提出要做一个卡牌的进阶引导，已知进阶的条件是：</p>
+<ul>
+<li>英雄等级达到20级；</li>
+<li>有其他同名卡牌作为进阶素材；</li>
+</ul>
+<blockquote>
+<p><strong>同名卡牌</strong>：名字相同的卡牌。<br>比如我有两张吕蒙，可以把其中一张吕蒙作为另一张吕蒙进阶材料。</p>
+</blockquote>
+<h2 id="触发点-amp-触发条件"><a href="#触发点-amp-触发条件" class="headerlink" title="触发点 &amp; 触发条件"></a>触发点 &amp; 触发条件</h2><p>场景有了，接下来聊聊引导的触发。</p>
+<p>如果说，引导是<strong>什么时候，该做什么事</strong>。<br>那么，引导的触发就是<strong>什么时候</strong>。</p>
+<p>但是这个<strong>时候</strong>包含着两层含义：</p>
+<ul>
+<li>触发点</li>
+<li>触发条件</li>
+</ul>
+<p>将它代入到之前场景里，就是：在卡牌等级经验达到20级的那个<strong>触发点</strong>，卡牌满足有同名卡的<strong>触发条件</strong>，触发卡牌进阶引导。</p>
+<p>用英文的方式理解，就是：</p>
+<ul>
+<li>触发点 = <strong>when</strong></li>
+<li>触发条件 = <strong>it is</strong></li>
+</ul>
+<p>两者连在一起，就是：<strong>When it is …, 触发引导</strong>。</p>
+<h2 id="触发的多情况判断"><a href="#触发的多情况判断" class="headerlink" title="触发的多情况判断"></a>触发的多情况判断</h2><p>前面提到，当卡牌等级达到20级时，如果存在同名卡就触发引导。</p>
+<p>那么如果吕蒙卡牌到达20级时，没有同名卡该怎么触发引导呢？</p>
+<p>这个时候需要<strong>把引导的触发点和触发条件互换一下</strong>，也就是当玩家得到一张吕蒙时，如果吕蒙有同名卡且多张吕蒙卡牌中有至少一张卡牌等级达到20级，则引导触发。</p>
+<p>简单写为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">触发点：获得一张卡牌</span><br><span class="line">触发条件：</span><br><span class="line">1. 该卡牌存在同名卡</span><br><span class="line">2. 同名卡中至少存在一张等级达到20级的卡牌</span><br></pre></td></tr></table></figure>
+
+<p>综上，一个引导的触发，需要多情况判断，在设计引导时，只有尽可能细化引导触发的各个因素，才能在后期的开发中尽可能减少BUG的出现。</p>
+<h1 id="引导的操作"><a href="#引导的操作" class="headerlink" title="引导的操作"></a>引导的操作</h1><p>如果说引导的触发是针对引导分段，那么引导的操作则是针对引导分步，即：<strong>每一步做什么事</strong>。</p>
+<h2 id="操作分类"><a href="#操作分类" class="headerlink" title="操作分类"></a>操作分类</h2><p>引导的操作很杂，根据策划的需求，会有不同的形式，比如：</p>
+<ul>
+<li>点击某个按钮</li>
+<li>拖动某张卡牌</li>
+<li>高亮某个区域</li>
+<li>显示一个立绘对话</li>
+<li>……</li>
+</ul>
+<p>根据操作形式的共性，将其抽象分类如下：</p>
+<ul>
+<li>点击</li>
+<li>拖动</li>
+<li>高亮框</li>
+<li>对话</li>
+</ul>
+<p>定义了分类后，那么问题来了：为什么要将操作分类呢？</p>
+<p>因为操作有其共性，有共性就意味着会有相同的代码逻辑，做好分类后方便对操作统一管理。</p>
+<p>以<strong>点击</strong>举例子：</p>
+<p>在强制引导点击时，我们知道，玩家只能点击指定的控件，而不能点击控件以外的地方。这时需要做的统一逻辑，就是：在手指点击屏幕的那一刻，判断手指点击的位置，判断是不是按钮区域。是，则不阻挡事件传递；否则，阻挡触摸事件。</p>
+<p>然而操作的分类不仅仅局限于上述几类，分类可根据策划的需求做进一步扩展。在偏剧情向的引导中，可能还需增加“剧情”类别，若剧情是有固定形式的展现，还可根据实际情况做进一步分类，如：</p>
+<ul>
+<li>剧情：多格漫画</li>
+<li>剧情：镜头拉伸</li>
+<li>剧情：视频</li>
+<li>……</li>
+</ul>
+<p>所以操作的分类是灵活多变的，具体分类根据需求来定。</p>
+<h2 id="操作定义"><a href="#操作定义" class="headerlink" title="操作定义"></a>操作定义</h2><p>操作最终还需落实到具体细节，也就是<strong>具体做什么事</strong>。之前定义了“点击”类别，那么具体点击什么，就需要做具体的定义了。</p>
+<p>以之前的“卡牌进阶引导”为例，当触发引导时，引导步骤如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1. NPC说话：“主公，您有一个英雄已经满足进阶条件了，我们现在来看看吧！”</span><br><span class="line">2. 引导点击满足进阶条件的卡牌，进入卡牌详情页</span><br><span class="line">3. 引导点击卡牌详情页的进阶按钮，进入卡牌进阶界面</span><br><span class="line">4. NPC说话：“现在请主公将材料卡拖动到消耗框里。”</span><br><span class="line">5. 引导从卡牌列表框中拖动一张同名卡到消耗框中</span><br><span class="line">6. 引导点击进阶按钮确认进阶</span><br><span class="line">7. NPC说话：“恭喜主公成功进阶武将！”</span><br></pre></td></tr></table></figure>
+
+<img src="/.io//img_upgrade_01.png">
+
+<p>根据上述操作步骤，对操作定义如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">// 操作类别定义</span><br><span class="line">1. 立绘对话</span><br><span class="line">2. 点击</span><br><span class="line">3. 拖动</span><br><span class="line"></span><br><span class="line">// 具体操作定义</span><br><span class="line">0. 无操作</span><br><span class="line"></span><br><span class="line">// 点击操作定义</span><br><span class="line">201. 点击自己卡池里满足进阶条件的一张卡牌</span><br><span class="line">202. 点击卡牌详情界面的进阶按钮</span><br><span class="line">203. 点击进阶面板的进阶按钮</span><br><span class="line"></span><br><span class="line">// 拖动操作定义</span><br><span class="line">301. 在进阶面板拖动第1张材料卡到进阶消耗框</span><br><span class="line"></span><br><span class="line">// 对话在流程表中填写具体对话内容和人物即可，无需定义</span><br><span class="line">// 说话人物定义</span><br><span class="line">0. 无人物</span><br><span class="line">1. NPC</span><br></pre></td></tr></table></figure>
+
+<p>根据定义，配引导流程表如下（配表后面细讲，这里看个大概即可）：</p>
+<table>
+<thead>
+<tr>
+<th align="left">id</th>
+<th align="left">类别</th>
+<th align="left">操作</th>
+<th align="left">对话内容</th>
+<th align="left">说话人</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">_id</td>
+<td align="left">_type</td>
+<td align="left">_action</td>
+<td align="left">_text</td>
+<td align="left">_role</td>
+</tr>
+<tr>
+<td align="left">H</td>
+<td align="left">H</td>
+<td align="left">H</td>
+<td align="left">D</td>
+<td align="left">H</td>
+</tr>
+<tr>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">0</td>
+<td align="left">主公，您有一个英雄已经满足进阶条件了，我们现在来看看吧！</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">2</td>
+<td align="left">2</td>
+<td align="left">201</td>
+<td align="left"></td>
+<td align="left">0</td>
+</tr>
+<tr>
+<td align="left">3</td>
+<td align="left">2</td>
+<td align="left">202</td>
+<td align="left"></td>
+<td align="left">0</td>
+</tr>
+<tr>
+<td align="left">4</td>
+<td align="left">1</td>
+<td align="left">0</td>
+<td align="left">现在请主公将材料卡拖动到消耗框里。</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">5</td>
+<td align="left">3</td>
+<td align="left">301</td>
+<td align="left"></td>
+<td align="left">0</td>
+</tr>
+<tr>
+<td align="left">6</td>
+<td align="left">2</td>
+<td align="left">203</td>
+<td align="left"></td>
+<td align="left">0</td>
+</tr>
+<tr>
+<td align="left">7</td>
+<td align="left">1</td>
+<td align="left">0</td>
+<td align="left">恭喜主公成功进阶武将！</td>
+<td align="left">1</td>
+</tr>
+</tbody></table>
+<h2 id="操作参数"><a href="#操作参数" class="headerlink" title="操作参数"></a>操作参数</h2><p>假如引导的需求是拖动两张材料卡进行进阶，那么做两次定义就显得冗余了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">！！！ 不推荐这样定义</span><br><span class="line">301. 在进阶面板拖动第1张材料卡到进阶消耗框</span><br><span class="line">302. 在进阶面板拖动第2张材料卡到进阶消耗框</span><br></pre></td></tr></table></figure>
+
+<p>因此需要对操作定义进行扩展，给对应操作增加参数配置，原来301的定义就变成了这样：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 拖动操作定义</span><br><span class="line">301. 在进阶面板拖动第n张材料卡到进阶消耗框 n表示第几张</span><br></pre></td></tr></table></figure>
+
+<p>相应的，引导流程表也需要多加一列：</p>
+<table>
+<thead>
+<tr>
+<th align="left">id</th>
+<th align="left">类别</th>
+<th align="left">操作</th>
+<th align="left">操作参数</th>
+<th align="left">对话内容</th>
+<th align="left">说话人</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">_id</td>
+<td align="left">_type</td>
+<td align="left">_action</td>
+<td align="left">_actParam</td>
+<td align="left">_text</td>
+<td align="left">_role</td>
+</tr>
+<tr>
+<td align="left">H</td>
+<td align="left">H</td>
+<td align="left">H</td>
+<td align="left">H</td>
+<td align="left">D</td>
+<td align="left">H</td>
+</tr>
+<tr>
+<td align="left">5</td>
+<td align="left">3</td>
+<td align="left">301</td>
+<td align="left">1</td>
+<td align="left"></td>
+<td align="left">0</td>
+</tr>
+<tr>
+<td align="left">6</td>
+<td align="left">3</td>
+<td align="left">301</td>
+<td align="left">2</td>
+<td align="left"></td>
+<td align="left">0</td>
+</tr>
+</tbody></table>
+<p>上述配表，表示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">第5步，在进阶面板拖动第1张材料卡到进阶消耗框</span><br><span class="line">第6步，在进阶面板拖动第2张材料卡到进阶消耗框</span><br></pre></td></tr></table></figure>
+
+<h2 id="操作参数扩展"><a href="#操作参数扩展" class="headerlink" title="操作参数扩展"></a>操作参数扩展</h2><p>在一些逻辑复杂的引导中，一个操作参数往往不能满足需求，这是将<code>_actParam</code>参数由配置数字改为配置<strong>Json格式的字符串</strong>，可支持多参数的配置。</p>
+<p>举例如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">// 点击操作定义</span><br><span class="line">201. 点击自己卡池里满足进阶条件的一张卡牌</span><br><span class="line">参数：</span><br><span class="line">id：卡牌的id</span><br><span class="line">lv：卡牌的等级</span><br><span class="line">sameNum：同名卡数量</span><br><span class="line"></span><br><span class="line">例：</span><br><span class="line">&#123;&apos;id&apos;:1,&apos;lv&apos;:20,&apos;sameNum&apos;:2&#125;</span><br><span class="line">点击卡池中id为1，等级至少为20，且同名卡数量超过2张的卡牌</span><br><span class="line"></span><br><span class="line">// 拖动操作定义</span><br><span class="line">301. 在进阶面板拖动第n张材料卡到进阶消耗框</span><br><span class="line">参数：</span><br><span class="line">index：表示第几张材料卡</span><br></pre></td></tr></table></figure>
+
+<p>引导流程表就变成了这样：</p>
+<table>
+<thead>
+<tr>
+<th align="left">id</th>
+<th align="left">类别</th>
+<th align="left">操作</th>
+<th align="left">操作参数</th>
+<th align="left">对话内容</th>
+<th align="left">说话人</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">_id</td>
+<td align="left">_type</td>
+<td align="left">_action</td>
+<td align="left">_actParam</td>
+<td align="left">_text</td>
+<td align="left">_role</td>
+</tr>
+<tr>
+<td align="left">H</td>
+<td align="left">H</td>
+<td align="left">H</td>
+<td align="left">S</td>
+<td align="left">D</td>
+<td align="left">H</td>
+</tr>
+<tr>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">主公，您有一个英雄已经满足进阶条件了，我们现在来看看吧！</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">2</td>
+<td align="left">2</td>
+<td align="left">201</td>
+<td align="left">{‘id’:10001,’lv’:20,’moreThan’:2}</td>
+<td align="left"></td>
+<td align="left">0</td>
+</tr>
+<tr>
+<td align="left">3</td>
+<td align="left">2</td>
+<td align="left">202</td>
+<td align="left">0</td>
+<td align="left"></td>
+<td align="left">0</td>
+</tr>
+<tr>
+<td align="left">4</td>
+<td align="left">1</td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">现在请主公将材料卡拖动到消耗框里。</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">5</td>
+<td align="left">3</td>
+<td align="left">301</td>
+<td align="left">{‘index’:1}</td>
+<td align="left">0</td>
+<td align="left">0</td>
+</tr>
+<tr>
+<td align="left">6</td>
+<td align="left">3</td>
+<td align="left">301</td>
+<td align="left">{‘index’:2}</td>
+<td align="left">0</td>
+<td align="left">0</td>
+</tr>
+<tr>
+<td align="left">7</td>
+<td align="left">2</td>
+<td align="left">203</td>
+<td align="left">0</td>
+<td align="left"></td>
+<td align="left">0</td>
+</tr>
+<tr>
+<td align="left">8</td>
+<td align="left">1</td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">恭喜主公成功进阶武将！</td>
+<td align="left">1</td>
+</tr>
+</tbody></table>
+<p>至此，引导的操作，暂告一段落，若这一块读者们没有看懂，且先放放，后续会做详细讲解。</p>
+<h1 id="引导的保存点"><a href="#引导的保存点" class="headerlink" title="引导的保存点"></a>引导的保存点</h1><p>在产品里，有这么一句话，叫“你永远不知道你的用户是怎么使用你的产品的”。</p>
+<p>游戏也类似，永远不要指望玩家一口气把你写的那一段引导流畅的跑完。在引导过程中，玩家很可能经历：游戏BUG闪退、上课玩游戏被老师抓到等情况，一旦类似的情况发生，引导肯定会中途断掉，而如果玩家再重新上线，看到之前走过的漫长的引导又要重新走一遍时，有很大的概率，玩家是没有耐心继续玩下去的。</p>
+<p>更何况，有些操作是不可重复的，比如玩家走引导，用系统送的货币抽卡，如果重新走一遍，很有可能第二次抽卡货币就不够了，这样的异常会导致引导卡死，这无疑会劝退一大波玩家。</p>
+<p>因此，<strong>保存点</strong>这一概念加入到引导中，以<strong>抽卡引导</strong>为例：</p>
+<p>在点击抽卡按钮的那一步操作里，将引导的保存点设置为下一步引导的id，这样下次重新登录后，引导就会从点抽卡按钮之后的那一步开始继续引导了。</p>
+<p>这里先简单讲解下概念，后续实操篇会详细讲解。</p>
+<h1 id="理论篇收尾"><a href="#理论篇收尾" class="headerlink" title="理论篇收尾"></a>理论篇收尾</h1><p>本文<strong>理论篇</strong>旨在为下一篇配表、编码做一个理论铺垫，防止直接讲解给读者们带来困惑。下一篇为本系列文章的<strong>实操篇</strong>，主要讲解基本的配表和初步的编码逻辑。考虑到工作因素，笔者写文章频率会较低，更新较慢，还请读者们海涵！</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>再小的鼓励也是一种支持!</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="代码咖啡 WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="代码咖啡 Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/游戏开发/" rel="tag"># 游戏开发</a>
+          
+            <a href="/tags/引导设计/" rel="tag"># 引导设计</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/game_thinking/" rel="next" title="游戏闪念：饭途中的叨叨笔记（持续更新）">
+                <i class="fa fa-chevron-left"></i> 游戏闪念：饭途中的叨叨笔记（持续更新）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/GuideMgr02/" rel="prev" title="从零开始设计游戏引导框架（二）">
+                从零开始设计游戏引导框架（二） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar_sidebar.png" alt="代码咖啡">
+            
+              <p class="site-author-name" itemprop="name">代码咖啡</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss2.html" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/wjnovember" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:wnovember@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.jianshu.com/u/9b87ba5fc959" title="我的简书" target="_blank">我的简书</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://runnerwoo.com/" title="老班长的博客" target="_blank">老班长的博客</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#背景叨叨叨"><span class="nav-number">1.</span> <span class="nav-text">背景叨叨叨</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#引导的作用"><span class="nav-number">2.</span> <span class="nav-text">引导的作用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#引导是分段的"><span class="nav-number">3.</span> <span class="nav-text">引导是分段的</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#每段引导分步骤"><span class="nav-number">4.</span> <span class="nav-text">每段引导分步骤</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#引导的触发"><span class="nav-number">5.</span> <span class="nav-text">引导的触发</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#场景代入"><span class="nav-number">5.1.</span> <span class="nav-text">场景代入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#触发点-amp-触发条件"><span class="nav-number">5.2.</span> <span class="nav-text">触发点 &amp; 触发条件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#触发的多情况判断"><span class="nav-number">5.3.</span> <span class="nav-text">触发的多情况判断</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#引导的操作"><span class="nav-number">6.</span> <span class="nav-text">引导的操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#操作分类"><span class="nav-number">6.1.</span> <span class="nav-text">操作分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#操作定义"><span class="nav-number">6.2.</span> <span class="nav-text">操作定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#操作参数"><span class="nav-number">6.3.</span> <span class="nav-text">操作参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#操作参数扩展"><span class="nav-number">6.4.</span> <span class="nav-text">操作参数扩展</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#引导的保存点"><span class="nav-number">7.</span> <span class="nav-text">引导的保存点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#理论篇收尾"><span class="nav-number">8.</span> <span class="nav-text">理论篇收尾</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2016 &mdash; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">代码咖啡</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: '8vMRQb0bSf05Hd5zFNhrSHXz-gzGzoHsz',
+        appKey: 'uD8TcECp3UshQsLS1vxEocGy',
+        placeholder: '欢迎评论留言哦~',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("8vMRQb0bSf05Hd5zFNhrSHXz-gzGzoHsz", "uD8TcECp3UshQsLS1vxEocGy");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

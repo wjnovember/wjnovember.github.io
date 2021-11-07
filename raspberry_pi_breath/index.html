@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/avatar_32x32.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/avatar_16x16.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="树莓派,">
+
+
+
+
+
+  <link rel="alternate" href="/rss2.html" title="程序员叨叨叨" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="所需设备 野生的树莓派一只 萌萌哒windows 10台式机一个 装有raspbian系统的胖胖的4G SD卡一张 名字有点长  的Micro HDMI USB充电线一条 输出5V = 2A充电头（装逼名称：变压器）一枚 另加一连串乱七八糟的硬件电路板加导联线 一个被笔者落下的显示屏（可以直接使用台式机的显示屏）  设备图片        树莓派知识储备戳这里==&amp;gt; 树莓派菜鸟入门攻略 组装">
+<meta name="keywords" content="树莓派">
+<meta property="og:type" content="article">
+<meta property="og:title" content="树莓派远程及文件传输：以呼吸参数测量及获取为例">
+<meta property="og:url" content="http://wjnovember.github.io/raspberry_pi_breath/index.html">
+<meta property="og:site_name" content="程序员叨叨叨">
+<meta property="og:description" content="所需设备 野生的树莓派一只 萌萌哒windows 10台式机一个 装有raspbian系统的胖胖的4G SD卡一张 名字有点长  的Micro HDMI USB充电线一条 输出5V = 2A充电头（装逼名称：变压器）一枚 另加一连串乱七八糟的硬件电路板加导联线 一个被笔者落下的显示屏（可以直接使用台式机的显示屏）  设备图片        树莓派知识储备戳这里==&amp;gt; 树莓派菜鸟入门攻略 组装">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-c312b2bc731fca8b.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-193659e17fb76eba.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-794069a82dc40a02.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-790649b467bc93af.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-41b2b922038b8efc.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-8f966443f413d49d.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-9c4e512e911f6913.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-f93e1ac66f1b5166.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-0c57905494ca7321.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-0eef5914d755e11f.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-b26d5646b9bda0c6.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-8f8da77b8be351fb.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-1453a29764bf051b.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-c84241ee908c75fc.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-0a98d7efa14cc3f9.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-7f4c714a894b7e6b.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-b8fff56d7c315f23.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-f93e1ac66f1b5166.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-d5ef98e89d806ce5.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-e0daa867c9fc0e5c.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2021-11-07T09:06:10.119Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="树莓派远程及文件传输：以呼吸参数测量及获取为例">
+<meta name="twitter:description" content="所需设备 野生的树莓派一只 萌萌哒windows 10台式机一个 装有raspbian系统的胖胖的4G SD卡一张 名字有点长  的Micro HDMI USB充电线一条 输出5V = 2A充电头（装逼名称：变压器）一枚 另加一连串乱七八糟的硬件电路板加导联线 一个被笔者落下的显示屏（可以直接使用台式机的显示屏）  设备图片        树莓派知识储备戳这里==&amp;gt; 树莓派菜鸟入门攻略 组装">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/291600-c312b2bc731fca8b.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"hide","offset":12,"b2t":true,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: 'P169SBHT9P',
+      apiKey: 'aff6672534638c8530052ce885f3d28a',
+      indexName: 'blog_NAME',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"输入关键词就可以搜索啦~","hits_empty":"T.T 没有找到与“ ${query} ”相关的文章","hits_stats":"找到 ${hits} 篇文章，耗时 ${time} 毫秒！"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://wjnovember.github.io/raspberry_pi_breath/">
+
+
+
+
+
+  <title>树莓派远程及文件传输：以呼吸参数测量及获取为例 | 程序员叨叨叨</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">程序员叨叨叨</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一枚程序猿的叨叨日常</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-首页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-目录">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            目录
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-时光机">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            时光机
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wjnovember.github.io/raspberry_pi_breath/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="代码咖啡">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar_sidebar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="程序员叨叨叨">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">树莓派远程及文件传输：以呼吸参数测量及获取为例</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-08-04T16:03:20+08:00">
+                2016-08-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/软科生玩硬件/" itemprop="url" rel="index">
+                    <span itemprop="name">软科生玩硬件</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/raspberry_pi_breath/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/raspberry_pi_breath/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/raspberry_pi_breath/" class="leancloud_visitors" data-flag-title="树莓派远程及文件传输：以呼吸参数测量及获取为例">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="所需设备"><a href="#所需设备" class="headerlink" title="所需设备"></a>所需设备</h1><ul>
+<li>野生的<strong>树莓派</strong>一只</li>
+<li>萌萌哒<strong>windows 10台式机</strong>一个</li>
+<li>装有<strong>raspbian系统</strong>的胖胖的<strong>4G SD卡</strong>一张</li>
+<li>名字有点长  的<strong>Micro HDMI USB充电线</strong>一条</li>
+<li><strong>输出5V = 2A充电头</strong>（装逼名称：<strong>变压器</strong>）一枚</li>
+<li>另加一连串乱七八糟的<strong>硬件电路板</strong>加<strong>导联线</strong></li>
+<li>一个被笔者落下的<strong>显示屏</strong>（可以直接使用台式机的显示屏）</li>
+</ul>
+<h1 id="设备图片"><a href="#设备图片" class="headerlink" title="设备图片"></a>设备图片</h1><p><img src="http://upload-images.jianshu.io/upload_images/291600-c312b2bc731fca8b.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="野生的树莓派"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-193659e17fb76eba.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="翻个个儿的野生的树莓派"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-794069a82dc40a02.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="萌萌哒windows 10台式机"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-790649b467bc93af.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="肥肥的4G SD卡"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-41b2b922038b8efc.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="身姿妖娆的Micro HDMI USB充电线"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-8f966443f413d49d.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="学名“变压器”的充电头"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-9c4e512e911f6913.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="一堆不知名的硬件"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-f93e1ac66f1b5166.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="我们的主角：气流感应器"></p>
+<h1 id="树莓派知识储备"><a href="#树莓派知识储备" class="headerlink" title="树莓派知识储备"></a>树莓派知识储备</h1><p>戳这里==&gt; <a href="http://www.tuicool.com/articles/RBVNfef" target="_blank" rel="noopener">树莓派菜鸟入门攻略</a></p>
+<h1 id="组装"><a href="#组装" class="headerlink" title="组装"></a>组装</h1><p>完成图如下：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-0c57905494ca7321.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="组装完成"></p>
+<p>组装主要操作：</p>
+<ul>
+<li>将Rj-45水晶头网线插到树莓派的以太网接口中</li>
+<li>将两块硬件电路板按照引脚的位置插到树莓派上</li>
+<li>接通树莓派的电源</li>
+<li>插上装有raspbian操作系统的SD卡</li>
+</ul>
+<p>当看到指示灯如下图亮起时，树莓派硬件层即组装完成：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-0eef5914d755e11f.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="四盏指示灯（橙黄、闪绿、绿、红）全部亮起，说明我们的树莓派已组装完成"></p>
+<h1 id="树莓派网络配置"><a href="#树莓派网络配置" class="headerlink" title="树莓派网络配置"></a>树莓派网络配置</h1><p>在组装完树莓派以后，需要树莓派变成“中央空调”：让其他电脑都可以通过远程/局域网来访问控制树莓派。</p>
+<p><strong>首先</strong>，需要给树莓派接上显示屏，配置树莓派的网络参数。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-b26d5646b9bda0c6.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="raspberian系统GUI显示屏"></p>
+<p><strong>然后</strong>，打开命令行，使用指令修改或获取树莓派的IP地址。</p>
+<ul>
+<li>打开命令行</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-8f8da77b8be351fb.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="raspberian命令行"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-1453a29764bf051b.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="raspberian命令行"></p>
+<ul>
+<li>通过命令行，进入/etc/network文件夹</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-c84241ee908c75fc.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="进入/etc/network文件夹"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-0a98d7efa14cc3f9.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="网络参数配置的文件夹——/etc/network文件夹"></p>
+<ul>
+<li>对interfaces文件进行查看编辑</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-7f4c714a894b7e6b.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="编辑interfaces文件（管理员身份）"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-b8fff56d7c315f23.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="interfases文件内容"></p>
+<p>因为通过rj-45接头的网线连接树莓派，所以修改<strong>宽带</strong>信息，即eth0参数下的ip地址等信息：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">auto lo</span><br><span class="line">iface lo inet loopback</span><br><span class="line"></span><br><span class="line">auto eth0</span><br><span class="line">iface eth0 inet static</span><br><span class="line">address 172.17.64.197</span><br><span class="line">network 255.255.255.0</span><br><span class="line">gateway 172.17.64.1</span><br></pre></td></tr></table></figure>
+
+<p>上述代码为<strong><em>静态IP配置</em></strong>，其<strong>好处</strong>是：当树莓派在固定局域网中使用时，无需每次查询树莓派的IP地址；<strong>坏处</strong>是：当<strong>网络变掉</strong>时，需要重新接上树莓派的HDMI视频接口<strong>连接上显示屏</strong>，然后通过USB<strong>连接鼠标键盘</strong>，在<strong>延时性超强</strong>的图形化界面下<strong>重新配置IP地址</strong>，笔者表示已经累死在插拔显示屏的路上。。。</p>
+<p>下面，来看看<strong><em>动态IP配置</em></strong>的代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">auto lo</span><br><span class="line">iface lo inet loopback</span><br><span class="line"></span><br><span class="line">auto eth0</span><br><span class="line">iface eth0 inet dhcp</span><br></pre></td></tr></table></figure>
+
+<p>其<strong>好处</strong>是：适用于<strong>经常变化的网络环境</strong>下，只需要通过访问路由器的设备IP列表即可查看树莓派的IP地址；其<strong>坏处</strong>是：每次都要查看树莓派的IP地址。</p>
+<p><strong>最后</strong>，萌萌的windows 10台式机登场，连接树莓派所在的局域网，使用<code>ping</code>命令验证网络配置是否成功。指令为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ping [ip地址]</span><br></pre></td></tr></table></figure>
+
+<p>如IP地址为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">172.17.64.197</span><br></pre></td></tr></table></figure>
+
+<p>则输入：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ping 172.17.64.197</span><br></pre></td></tr></table></figure>
+
+<p>若网络<code>ping</code>不通，需要检查网络问题，这里不做过多讲解。</p>
+<h1 id="让程序跑起来"><a href="#让程序跑起来" class="headerlink" title="让程序跑起来"></a>让程序跑起来</h1><p>完成网络配置以后，就开始实现远程访问并获取呼吸数据了。使用<code>ssh</code>命令与树莓派建立连接，ssh配置参考：</p>
+<p><a href="http://jingyan.baidu.com/article/3c343ff7f9b6940d3779632f.html" target="_blank" rel="noopener">如何在Windows 10上启用SSH</a></p>
+<p><a href="http://www.mls-software.com/opensshd.html" target="_blank" rel="noopener">点击此处下载openssh</a></p>
+<p>ssh命令如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh [用户名]@[IP地址或域名]</span><br></pre></td></tr></table></figure>
+
+<p>按下<code>enter</code>键，命令行会提示输入密码。树莓派raspberian系统的用户及密码为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">用户：pi</span><br><span class="line">密码：raspberry</span><br></pre></td></tr></table></figure>
+
+<p>使用ssh远程操作指令如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~$ ssh pi@172.17.64.197</span><br><span class="line">pi@172.17.64.197&apos;s password: raspberry</span><br></pre></td></tr></table></figure>
+
+<p>连上树莓派后，运行python文件获取呼吸的数据：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pi@raspberry ~ $ sudo python ./iHealth/iHealth-python/getBreaths_send.py</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>PS：因调试原因，将 <code>getBreaths_send.py</code>文件拷贝了一份并修改了其中的代码命名为<code>zz_getBreaths_send.py</code>，将其数据存入<code>~/iHealth/iHealth-python/data-breath</code>文件夹，产生数据文件的名称为：<code>breath_年-月-日_时:分:秒.txt</code></p>
+</blockquote>
+<p>在点击<code>enter</code>键前，我们将与树莓派连接的气流感应器靠近鼻孔，自然的呼气，传感器如下图：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-f93e1ac66f1b5166.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="将气流感应器靠近鼻孔自然地呼吸"></p>
+<p>随着程序的运行以及自然呼吸，可以看到命令行出现如下图所示的数据：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-d5ef98e89d806ce5.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="呼吸气流数据"></p>
+<p>显示的格式如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&apos;breath&apos;: [气流大小]&#125; [当前采样点标号]</span><br></pre></td></tr></table></figure>
+
+<p>但是txt数据文件的数据存储格式为：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-e0daa867c9fc0e5c.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="呼吸数据存储内容"></p>
+<h1 id="远程获取呼吸数据文件"><a href="#远程获取呼吸数据文件" class="headerlink" title="远程获取呼吸数据文件"></a>远程获取呼吸数据文件</h1><p>远程获取呼吸数据的文件，需要用到scp指令，指令格式如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp [用户名]@[IP地址]:[文件路径]</span><br></pre></td></tr></table></figure>
+
+<p>获取<code>getBreath_send.py</code>文件，使用指令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp pi@172.17.64.197:~/iHealth/iHealth-python/data-breath/breath_2016-08-02_11\:19\:33.txt</span><br></pre></td></tr></table></figure>
+
+<p><code>\:</code>的<code>\</code>为转移字符，表示<code>:</code>。</p>
+<p><code>scp</code>指令下载地址：<br><a href="https://sourceforge.net/projects/winscp/files/WinSCP/5.9/WinSCP-5.9-Setup.exe/download" target="_blank" rel="noopener">https://sourceforge.net/projects/winscp/files/WinSCP/5.9/WinSCP-5.9-Setup.exe/download</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>再小的鼓励也是一种支持!</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="代码咖啡 WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="代码咖啡 Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/树莓派/" rel="tag"># 树莓派</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/excel_string_concat/" rel="next" title="Excel单元格内计算式及字符串拼接实现">
+                <i class="fa fa-chevron-left"></i> Excel单元格内计算式及字符串拼接实现
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/viewpager_scroll/" rel="prev" title="听说你想用ViewPager实现这样的效果？">
+                听说你想用ViewPager实现这样的效果？ <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar_sidebar.png" alt="代码咖啡">
+            
+              <p class="site-author-name" itemprop="name">代码咖啡</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss2.html" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/wjnovember" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:wnovember@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.jianshu.com/u/9b87ba5fc959" title="我的简书" target="_blank">我的简书</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://runnerwoo.com/" title="老班长的博客" target="_blank">老班长的博客</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#所需设备"><span class="nav-number">1.</span> <span class="nav-text">所需设备</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#设备图片"><span class="nav-number">2.</span> <span class="nav-text">设备图片</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#树莓派知识储备"><span class="nav-number">3.</span> <span class="nav-text">树莓派知识储备</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#组装"><span class="nav-number">4.</span> <span class="nav-text">组装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#树莓派网络配置"><span class="nav-number">5.</span> <span class="nav-text">树莓派网络配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#让程序跑起来"><span class="nav-number">6.</span> <span class="nav-text">让程序跑起来</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#远程获取呼吸数据文件"><span class="nav-number">7.</span> <span class="nav-text">远程获取呼吸数据文件</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2016 &mdash; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">代码咖啡</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: '8vMRQb0bSf05Hd5zFNhrSHXz-gzGzoHsz',
+        appKey: 'uD8TcECp3UshQsLS1vxEocGy',
+        placeholder: '欢迎评论留言哦~',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("8vMRQb0bSf05Hd5zFNhrSHXz-gzGzoHsz", "uD8TcECp3UshQsLS1vxEocGy");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

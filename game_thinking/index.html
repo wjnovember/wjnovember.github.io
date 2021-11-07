@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/avatar_32x32.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/avatar_16x16.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="游戏,">
+
+
+
+
+
+  <link rel="alternate" href="/rss2.html" title="程序员叨叨叨" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="叨叨在前最近发现，笔者在和同事去吃饭的路上，会偶尔聊起各自对游戏的一些理解，其中不乏一些感觉“在理”的想法，于是笔者决定将这些想法写成一篇博客，一者打磨一下自己锈钝的措辞，再者方便自己日后回顾。庸人庸笔，有不当之处，权当戏言。 什么样的游戏可以吸引玩家持续玩下去呢？那时执迷于一款SLG手游《率土之滨》，核心玩法用几个关键字来形容，就是：培养武将、攻城略地。而笔者对这款游戏的依赖就如同呼吸需要氧气，">
+<meta name="keywords" content="游戏">
+<meta property="og:type" content="article">
+<meta property="og:title" content="游戏闪念：饭途中的叨叨笔记（持续更新）">
+<meta property="og:url" content="http://wjnovember.github.io/game_thinking/index.html">
+<meta property="og:site_name" content="程序员叨叨叨">
+<meta property="og:description" content="叨叨在前最近发现，笔者在和同事去吃饭的路上，会偶尔聊起各自对游戏的一些理解，其中不乏一些感觉“在理”的想法，于是笔者决定将这些想法写成一篇博客，一者打磨一下自己锈钝的措辞，再者方便自己日后回顾。庸人庸笔，有不当之处，权当戏言。 什么样的游戏可以吸引玩家持续玩下去呢？那时执迷于一款SLG手游《率土之滨》，核心玩法用几个关键字来形容，就是：培养武将、攻城略地。而笔者对这款游戏的依赖就如同呼吸需要氧气，">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/291600-d8d4aa9865cbe04d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2021-11-07T09:06:10.110Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="游戏闪念：饭途中的叨叨笔记（持续更新）">
+<meta name="twitter:description" content="叨叨在前最近发现，笔者在和同事去吃饭的路上，会偶尔聊起各自对游戏的一些理解，其中不乏一些感觉“在理”的想法，于是笔者决定将这些想法写成一篇博客，一者打磨一下自己锈钝的措辞，再者方便自己日后回顾。庸人庸笔，有不当之处，权当戏言。 什么样的游戏可以吸引玩家持续玩下去呢？那时执迷于一款SLG手游《率土之滨》，核心玩法用几个关键字来形容，就是：培养武将、攻城略地。而笔者对这款游戏的依赖就如同呼吸需要氧气，">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/291600-d8d4aa9865cbe04d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"hide","offset":12,"b2t":true,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: 'P169SBHT9P',
+      apiKey: 'aff6672534638c8530052ce885f3d28a',
+      indexName: 'blog_NAME',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"输入关键词就可以搜索啦~","hits_empty":"T.T 没有找到与“ ${query} ”相关的文章","hits_stats":"找到 ${hits} 篇文章，耗时 ${time} 毫秒！"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://wjnovember.github.io/game_thinking/">
+
+
+
+
+
+  <title>游戏闪念：饭途中的叨叨笔记（持续更新） | 程序员叨叨叨</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">程序员叨叨叨</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一枚程序猿的叨叨日常</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-首页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-目录">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            目录
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-时光机">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            时光机
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wjnovember.github.io/game_thinking/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="代码咖啡">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar_sidebar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="程序员叨叨叨">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">游戏闪念：饭途中的叨叨笔记（持续更新）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-12-30T14:57:55+08:00">
+                2019-12-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/舌尖上的游戏/" itemprop="url" rel="index">
+                    <span itemprop="name">舌尖上的游戏</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/game_thinking/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/game_thinking/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/game_thinking/" class="leancloud_visitors" data-flag-title="游戏闪念：饭途中的叨叨笔记（持续更新）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="叨叨在前"><a href="#叨叨在前" class="headerlink" title="叨叨在前"></a>叨叨在前</h1><p>最近发现，笔者在和同事去吃饭的路上，会偶尔聊起各自对游戏的一些理解，其中不乏一些感觉“在理”的想法，于是笔者决定将这些想法写成一篇博客，一者打磨一下自己锈钝的措辞，再者方便自己日后回顾。庸人庸笔，有不当之处，权当戏言。</p>
+<h1 id="什么样的游戏可以吸引玩家持续玩下去呢？"><a href="#什么样的游戏可以吸引玩家持续玩下去呢？" class="headerlink" title="什么样的游戏可以吸引玩家持续玩下去呢？"></a>什么样的游戏可以吸引玩家持续玩下去呢？</h1><p>那时执迷于一款SLG手游《率土之滨》，核心玩法用几个关键字来形容，就是：<strong>培养武将</strong>、<strong>攻城略地</strong>。而笔者对这款游戏的依赖就如同呼吸需要氧气，早晨醒来第一件事就是摸起手机抽卡、打地，吃饭、蹲坑甚至走路都要打开看上几眼。不夸张的说，在这款游戏前，笔者玩游戏从来都是铁公鸡，舍不得花一分钱，而这款游戏让笔者开始充起了月卡。</p>
+<p>为何它让笔者如此着迷，思前想后，笔者找到了一个原因：<strong>它让我感觉我拥有了有价值的东西</strong>。一赛季的时候，作为小白玩家，每每抽到五星，那迷人的紫色光效，让笔者感觉自己抽到了好东西（后来笔者发现，抽到的都是私聊卡-_-||）；而二赛季的时候，虽然只拿到了割据奖励，但是抽到了割据包里仅有的三张限定卡，让笔者感觉他们“可堪一用”，于是一直抱着期待，努力发育，只为看到他们在战场上一展英姿；而三赛季的时候，同样只拿到割据奖励的笔者，幸运地在赛季卡包里抽到了征服奖励也不容易抽到的弓·诸葛亮，这让笔者有了中彩票的飘飘然，于是愈加地珍惜自己的游戏账号。</p>
+<p>说实话，笔者真不是玩游戏的料，玩各种游戏水平都很一般，甚至可以达到“菜”的水平，但是《率土之滨》成了笔者玩的时间最长的游戏之一，并且是持续地氪金，不是因为玩得多好，而是因为笔者觉得自己的账号“有价值”。在玩率土的几年时间里，笔者也玩了不少的小号，但是不久便回到老区玩大号了。假设当初没有抽到三张割据限定卡，没有抽到弓·诸葛亮，可能这个游戏早就从笔者的手机中删除了。</p>
+<p>那么从开发和设计的角度，基于上述得到的结论便是：<strong>开局送给玩家“有价值”的东西</strong>，至少要看起来让玩家觉得这个东西有价值。这一点《万国觉醒》做得很讨巧，它并不是一进入游戏就送给玩家橙卡，而是在玩家体验了差不多半个小时到一个小时的某个时间节点，以抽卡比得橙卡的方式送给玩家。这样的做法筛选掉了一批对游戏核心玩法不感冒的玩家，留下（准）目标玩家，加以橙卡诱惑之，而接下来就是玩家抱着橙卡心甘情愿地入坑了。</p>
+<h1 id="如何让氪金游戏看起来良心？"><a href="#如何让氪金游戏看起来良心？" class="headerlink" title="如何让氪金游戏看起来良心？"></a>如何让氪金游戏看起来良心？</h1><p>啊呸！氪金游戏哪有良心的，不都奔着钱去的嘛！确实如此，但是这里讲的是：如何让游戏的吃相不那么难看。</p>
+<p>半年前的某天，听老板说《万国觉醒》手游出海表现非常好，因为与正在开发的SLG游戏属于同类别，于是下过来体验了一段时间，可以说核心玩法、创新、细节都有值得说道的地方，但是这里我们只谈“首充”。首充作为平民玩家向氪金玩家的过渡，精心设计，目测可以很大程度提高付费率。笔者之前见过其他游戏的首充，如：《率土之滨》的首充送何太后，《三国志·战略版》的首充送孙坚，两者首充送的将确实很应景，都是赛季初帮助新手顺利过渡的好东西，但是深入地玩下去，不难发现开局送的东西到后面基本被沦为材料卡。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/291600-d8d4aa9865cbe04d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="源义经"></p>
+<p>相比于前者，《万国觉醒》首充送的源义经，就显得良心了许多（仅针对首充而言），原因有二：</p>
+<p>一、此英雄只能付费得到</p>
+<p>“仅付费可得”在很多游戏里都可以见到，但是首充6元送的确实不多见。笔者曾经玩过《我叫MT online》，第五张紫卡小新（五张紫卡合成一张橙卡）需要充60月卡获得，大大姐、暗夜精灵累充上千获得一张紫卡。而首充仅需6元就可以获得的付费限定卡简直是太划算了，对于平民玩家来说，也是向氪金转型的极大诱惑。</p>
+<p>二、长期可用</p>
+<p>在《万国觉醒》里，打野是核心玩法里很重要的一环，而源义经作为橙卡里最强的打野英雄（没有之一），相比其他游戏“6元首充，用完就扔”，《万国觉醒》的良心就不用多说了。</p>
+<p>设想如果《率土之滨》里的6元首充，由“何太后”换成“吕蒙”，相信率土玩家们会像超市里的大妈一样冲向打折商品。但是率土不会这么做，也不敢这么做，因为赔本的买卖，率土不会去做。而《万国觉醒》之所以敢做“赔本的买卖”，是因为《万国觉醒》里面的所有橙卡培养的坑都很深，每隔十级，需要用橙色碎片来升星，每个英雄有5个技能，每个技能升等级需要相同英雄的碎片，而想要将源义经升级到满配，别想了，那个是土豪才有能力做的事。但是对于平民来说，我买个首充，开局和土豪们平起平坐，花个6块钱，买一份优越感总不亏，况且用不用源义经完全是两个世界的体验，一个字——“买”。花了钱，玩家就开始珍视这个账号了，因为扔掉可惜，继续玩吧！有了第一笔消费，后面再搞几个大优惠活动，还愁玩家不掏钱吗？</p>
+<p>综上所述，<strong>首充是一个放长线钓大鱼的绝佳时机</strong>，赋予首充长远的“价值”，让首充更加诱人。</p>
+<h1 id="大神玩核心，小白玩养成"><a href="#大神玩核心，小白玩养成" class="headerlink" title="大神玩核心，小白玩养成"></a>大神玩核心，小白玩养成</h1><p>从高中开始，笔者开始接触《穿越火线》端游，到现在大学毕业已经三年了，笔者依然偶尔会在双休日上去玩两把。差不多十年了！枪法应该超神了吧？！不不不，笔者的水平依然停留在运输船出门被爆头、爆破模式不敢玩、个人战垫底、挑战模式只玩巨人城的水平。那么这十年，笔者到底玩了什么呢？emmmm…  2.0版本之前，笔者玩的是超越自我（破下限记录）；而2.0以后，笔者有了更高的目标，就是尽可能地屯活动送的免费永久武器。每当有活动时，笔者就会登录上去，玩一局团队竞技超越一下自我，然后去领活动送的武器，不管是永久还是限时，拿到后先去体验一把。嗯~果然好枪，一看战绩——15/35，下线！</p>
+<p>而到了毕业后，开始玩《率土之滨》，笔者总是能很和谐地处理与周边邻居的关系：<br>“兄弟，我要塞边上的五级地可不可以给我留一块，等我有能力打了可以扫荡练级。”<br>“大佬，可以帮我打一下主城边上的四级地吗？谢谢了！”<br>而当其他大佬已经开始上战场时，笔者还在练自己的20级部队。时间久了，笔者也开始慢慢地适应了。其他玩家玩的是心跳，打的是T0强队；而笔者玩的是佛系，抽的是40抽保底。看着图鉴里的灰色卡面一个一个变彩色，心里感到了满足。嗯，真的T_T</p>
+<p>上文有提到过，笔者不是玩游戏的料，所有与<strong>手速</strong>、<strong>精准度</strong>、<strong>策略</strong>相关的游戏（简言之：需要手、眼、脑并用的游戏），只要是笔者涉略的，不用想，肯定被玩成了养成类游戏。一个游戏，或多或少，都会有养成和竞争的元素，佛系、有耐心地小白玩家尚可在喜欢的竞争游戏的夹缝中找寻属于自己的小天地，但若是耐心被消磨、佛系不再了，弃坑也就随之而来。所以一个游戏若想受众面广，需要考虑游戏的多方向性，硬核玩家</p>
+<h1 id="长线游戏，如何让划水玩家不掉队？"><a href="#长线游戏，如何让划水玩家不掉队？" class="headerlink" title="长线游戏，如何让划水玩家不掉队？"></a>长线游戏，如何让划水玩家不掉队？</h1><ul>
+<li>闪念于2019年12月底某个去吃午饭的路上</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>再小的鼓励也是一种支持!</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="代码咖啡 WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="代码咖啡 Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/游戏/" rel="tag"># 游戏</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/richtext_getallletters/" rel="next" title="RichText打字机效果实现思路分享">
+                <i class="fa fa-chevron-left"></i> RichText打字机效果实现思路分享
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/GuideMgr01/" rel="prev" title="从零开始设计游戏引导框架（一）">
+                从零开始设计游戏引导框架（一） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar_sidebar.png" alt="代码咖啡">
+            
+              <p class="site-author-name" itemprop="name">代码咖啡</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss2.html" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/wjnovember" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:wnovember@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.jianshu.com/u/9b87ba5fc959" title="我的简书" target="_blank">我的简书</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://runnerwoo.com/" title="老班长的博客" target="_blank">老班长的博客</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#叨叨在前"><span class="nav-number">1.</span> <span class="nav-text">叨叨在前</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#什么样的游戏可以吸引玩家持续玩下去呢？"><span class="nav-number">2.</span> <span class="nav-text">什么样的游戏可以吸引玩家持续玩下去呢？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何让氪金游戏看起来良心？"><span class="nav-number">3.</span> <span class="nav-text">如何让氪金游戏看起来良心？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#大神玩核心，小白玩养成"><span class="nav-number">4.</span> <span class="nav-text">大神玩核心，小白玩养成</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#长线游戏，如何让划水玩家不掉队？"><span class="nav-number">5.</span> <span class="nav-text">长线游戏，如何让划水玩家不掉队？</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2016 &mdash; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">代码咖啡</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: '8vMRQb0bSf05Hd5zFNhrSHXz-gzGzoHsz',
+        appKey: 'uD8TcECp3UshQsLS1vxEocGy',
+        placeholder: '欢迎评论留言哦~',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("8vMRQb0bSf05Hd5zFNhrSHXz-gzGzoHsz", "uD8TcECp3UshQsLS1vxEocGy");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/avatar_32x32.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/avatar_16x16.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Android开发,">
+
+
+
+
+
+  <link rel="alternate" href="/rss2.html" title="程序员叨叨叨" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="知识背景 名称：ConstraintLayout出身：Android Studio 2.2新增功能成就：2016年Google I/O大会黑马奖；可视化Android界面编写领军角色关键词：约束  ConstraintLayout是Android Studio 2.2中具有亮点的新功能之一，相比于RelativeLayout、LinearLayout等传统布局，它打破了开发者使用XML编写布局的依">
+<meta name="keywords" content="Android开发">
+<meta property="og:type" content="article">
+<meta property="og:title" content="未来布局之星——ConstraintLayout">
+<meta property="og:url" content="http://wjnovember.github.io/constraintlayout_basic/index.html">
+<meta property="og:site_name" content="程序员叨叨叨">
+<meta property="og:description" content="知识背景 名称：ConstraintLayout出身：Android Studio 2.2新增功能成就：2016年Google I/O大会黑马奖；可视化Android界面编写领军角色关键词：约束  ConstraintLayout是Android Studio 2.2中具有亮点的新功能之一，相比于RelativeLayout、LinearLayout等传统布局，它打破了开发者使用XML编写布局的依">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-52790b337eb601cd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-1b3c556027b97153.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-bef33c37ccb1d63f.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="http://wjnovember.github.io/.io//%5B%E5%9B%BE%E7%89%87%E4%B8%8A%E4%BC%A0%E4%B8%AD...(image.png-6f063-1562484811740-0)%5D">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-85ab8f622faca3a7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-4de51c14488859f3.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-5d4d3177e87d6c22.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-e814c547622d896e.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-506a4d7ea3a560b2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-02e85c6fcedd4a17.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-6b0c81f425c3360f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-c32ddd5ce43f0ed1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-e1c6a34a875c7d14.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-b3b5528ebb36940b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-4314b554f154e21b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-cac0c176f4f4f49f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-94472c2f856e43c4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-38cc760addcdd58b.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-fdd60ed653b1dbaa.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-d604aedaef646425.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-914f40e162960b10.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-99411797db6acd15.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-a6737f34ac5ad74d.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-31f7783c444aa75e.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-1ced9132a90a8aa3.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-f73b47f9987ff980.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-72db88ec184210fa.gif?imageMogr2/auto-orient/strip">
+<meta property="og:updated_time" content="2021-11-07T09:06:10.108Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="未来布局之星——ConstraintLayout">
+<meta name="twitter:description" content="知识背景 名称：ConstraintLayout出身：Android Studio 2.2新增功能成就：2016年Google I/O大会黑马奖；可视化Android界面编写领军角色关键词：约束  ConstraintLayout是Android Studio 2.2中具有亮点的新功能之一，相比于RelativeLayout、LinearLayout等传统布局，它打破了开发者使用XML编写布局的依">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/291600-52790b337eb601cd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"hide","offset":12,"b2t":true,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: 'P169SBHT9P',
+      apiKey: 'aff6672534638c8530052ce885f3d28a',
+      indexName: 'blog_NAME',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"输入关键词就可以搜索啦~","hits_empty":"T.T 没有找到与“ ${query} ”相关的文章","hits_stats":"找到 ${hits} 篇文章，耗时 ${time} 毫秒！"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://wjnovember.github.io/constraintlayout_basic/">
+
+
+
+
+
+  <title>未来布局之星——ConstraintLayout | 程序员叨叨叨</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">程序员叨叨叨</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一枚程序猿的叨叨日常</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-首页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-目录">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            目录
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-时光机">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            时光机
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wjnovember.github.io/constraintlayout_basic/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="代码咖啡">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar_sidebar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="程序员叨叨叨">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">未来布局之星——ConstraintLayout</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-10T17:27:50+08:00">
+                2017-03-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android开发从入门到炸机/" itemprop="url" rel="index">
+                    <span itemprop="name">Android开发从入门到炸机</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/constraintlayout_basic/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/constraintlayout_basic/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/constraintlayout_basic/" class="leancloud_visitors" data-flag-title="未来布局之星——ConstraintLayout">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="知识背景"><a href="#知识背景" class="headerlink" title="知识背景"></a>知识背景</h1><blockquote>
+<p>名称：<strong>ConstraintLayout</strong><br><br>出身：Android Studio 2.2新增功能<br><br>成就：2016年Google I/O大会黑马奖；可视化Android界面编写领军角色<br><br>关键词：约束</p>
+</blockquote>
+<p>ConstraintLayout是Android Studio 2.2中具有亮点的新功能之一，相比于RelativeLayout、LinearLayout等传统布局，它打破了开发者使用XML编写布局的依赖。</p>
+<p>虽然传统布局也可以使用可视化界面拖动控件来搭建布局，但是因为不够灵活，大多数开发者还是会选择通过XML代码来搭建布局。而ConstraintLayout的出现将开发者带入可视化布局编程的新纪元，通过建立控件之间的<strong>约束</strong>，实现布局的构建。这样做有一个很大的优点，就是减少了布局的嵌套，减少了布局渲染的层数，降低了CPU的消耗，提高了程序的性能。</p>
+<p>ConstraintLayout与RelativeLayout相似，都是通过建立控件与控件之间的位置关系来搭建布局，但是ConstraintLayout远远比RelativeLayout强大很多，接下来看一下ConstraintLayout的使用。</p>
+<h1 id="建立依赖"><a href="#建立依赖" class="headerlink" title="建立依赖"></a>建立依赖</h1><p>ConstraintLayout布局是Android Studio 2.2的新增功能，所以在建立依赖前需要将Android Studio更新至2.2版本或以上。</p>
+<p>在app/build.gradle文件中添加依赖，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line">    compile &apos;com.android.support.constraint:constraint-layout:1.0.0-beta4&apos;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="修改布局为ConstraintLayout"><a href="#修改布局为ConstraintLayout" class="headerlink" title="修改布局为ConstraintLayout"></a>修改布局为ConstraintLayout</h1><p>打开AndroidStudio，新建一个工程，找到布局文件activity_main.xml，打开让其以<code>Design</code>方式显示，如下图所示。界面中央有两块区域，左边是预览界面，右边的蓝色区域是控件拖动操作界面。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-52790b337eb601cd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="可视化布局搭建"></p>
+<p>默认创建的activity_main文件的根布局是一个RelativeLayout，接下来将RelativeLayout布局改为ConstraintLayout布局，找到<code>Component Tree</code>，在其下方右键单击activity_main(RelativeLayout)，在弹出的列表中选择<code>Convert RelativeLayout to ConstraintLayout</code>，如下图所示：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-1b3c556027b97153.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="将布局修改为ConstraintLayout"></p>
+<h1 id="删除一个控件"><a href="#删除一个控件" class="headerlink" title="删除一个控件"></a>删除一个控件</h1><p>完成转换后，可以在<code>Component Tree</code>下方看到ConstraintLayout里面有原来存在的TextView控件，如果不需要，可以在蓝色区域选中TextView控件，单击键盘<code>delete</code>按钮删除该控件。</p>
+<h1 id="切换视图"><a href="#切换视图" class="headerlink" title="切换视图"></a>切换视图</h1><p>点击菜单栏的中的<code>Show Design</code>、<code>Show Blueprint</code>和<code>Show Design + Blueprint</code>按钮可以对操作视图进行切换，如下图所示：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-bef33c37ccb1d63f.gif?imageMogr2/auto-orient/strip" alt="切换视图"></p>
+<h1 id="添加约束"><a href="#添加约束" class="headerlink" title="添加约束"></a>添加约束</h1><p>百闻不如一见，先来看看添加约束的操作，如下图所示：</p>
+<p><img src="/.io//%5B%E5%9B%BE%E7%89%87%E4%B8%8A%E4%BC%A0%E4%B8%AD...(image.png-6f063-1562484811740-0)%5D" alt="添加约束演示"></p>
+<p>可以看到，按钮控件有四个方向的约束，如下图所示，按钮的<strong>上、下、左、右</strong>边上各有一个小圆圈，鼠标可拖动小圆圈到ConstraintLayout，与其添加约束。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-85ab8f622faca3a7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Button控件约束"></p>
+<p>如将按钮下边圆圈拖至ConstraintLayout底部，则按钮移动至底部；再将按钮上边圆圈拖动至ConstraintLayout顶部，垂直方向上有两个约束的按钮控件就会实现垂直居中。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-4de51c14488859f3.gif?imageMogr2/auto-orient/strip" alt="添加约束"></p>
+<h1 id="约束位置比例调整"><a href="#约束位置比例调整" class="headerlink" title="约束位置比例调整"></a>约束位置比例调整</h1><p>当然如果ConstraintLayout添加约束仅仅能实现水平、垂直居中，那么它在功能上与RelativeLayout就没有差别了。除了居中，约束还可以设置控件两边到边界之间的距离比例，通过在右侧属性面板中，拖动水平和垂直方向的进度条来调整两边距离的比例。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-5d4d3177e87d6c22.gif?imageMogr2/auto-orient/strip" alt="调整约束位置比例"></p>
+<h1 id="控件之间添加约束"><a href="#控件之间添加约束" class="headerlink" title="控件之间添加约束"></a>控件之间添加约束</h1><p>除了与ConstraintLayout添加约束，控件与控件之间同样可以添加约束。如下图所示，在调整按钮宽度后，将两个按钮的左右两边添加约束，然后将下方按钮的上边与上方按钮的下边添加约束，拖动下方的按钮，可设置两个按钮之间的外边距。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-e814c547622d896e.gif?imageMogr2/auto-orient/strip" alt="控件之间添加约束"></p>
+<p>通过控件之间添加约束和调整约束距离比例，开发者可实现较为复杂的约束。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-506a4d7ea3a560b2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="多控件约束"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-02e85c6fcedd4a17.gif?imageMogr2/auto-orient/strip" alt="较为复杂的约束"></p>
+<h1 id="调整控件外边距及尺寸"><a href="#调整控件外边距及尺寸" class="headerlink" title="调整控件外边距及尺寸"></a>调整控件外边距及尺寸</h1><p>细心的读者们或许会发现，在调整控件位置比例的时候，当进度条滑动至100时，控件未能完全贴上布局的右边界，这是因为控件存在外边距。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-6b0c81f425c3360f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="调整控件外边距"></p>
+<p>这时候可以修改属性面板中的数值来调整控件的外边距大小，如下图所示：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-c32ddd5ce43f0ed1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="修改控件外边距"></p>
+<p>在控件尺寸调整上，ConstraintLayout提供了三种模式，在属性面板中点击下图红色框框区域实现模式的切换。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-e1c6a34a875c7d14.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="切换尺寸模式"></p>
+<p>这三种分别为：</p>
+<ul>
+<li><strong>wrap content</strong></li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-b3b5528ebb36940b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="wrap_content"></p>
+<p>wrap content模式就是平时常用的根据内容来设定控件尺寸。</p>
+<ul>
+<li><strong>固定值</strong></li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-4314b554f154e21b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="固定值"></p>
+<p>固定值模式也是平时常用的，通过设定具体数值来确定控件的大小。如下图所示，切换为固定模式后，在下方的<code>layout_width</code>一栏填写具体的宽度数值。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-cac0c176f4f4f49f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="设置控件大小"></p>
+<ul>
+<li><strong>any size</strong></li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-94472c2f856e43c4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="any size"></p>
+<p>any size与match parent类似，都是充满整个范围，但是不同点在于match parent充满相对于父容器，而any size是相对于约束条件，即在约束条件下，能填充的范围全部充满，如下图所示：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-38cc760addcdd58b.gif?imageMogr2/auto-orient/strip" alt="设置为any size"></p>
+<p>这里说明一下，ConstraintLayout其实也有match parent模式，但是因为ConstraintLayout不存在多层嵌套关系，所以match parent这种相对于父容器的模式在ConstraintLayout中很少会使用。</p>
+<h1 id="删除约束"><a href="#删除约束" class="headerlink" title="删除约束"></a>删除约束</h1><p>学习了添加约束后，来看看如何删除约束？删除约束有三种方式：</p>
+<ul>
+<li><strong>删除单个约束</strong></li>
+</ul>
+<p>将鼠标移动到要删除的约束对应的小圆圈，待小圆圈出现闪烁的红色圈圈时，点击小圆圈即可删除约束。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-fdd60ed653b1dbaa.gif?imageMogr2/auto-orient/strip" alt="删除单个约束"></p>
+<p>除了上面这种删除方法，也可以在属性面板中，将鼠标移动到下图红色框框标记的位置，待出现叉叉图标，点击可删除该约束。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-d604aedaef646425.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="删除单个约束"></p>
+<ul>
+<li><strong>删除单个控件的所有约束</strong></li>
+</ul>
+<p>用鼠标点击控件，在其左下方会出现一个小叉叉图标，点击小图标即可删除当前控件的所有约束。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-914f40e162960b10.gif?imageMogr2/auto-orient/strip" alt="删除单个控件的所有约束"></p>
+<ul>
+<li><strong>删除当前界面的所有约束</strong></li>
+</ul>
+<p>点击工具栏中<code>删除所有约束</code>图标的按钮，即可删除当前界面所有的约束。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-99411797db6acd15.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="删除当且界面的所有约束"></p>
+<h1 id="Guidelines"><a href="#Guidelines" class="headerlink" title="Guidelines"></a>Guidelines</h1><p>学完基本的依赖操作，来看一下ConstraintLayout的进阶用法。这里有一个需求，要求将两个控件合在一起，实现水平居中。如果不使用ConstraintLayout，读者们或许会想到用RelativeLayout嵌套LinearLayout来实现。那么在ConstraintLayout这样不存在多布局嵌套的情况下该怎么实现呢？</p>
+<p>这时候就提出了<strong>Guidelines</strong>，GuideLines就如同Photoshop中参考线的概念一样。如下图，创建一个垂直方向的参考线，将其切换至百分比模式，拖动到50%的位置，再将两个控件在左右两侧分别与Guidelines添加约束，然后两个控件的底边相互添加约束即可实现合并居中的效果。此时ConstraintLayout展现了其强大的优势，通过其特性优雅地完成需求。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-a6737f34ac5ad74d.gif?imageMogr2/auto-orient/strip" alt="Guidelines"></p>
+<p>这里说明一下，创建完Guidelines后，读者们会发现它很难拖动，这里有一个小技巧：将鼠标按住划过Guidelines，然后放到Guidelines的位置，按住鼠标即可轻松实现拖动。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-31f7783c444aa75e.gif?imageMogr2/auto-orient/strip" alt="拖动Guidelines"></p>
+<h1 id="Autoconnect"><a href="#Autoconnect" class="headerlink" title="Autoconnect"></a>Autoconnect</h1><p>或许因为我们是第一次接触ConstraintLayout，所以感觉添加约束的操作很有趣，但是在项目中，当控件数量比较多时，每个控件的每条边都要一个一个添加约束，这样就会拖慢开发效率，所以ConstraintLayout提出了<code>Autoconnect</code>的用法。</p>
+<p>如下图所示，单击打开工具栏中<code>Autoconnect</code>功能按钮，将控件拖至屏幕中心，然后约束就会自动添加了，这个相信使用过<strong>墨刀</strong>设计过APP原型的读者们会感到很熟悉。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-1ced9132a90a8aa3.gif?imageMogr2/auto-orient/strip" alt="Autoconnect"></p>
+<p>Autoconnect会根据我们的意图来判断是否添加相应的约束，当然自动添加的约束不一定全是想要的效果，这时候可以关闭Autoconnect，然后手动修改约束。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-f73b47f9987ff980.gif?imageMogr2/auto-orient/strip" alt="Autoconnect"></p>
+<h1 id="Inference"><a href="#Inference" class="headerlink" title="Inference"></a>Inference</h1><p>Inference与Autoconnect功能相同，都是用于自动添加约束的，但是Inference更加强大。Inference是手动添加约束后，对当前界面所有控件的位置关系添加整体约束关系，感觉和Photoshop里面不同布局中的图像调整好位置后合并可见图层很像。Inference操作如下图所示：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-72db88ec184210fa.gif?imageMogr2/auto-orient/strip" alt="4.gif"></p>
+<h1 id="写在后面"><a href="#写在后面" class="headerlink" title="写在后面"></a>写在后面</h1><p>本文是在拜读<strong>郭霖</strong>大神的《Android新特性介绍，ConstraintLayout完全解析》一文后写的，本文的案例和描述基本都是参考自这篇文章，权当是转载来的吧！请叫我<strong>佳作搬运工</strong>!<br>最后附上大神原文链接供大家品读：<br><a href="http://blog.csdn.net/guolin_blog/article/details/53122387" target="_blank" rel="noopener">http://blog.csdn.net/guolin_blog/article/details/53122387</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>再小的鼓励也是一种支持!</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="代码咖啡 WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="代码咖啡 Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android开发/" rel="tag"># Android开发</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/win-install-disk/" rel="next" title="一招搞定Windows无法安装到GPT分区形式磁盘疑难">
+                <i class="fa fa-chevron-left"></i> 一招搞定Windows无法安装到GPT分区形式磁盘疑难
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/constraintlayout_doc/" rel="prev" title="细细品读！深入浅出，官方文档看ConstraintLayout">
+                细细品读！深入浅出，官方文档看ConstraintLayout <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar_sidebar.png" alt="代码咖啡">
+            
+              <p class="site-author-name" itemprop="name">代码咖啡</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss2.html" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/wjnovember" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:wnovember@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.jianshu.com/u/9b87ba5fc959" title="我的简书" target="_blank">我的简书</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://runnerwoo.com/" title="老班长的博客" target="_blank">老班长的博客</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#知识背景"><span class="nav-number">1.</span> <span class="nav-text">知识背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#建立依赖"><span class="nav-number">2.</span> <span class="nav-text">建立依赖</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#修改布局为ConstraintLayout"><span class="nav-number">3.</span> <span class="nav-text">修改布局为ConstraintLayout</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#删除一个控件"><span class="nav-number">4.</span> <span class="nav-text">删除一个控件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#切换视图"><span class="nav-number">5.</span> <span class="nav-text">切换视图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#添加约束"><span class="nav-number">6.</span> <span class="nav-text">添加约束</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#约束位置比例调整"><span class="nav-number">7.</span> <span class="nav-text">约束位置比例调整</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#控件之间添加约束"><span class="nav-number">8.</span> <span class="nav-text">控件之间添加约束</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#调整控件外边距及尺寸"><span class="nav-number">9.</span> <span class="nav-text">调整控件外边距及尺寸</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#删除约束"><span class="nav-number">10.</span> <span class="nav-text">删除约束</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Guidelines"><span class="nav-number">11.</span> <span class="nav-text">Guidelines</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Autoconnect"><span class="nav-number">12.</span> <span class="nav-text">Autoconnect</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Inference"><span class="nav-number">13.</span> <span class="nav-text">Inference</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#写在后面"><span class="nav-number">14.</span> <span class="nav-text">写在后面</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2016 &mdash; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">代码咖啡</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: '8vMRQb0bSf05Hd5zFNhrSHXz-gzGzoHsz',
+        appKey: 'uD8TcECp3UshQsLS1vxEocGy',
+        placeholder: '欢迎评论留言哦~',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("8vMRQb0bSf05Hd5zFNhrSHXz-gzGzoHsz", "uD8TcECp3UshQsLS1vxEocGy");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

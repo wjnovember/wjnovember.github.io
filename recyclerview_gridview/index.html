@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/avatar_32x32.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/avatar_16x16.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Android开发,">
+
+
+
+
+
+  <link rel="alternate" href="/rss2.html" title="程序员叨叨叨" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="效果图 问题及原因有很多小伙伴们可能会遇到这样的问题： 为什么不论我传入多大size的List，我的GridView只能显示一行？ 因为RecyclerView和GridView都属于可滑动控件，两者嵌套会导致滑动冲突，Android不允许这样的情况出现，所以索性将GridView宽度定死，定为一行Item的高度且不可滑动，所以导致了我们只显示一行这个问题的出现。 源码浅析解决的思路是：重新计算高">
+<meta name="keywords" content="Android开发">
+<meta property="og:type" content="article">
+<meta property="og:title" content="听说你想玩RecyclerView嵌套GridView">
+<meta property="og:url" content="http://wjnovember.github.io/recyclerview_gridview/index.html">
+<meta property="og:site_name" content="程序员叨叨叨">
+<meta property="og:description" content="效果图 问题及原因有很多小伙伴们可能会遇到这样的问题： 为什么不论我传入多大size的List，我的GridView只能显示一行？ 因为RecyclerView和GridView都属于可滑动控件，两者嵌套会导致滑动冲突，Android不允许这样的情况出现，所以索性将GridView宽度定死，定为一行Item的高度且不可滑动，所以导致了我们只显示一行这个问题的出现。 源码浅析解决的思路是：重新计算高">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-3b00271942fef854.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-75ca2206ba6c222c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-39ab5838f82ceaab.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-dcd5988f0c743b69.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-423b26b363fd9553.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-ab38a50aa000ecb9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-91aa2f488cbfc95f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-fe1defc0783883a3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-ca5bc1b2b40babfb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-54f6b53ffe0816bc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-99f0d648e83f0754.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-9e1e2a0548f7c4ff.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-edeab093bf13de47.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-44d8c481052e758c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2021-11-07T09:06:10.120Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="听说你想玩RecyclerView嵌套GridView">
+<meta name="twitter:description" content="效果图 问题及原因有很多小伙伴们可能会遇到这样的问题： 为什么不论我传入多大size的List，我的GridView只能显示一行？ 因为RecyclerView和GridView都属于可滑动控件，两者嵌套会导致滑动冲突，Android不允许这样的情况出现，所以索性将GridView宽度定死，定为一行Item的高度且不可滑动，所以导致了我们只显示一行这个问题的出现。 源码浅析解决的思路是：重新计算高">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/291600-3b00271942fef854.gif?imageMogr2/auto-orient/strip">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"hide","offset":12,"b2t":true,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: 'P169SBHT9P',
+      apiKey: 'aff6672534638c8530052ce885f3d28a',
+      indexName: 'blog_NAME',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"输入关键词就可以搜索啦~","hits_empty":"T.T 没有找到与“ ${query} ”相关的文章","hits_stats":"找到 ${hits} 篇文章，耗时 ${time} 毫秒！"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://wjnovember.github.io/recyclerview_gridview/">
+
+
+
+
+
+  <title>听说你想玩RecyclerView嵌套GridView | 程序员叨叨叨</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">程序员叨叨叨</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一枚程序猿的叨叨日常</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-首页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-目录">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            目录
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-时光机">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            时光机
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wjnovember.github.io/recyclerview_gridview/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="代码咖啡">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar_sidebar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="程序员叨叨叨">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">听说你想玩RecyclerView嵌套GridView</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-09-15T15:15:59+08:00">
+                2016-09-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android开发从入门到炸机/" itemprop="url" rel="index">
+                    <span itemprop="name">Android开发从入门到炸机</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/recyclerview_gridview/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/recyclerview_gridview/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/recyclerview_gridview/" class="leancloud_visitors" data-flag-title="听说你想玩RecyclerView嵌套GridView">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h1><p><img src="http://upload-images.jianshu.io/upload_images/291600-3b00271942fef854.gif?imageMogr2/auto-orient/strip" alt="RecyclerView嵌套GridView"></p>
+<h1 id="问题及原因"><a href="#问题及原因" class="headerlink" title="问题及原因"></a>问题及原因</h1><p>有很多小伙伴们可能会遇到这样的问题：</p>
+<p><strong>为什么不论我传入多大size的List，我的GridView只能显示一行？</strong></p>
+<p>因为RecyclerView和GridView都属于<strong>可滑动控件</strong>，两者嵌套会导致<strong>滑动冲突</strong>，Android不允许这样的情况出现，所以索性将GridView宽度定死，定为一行Item的高度且不可滑动，所以导致了我们只显示一行这个问题的出现。</p>
+<h1 id="源码浅析"><a href="#源码浅析" class="headerlink" title="源码浅析"></a>源码浅析</h1><p>解决的思路是：<strong><em>重新计算高度！</em></strong></p>
+<p>想要计算高度，我们就要知道它计算高度的机制。我们来看看<strong>源码</strong>：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-75ca2206ba6c222c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="继承GridView自定义控件里的onMeasure方法"></p>
+<p>我们可以看到如果我们自定义控件，且什么都不做时，它会调用父类（GridView）的onMeasure方法，我们来看看GridView里面的onMeasure源码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onMeasure</span><span class="params">(<span class="keyword">int</span> widthMeasureSpec, <span class="keyword">int</span> heightMeasureSpec)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// Sets up mListPadding</span></span><br><span class="line">    <span class="keyword">super</span>.onMeasure(widthMeasureSpec, heightMeasureSpec);</span><br><span class="line">    <span class="keyword">int</span> widthMode = MeasureSpec.getMode(widthMeasureSpec);</span><br><span class="line">    <span class="keyword">int</span> heightMode = MeasureSpec.getMode(heightMeasureSpec);</span><br><span class="line">    <span class="keyword">int</span> widthSize = MeasureSpec.getSize(widthMeasureSpec);</span><br><span class="line">    <span class="keyword">int</span> heightSize = MeasureSpec.getSize(heightMeasureSpec);  </span><br><span class="line">    <span class="keyword">if</span> (widthMode == MeasureSpec.UNSPECIFIED) &#123;    </span><br><span class="line">        <span class="keyword">if</span> (mColumnWidth &gt; <span class="number">0</span>) &#123;        </span><br><span class="line">            widthSize = mColumnWidth + mListPadding.left + mListPadding.right;    </span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;        </span><br><span class="line">            widthSize = mListPadding.left + mListPadding.right;    </span><br><span class="line">        &#125;    </span><br><span class="line">        widthSize += getVerticalScrollbarWidth();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> childWidth = widthSize - mListPadding.left - mListPadding.right;</span><br><span class="line">    <span class="keyword">boolean</span> didNotInitiallyFit = determineColumns(childWidth);<span class="keyword">int</span> childHeight = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> childState = <span class="number">0</span>;</span><br><span class="line">    mItemCount = mAdapter == <span class="keyword">null</span> ? <span class="number">0</span> : mAdapter.getCount();</span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">int</span> count = mItemCount;</span><br><span class="line">    <span class="keyword">if</span> (count &gt; <span class="number">0</span>) &#123;    </span><br><span class="line">        <span class="keyword">final</span> View child = obtainView(<span class="number">0</span>, mIsScrap);    </span><br><span class="line">        AbsListView.LayoutParams p = (AbsListView.LayoutParams) child.getLayoutParams();    </span><br><span class="line">        <span class="keyword">if</span> (p == <span class="keyword">null</span>) &#123;        </span><br><span class="line">            p = (AbsListView.LayoutParams) generateDefaultLayoutParams();        </span><br><span class="line">            child.setLayoutParams(p);</span><br><span class="line">        &#125;</span><br><span class="line">        p.viewType = mAdapter.getItemViewType(<span class="number">0</span>);</span><br><span class="line">    p.forceAdd = <span class="keyword">true</span>;</span><br><span class="line">    <span class="keyword">int</span> childHeightSpec = getChildMeasureSpec(            </span><br><span class="line">           MeasureSpec.makeSafeMeasureSpec(MeasureSpec.getSize(heightMeasureSpec),</span><br><span class="line">                        MeasureSpec.UNSPECIFIED), <span class="number">0</span>, p.height);</span><br><span class="line">    <span class="keyword">int</span> childWidthSpec = getChildMeasureSpec(</span><br><span class="line">                MeasureSpec.makeMeasureSpec(mColumnWidth, MeasureSpec.EXACTLY), <span class="number">0</span>, p.width);</span><br><span class="line">        child.measure(childWidthSpec, childHeightSpec);</span><br><span class="line">        childHeight = child.getMeasuredHeight();</span><br><span class="line">        childState = combineMeasuredStates(childState, child.getMeasuredState());</span><br><span class="line">    <span class="keyword">if</span> (mRecycler.shouldRecycleViewType(p.viewType)) &#123;</span><br><span class="line">        mRecycler.addScrapView(child, -<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">if</span> (heightMode == MeasureSpec.UNSPECIFIED) &#123;</span><br><span class="line">        heightSize = mListPadding.top + mListPadding.bottom + childHeight +</span><br><span class="line">            getVerticalFadingEdgeLength() * <span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (heightMode == MeasureSpec.AT_MOST) &#123;</span><br><span class="line">        <span class="keyword">int</span> ourSize =  mListPadding.top + mListPadding.bottom;</span><br><span class="line">       <span class="keyword">final</span> <span class="keyword">int</span> numColumns = mNumColumns;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; count; i += numColumns) &#123;</span><br><span class="line">            ourSize += childHeight;</span><br><span class="line">        <span class="keyword">if</span> (i + numColumns &lt; count) &#123;</span><br><span class="line">                ourSize += mVerticalSpacing;</span><br><span class="line">            &#125;</span><br><span class="line">        <span class="keyword">if</span> (ourSize &gt;= heightSize) &#123;</span><br><span class="line">                ourSize = heightSize;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    heightSize = ourSize;</span><br><span class="line">&#125;</span><br><span class="line">    <span class="keyword">if</span> (widthMode == MeasureSpec.AT_MOST &amp;&amp; mRequestedNumColumns != AUTO_FIT) &#123;</span><br><span class="line">        <span class="keyword">int</span> ourSize = (mRequestedNumColumns*mColumnWidth)</span><br><span class="line">                + ((mRequestedNumColumns-<span class="number">1</span>)*mHorizontalSpacing)</span><br><span class="line">                + mListPadding.left + mListPadding.right;</span><br><span class="line">    <span class="keyword">if</span> (ourSize &gt; widthSize || didNotInitiallyFit) &#123;</span><br><span class="line">        widthSize |= MEASURED_STATE_TOO_SMALL;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    setMeasuredDimension(widthSize, heightSize);</span><br><span class="line">mWidthMeasureSpec = widthMeasureSpec;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>既然我们关注的是高度，我们就来看看高度相关的变量：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-39ab5838f82ceaab.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="GridView的onMeasure"></p>
+<p><strong>onMeasure()</strong>方法传入了两个变量：<strong>widthMeasureSpec</strong>和<strong>heightMeasureSpec</strong>，它们是什么呢？在这之前我们讲一讲<strong>MeasureSpec</strong>类的模式，我们用一张图来说明：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-dcd5988f0c743b69.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="MeasureSpec的模式说明图"></p>
+<p>我们可以把MeasureSpec的模式标记理解成一个32位的二进制数字，最高两位表示<strong>模式</strong>，其他30位表示<strong>大小</strong>（即像素点或尺寸），MeasureSpec提供了<em>三种模式</em> 用来计算控件的尺寸：</p>
+<ul>
+<li><p>EXACTLY<br>在控件宽高设置为<strong>具体数值</strong>或<strong>MATCH_PARENT</strong>时，使用该模式；</p>
+</li>
+<li><p>AT_MOST<br>在控件宽高设置为<strong>WRAP_CONTENT</strong>时，使用该模式；</p>
+</li>
+<li><p>UNSPECIFIED<br>除上述两种情况外的其他情况（<em>即未指定宽高时</em>），使用该模式。</p>
+</li>
+</ul>
+<p>知道了MeasureSpec，我们回到GridView的onMeasure方法，方法里获取了高度的<strong>模式</strong>和<strong>大小</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int heightMode = MeasureSpec.getMode(heightMeasureSpec);</span><br><span class="line">int heightSize = MeasureSpec.getSize(heightMeasureSpec);</span><br></pre></td></tr></table></figure>
+
+<p>PS: <code>getMode()</code>及<code>getSize()</code>分析见附录一</p>
+<p>我们继续往下看：</p>
+<h2 id="AT-MOST"><a href="#AT-MOST" class="headerlink" title="AT_MOST"></a>AT_MOST</h2><p><img src="http://upload-images.jianshu.io/upload_images/291600-423b26b363fd9553.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="AT_MOST模式"></p>
+<p>如果高度模式为<strong><em>AT_MOST</em></strong>，则它首先会计算GridView的内容高度，内容高度的计算式为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">paddingTop: GridView上内边距</span><br><span class="line">paddingBottom: GridView下内边距</span><br><span class="line">verticalSpacing: GridView每行垂直方向间距</span><br><span class="line">spaceNum: GridView行数 - 1</span><br><span class="line">lineNum: GridView行数</span><br><span class="line">itemHeight: GridView每项高度</span><br><span class="line"></span><br><span class="line">内容高度 = paddingTop + paddingBottom + verticalSpacing * spacingNum + itemHeight * lineNum</span><br></pre></td></tr></table></figure>
+
+<p>其中，<code>childHeight</code>通过<strong>child.getMeasuredHeight()</strong>获得。</p>
+<p>计算好内容高度以后，它会和最大允许高度比较：<br>如果内容高度<strong>未超过</strong>最大高度，则<strong>内容高度</strong>作为GridView的高度；<br>如果内容高度<strong>超过</strong>最大高度，则<strong>最大高度</strong>作为GridView的高度；</p>
+<h2 id="UNSPECIFIED"><a href="#UNSPECIFIED" class="headerlink" title="UNSPECIFIED"></a>UNSPECIFIED</h2><p><img src="http://upload-images.jianshu.io/upload_images/291600-ab38a50aa000ecb9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="UNSPECIFIED模式"></p>
+<p>如果高度模式为<strong><em>UNSPECIFIED</em></strong>，则它会计算包含一个Item的GridView的内容高度，其计算式为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">内容高度 = 上内边距 + 下内边距 + 一个子项高度 + 边宽 * 2</span><br></pre></td></tr></table></figure>
+
+<p>个人猜测，<strong>当RecyclerView嵌套GridView的时候，其GridView的MeasureSpec的模式为<em>UNSPECIFIED</em></strong>。</p>
+<h2 id="EXACTLY"><a href="#EXACTLY" class="headerlink" title="EXACTLY"></a>EXACTLY</h2><p><img src="http://upload-images.jianshu.io/upload_images/291600-91aa2f488cbfc95f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="EXACTLY模式"></p>
+<p>因EXACTLY模式下，GridView的高度已经设定好了，所以不用获取子项的高度及边距等，源码中通过<code>int heightSize = MeasureSpec.getSize(heightMeasureSpec);</code>在heightSize声明的时候，将其获取到了，所以没有将<strong>EXACTLY</strong>单独IF语句进行判断。</p>
+<h1 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h1><p>之前我们说过，解决思路是重新计算GridView高度，这里我们介绍两种计算GridView的高度的方法：</p>
+<h2 id="自定义控件"><a href="#自定义控件" class="headerlink" title="自定义控件"></a>自定义控件</h2><p><img src="http://upload-images.jianshu.io/upload_images/291600-fe1defc0783883a3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="自定义控件"></p>
+<p>通过自定义控件继承GridView，重写onMeasure方法，将计算高度的模式设置为<strong>AT_MOST</strong>即可。</p>
+<p>代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> android.content.Context;</span><br><span class="line"><span class="keyword">import</span> android.util.AttributeSet;</span><br><span class="line"><span class="keyword">import</span> android.widget.GridView;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Created by inerdstack on 2016/9/14.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyGridView</span> <span class="keyword">extends</span> <span class="title">GridView</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyGridView</span><span class="params">(Context context)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(context);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyGridView</span><span class="params">(Context context, AttributeSet attrs)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(context, attrs);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyGridView</span><span class="params">(Context context, AttributeSet attrs, <span class="keyword">int</span> defStyleAttr)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(context, attrs, defStyleAttr);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onMeasure</span><span class="params">(<span class="keyword">int</span> widthMeasureSpec, <span class="keyword">int</span> heightMeasureSpec)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> expandSpec = MeasureSpec.makeMeasureSpec(Integer.MAX_VALUE &gt;&gt; <span class="number">2</span>,</span><br><span class="line">                MeasureSpec.AT_MOST);</span><br><span class="line">        <span class="keyword">super</span>.onMeasure(widthMeasureSpec, expandSpec);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getNumColumns</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="手动计算GridView高度"><a href="#手动计算GridView高度" class="headerlink" title="手动计算GridView高度"></a>手动计算GridView高度</h2><p><img src="http://upload-images.jianshu.io/upload_images/291600-ca5bc1b2b40babfb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="计算GridView高度"></p>
+<p>这里我们计算的是相同类型View下的GridView的高度，切记要在<strong><em>setAdapter以后调用这个方法</em></strong> ，否则会无效。本人尝试使用这种方法解决问题，但是没有成功，但是同事使用了这种方法写了一个Demo成功了。<br>个人猜想可能跟我的布局有关，我的<strong>GridView</strong>所在的环境是<strong>Activity</strong>的<strong>Fragment</strong>的<strong>PtrFrameLayout</strong>（下拉刷新框架的一个控件）的<strong>RecyclerView</strong>的<strong>Item</strong>里面，不过不排除我的代码问题，如果小伙伴们找到了我的问题所在，欢迎在文章下方评论留言。</p>
+<p>文章至此基本告终，接下来说说getSize()、getMode的源码浅析，感兴趣的小伙伴可以看看。</p>
+<h1 id="附录一-getSize-、getMode-源码分析"><a href="#附录一-getSize-、getMode-源码分析" class="headerlink" title="附录一 getSize()、getMode()源码分析"></a>附录一 getSize()、getMode()源码分析</h1><p>之前我们在GridView类的onMeasure方法里看到这样的方法：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-54f6b53ffe0816bc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="onMeasure方法"></p>
+<p>我们讲到过MeasureSpec的模式组成是<strong>模式</strong>+<strong>大小</strong>组成的32位二进制整型数字：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-99f0d648e83f0754.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="MeasureSpec的模式说明图"></p>
+<p>那么它是怎么获取模式和大小的呢？</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-9e1e2a0548f7c4ff.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="getMode源码"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-edeab093bf13de47.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="getSize源码"></p>
+<p>我们可以看到两个方法里都用了<code>MODE_MASK</code>，我们来看看<code>MODE_MASK</code>是何方神圣：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-44d8c481052e758c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="MeasureSpec.MODE_MASK"></p>
+<p>在MeasureSpec类里面，声明了如下几个常量：</p>
+<ul>
+<li><p>MODE_SHIFT<br>30位表示大小的位数的标记</p>
+</li>
+<li><p>MODE_MASK<br>经移位转换为二进制后的数值为：<code>11000000000000000000000000000000</code></p>
+</li>
+<li><p>UNSPECIFIED<br>经移位转换为二进制后的数值为：<code>00000000000000000000000000000000</code></p>
+</li>
+<li><p>EXACTLY<br>经移位转换为二进制后的数值为：<code>01000000000000000000000000000000</code></p>
+</li>
+<li><p>AT_MOST<br>经移位转换为二进制后的数值为：<code>10000000000000000000000000000000</code></p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">科普：</span><br><span class="line">&lt;&lt; 为二进制数的左移标记，其计算方式为：</span><br><span class="line">a &lt;&lt; b</span><br><span class="line">则先将a转化为二进制数，然后左移b位</span><br><span class="line">如：10 &lt;&lt; 3</span><br><span class="line">10 = 101</span><br><span class="line">10 &lt;&lt; 3 = 101000</span><br></pre></td></tr></table></figure>
+
+<p>在getMode方法中,<code>measureSpec &amp; MODE_MASK</code>的逻辑计算结果是<code>XX000000000000000000000000000000</code>，也就是说，不论我们measureSpec的低30位上数字是什么最终都会转化为  <code>000000000000000000000000000000</code>，去掉了大小位上的非0数字，得到了与模式标记数字相同的结果，实现了提取模式的作用。</p>
+<p>而在getSize方法中，<code>~MODE_MASK</code>是<code>MODE_MASK</code>取反，即<code>001111111111111111111111111111111</code>，<code>measureSpec &amp; ~MODE_MASK</code>的逻辑计算结果则为<code>00XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</code>，与getMode同理，去掉了模式位上的非0数字，只留下了大小值。</p>
+<p>以上就是getSize()、getMode()的源码浅析，有不足的地方，欢迎小伙伴们批评指正！</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>再小的鼓励也是一种支持!</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="代码咖啡 WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="代码咖啡 Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android开发/" rel="tag"># Android开发</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/viewpager_scroll/" rel="next" title="听说你想用ViewPager实现这样的效果？">
+                <i class="fa fa-chevron-left"></i> 听说你想用ViewPager实现这样的效果？
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/markdown/" rel="prev" title="Markdown，一款让你爱上写博客的神器（内附Markdown编辑器推荐）">
+                Markdown，一款让你爱上写博客的神器（内附Markdown编辑器推荐） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar_sidebar.png" alt="代码咖啡">
+            
+              <p class="site-author-name" itemprop="name">代码咖啡</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss2.html" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/wjnovember" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:wnovember@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.jianshu.com/u/9b87ba5fc959" title="我的简书" target="_blank">我的简书</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://runnerwoo.com/" title="老班长的博客" target="_blank">老班长的博客</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#效果图"><span class="nav-number">1.</span> <span class="nav-text">效果图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#问题及原因"><span class="nav-number">2.</span> <span class="nav-text">问题及原因</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#源码浅析"><span class="nav-number">3.</span> <span class="nav-text">源码浅析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#AT-MOST"><span class="nav-number">3.1.</span> <span class="nav-text">AT_MOST</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UNSPECIFIED"><span class="nav-number">3.2.</span> <span class="nav-text">UNSPECIFIED</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#EXACTLY"><span class="nav-number">3.3.</span> <span class="nav-text">EXACTLY</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#解决方案"><span class="nav-number">4.</span> <span class="nav-text">解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#自定义控件"><span class="nav-number">4.1.</span> <span class="nav-text">自定义控件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#手动计算GridView高度"><span class="nav-number">4.2.</span> <span class="nav-text">手动计算GridView高度</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#附录一-getSize-、getMode-源码分析"><span class="nav-number">5.</span> <span class="nav-text">附录一 getSize()、getMode()源码分析</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2016 &mdash; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">代码咖啡</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: '8vMRQb0bSf05Hd5zFNhrSHXz-gzGzoHsz',
+        appKey: 'uD8TcECp3UshQsLS1vxEocGy',
+        placeholder: '欢迎评论留言哦~',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("8vMRQb0bSf05Hd5zFNhrSHXz-gzGzoHsz", "uD8TcECp3UshQsLS1vxEocGy");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/avatar_32x32.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/avatar_16x16.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Unity Shader,">
+
+
+
+
+
+  <link rel="alternate" href="/rss2.html" title="程序员叨叨叨" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="渲染流水线渲染流水线的工作任务是：将三维场景里的物体投到屏幕上，生成一张二维图像。可分为三个阶段：应用阶段、几何阶段、光栅化阶段。   应用阶段CPU负责的阶段，应用主导，开发者有绝对的控制权，主要有三个任务：  准备好场景数据 不可见物体剔除，提高渲染性能 设置好每个模型的渲染状态，如：材质、纹理、Shader等  该阶段最重要的输出是渲染图元，如：点、线、三角面等，会被传递到下一个有GPU负责">
+<meta name="keywords" content="Unity Shader">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《Unity Shader入门精要》笔记（一）">
+<meta property="og:url" content="http://wjnovember.github.io/UnityShadersBook01/index.html">
+<meta property="og:site_name" content="程序员叨叨叨">
+<meta property="og:description" content="渲染流水线渲染流水线的工作任务是：将三维场景里的物体投到屏幕上，生成一张二维图像。可分为三个阶段：应用阶段、几何阶段、光栅化阶段。   应用阶段CPU负责的阶段，应用主导，开发者有绝对的控制权，主要有三个任务：  准备好场景数据 不可见物体剔除，提高渲染性能 设置好每个模型的渲染状态，如：材质、纹理、Shader等  该阶段最重要的输出是渲染图元，如：点、线、三角面等，会被传递到下一个有GPU负责">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/667274/1636213447325-d71b5c59-65d5-4b27-b954-9d62b043bf99.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/667274/1636255921750-a61883fd-e32e-4b67-ab63-2463851cc0f9.png?x-oss-process=image%2Fresize%2Cw_750%2Climit_0">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/667274/1636256121580-0176ed3e-116a-4716-88f7-cc830d134876.png?x-oss-process=image%2Fresize%2Cw_750%2Climit_0">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/667274/1636256893311-6876cae8-8457-415a-a75c-578670f8a910.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/667274/1636258348880-5f61daec-ae32-4314-8b35-4ba972f38b22.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/667274/1636258414694-1e3f7395-c2a7-4ea5-94de-f7e7aa6f8caf.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/667274/1636258977422-afc79763-005b-4cb7-8c86-7f59ed1af6e5.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/667274/1636270163778-140af187-8cd9-42fb-8ba9-ee51d4bc6843.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/667274/1636271363390-4e01f026-3052-492f-b083-f1a50f1da76b.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/667274/1636271706161-cf961793-d40d-4f5e-831b-56490d081bee.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/667274/1636271807768-5ff5ccbb-266b-4d87-b319-b2c9b4aedc13.png?x-oss-process=image%2Fresize%2Cw_750%2Climit_0">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/667274/1636272525328-090af578-5dce-4ee3-928c-9acfae346fe1.png">
+<meta property="og:updated_time" content="2021-11-07T09:06:10.104Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《Unity Shader入门精要》笔记（一）">
+<meta name="twitter:description" content="渲染流水线渲染流水线的工作任务是：将三维场景里的物体投到屏幕上，生成一张二维图像。可分为三个阶段：应用阶段、几何阶段、光栅化阶段。   应用阶段CPU负责的阶段，应用主导，开发者有绝对的控制权，主要有三个任务：  准备好场景数据 不可见物体剔除，提高渲染性能 设置好每个模型的渲染状态，如：材质、纹理、Shader等  该阶段最重要的输出是渲染图元，如：点、线、三角面等，会被传递到下一个有GPU负责">
+<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2021/png/667274/1636213447325-d71b5c59-65d5-4b27-b954-9d62b043bf99.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"hide","offset":12,"b2t":true,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: 'P169SBHT9P',
+      apiKey: 'aff6672534638c8530052ce885f3d28a',
+      indexName: 'blog_NAME',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"输入关键词就可以搜索啦~","hits_empty":"T.T 没有找到与“ ${query} ”相关的文章","hits_stats":"找到 ${hits} 篇文章，耗时 ${time} 毫秒！"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://wjnovember.github.io/UnityShadersBook01/">
+
+
+
+
+
+  <title>《Unity Shader入门精要》笔记（一） | 程序员叨叨叨</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">程序员叨叨叨</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一枚程序猿的叨叨日常</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-首页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-目录">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            目录
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-时光机">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            时光机
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wjnovember.github.io/UnityShadersBook01/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="代码咖啡">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar_sidebar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="程序员叨叨叨">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">《Unity Shader入门精要》笔记（一）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-11-07T16:29:58+08:00">
+                2021-11-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/TA不是他她它祂/" itemprop="url" rel="index">
+                    <span itemprop="name">TA不是他她它祂</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/UnityShadersBook01/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/UnityShadersBook01/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/UnityShadersBook01/" class="leancloud_visitors" data-flag-title="《Unity Shader入门精要》笔记（一）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="渲染流水线"><a href="#渲染流水线" class="headerlink" title="渲染流水线"></a>渲染流水线</h1><p><strong>渲染流水线</strong>的工作任务是：将三维场景里的物体投到屏幕上，生成一张二维图像。<br>可分为三个阶段：<strong>应用阶段</strong>、<strong>几何阶段</strong>、<strong>光栅化阶段</strong>。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/667274/1636213447325-d71b5c59-65d5-4b27-b954-9d62b043bf99.png" alt></p>
+<ul>
+<li><p><strong>应用阶段</strong><br>CPU负责的阶段，应用主导，开发者有绝对的控制权，主要有三个任务：</p>
+<ul>
+<li>准备好场景数据</li>
+<li>不可见物体剔除，提高渲染性能</li>
+<li>设置好每个模型的渲染状态，如：材质、纹理、Shader等</li>
+</ul>
+<p>该阶段最重要的输出是<strong>渲染图元</strong>，如：点、线、三角面等，会被传递到下一个有GPU负责的阶段——几何阶段。</p>
+</li>
+<li><p><strong>几何阶段</strong><br>GPU负责的阶段，与每个渲染图元打交道，将三维空间的顶点数据转换到屏幕空间中，再将转换后的数据交给下一个阶段——光栅化阶段处理。关键词：<strong>逐顶点</strong>。</p>
+</li>
+<li><p><strong>光栅化阶段</strong><br>GPU负责的阶段，从上一阶段接过图元在屏幕空间的数据，差值计算后，决定图元里哪些像素会被绘制到屏幕中、被绘制成什么颜色。关键词：<strong>逐像素</strong>。</p>
+</li>
+</ul>
+<h1 id="CPU和GPU之间的通信"><a href="#CPU和GPU之间的通信" class="headerlink" title="CPU和GPU之间的通信"></a>CPU和GPU之间的通信</h1><p>应用阶段的三个阶段：</p>
+<ul>
+<li><strong>把数据加载到显存</strong><br>数据加载到显存后，RAM的数据就可以移除了。但从硬盘加载到RAM过程十分耗时，CPU依然要访问数据，所以有些RAM中的数据不会马上移除。</li>
+</ul>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/667274/1636255921750-a61883fd-e32e-4b67-ab63-2463851cc0f9.png?x-oss-process=image%2Fresize%2Cw_750%2Climit_0" alt></p>
+<ul>
+<li><strong>设置渲染状态</strong><br>这些状态定义了场景中的网格是怎么被渲染的。</li>
+</ul>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/667274/1636256121580-0176ed3e-116a-4716-88f7-cc830d134876.png?x-oss-process=image%2Fresize%2Cw_750%2Climit_0" alt></p>
+<ul>
+<li><strong>调用Draw Call</strong><br>Draw Call就是CPU发起命令，告诉GPU去执行一个渲染过程。一次DC（Draw Call）会指向本次调用需要渲染的图源列表。</li>
+</ul>
+<h1 id="GPU流水线"><a href="#GPU流水线" class="headerlink" title="GPU流水线"></a>GPU流水线</h1><p>GPU从CPU那里拿到顶点数据后，经过<strong>几何阶段</strong>和<strong>光栅化阶段</strong>将场景里的物体绘制到屏幕中。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/667274/1636256893311-6876cae8-8457-415a-a75c-578670f8a910.png" alt></p>
+<ul>
+<li><strong>几何阶段</strong><ul>
+<li>顶点着色器<br>完全可编程，实现顶点的空间变换、顶点着色等功能。</li>
+<li>曲面细分着色器<br>可选的着色器，用于细分图元。</li>
+<li>几何着色器<br>可选的着色器，执行逐图元的着色操作，或者生产更多的图元。</li>
+<li>裁剪<br>将不存在摄像机视野内的顶点裁掉，并剔除某些三角图元的面片；也可以通过指令控制裁剪三角图元的正面或背面。</li>
+<li>屏幕映射<br>不可配置、不可编程，负责把每个图元的坐标转换到屏幕坐标系中。</li>
+</ul>
+</li>
+<li><strong>光栅化阶段</strong><ul>
+<li>三角形设置<br>固定函数的阶段。</li>
+<li>三角形遍历<br>固定函数的阶段。</li>
+<li>片元着色器<br>完全可编程，实现逐片元的着色操作。</li>
+<li>逐片元操作<br>不可编程，但可配置性很高，负责执行很多重要操作，如：修改颜色、深度缓冲、进行混合等。</li>
+</ul>
+</li>
+</ul>
+<p>我们需要重点关注的是<strong>顶点着色器（Vertex Shader）</strong>和<strong>片元着色器（Fragment Shader）</strong>。</p>
+<h2 id="顶点着色器"><a href="#顶点着色器" class="headerlink" title="顶点着色器"></a>顶点着色器</h2><p>顶点着色器需要完成工作主要有：<strong>坐标转换</strong>和<strong>逐顶点光照</strong>。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/667274/1636258348880-5f61daec-ae32-4314-8b35-4ba972f38b22.png" alt></p>
+<p>坐标转换，将模型的顶点坐标从模型空间转换到其次裁剪空间。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/667274/1636258414694-1e3f7395-c2a7-4ea5-94de-f7e7aa6f8caf.png" alt></p>
+<p>需要注意：<br>OpenGL中NDC的z分量范围是[-1, 1]<br>DirectX中NDC的z分量范围是[0, 1]</p>
+<p>NDC，全称Normalized Device Coordinates，归一化的设备坐标。（后续会详细了解）</p>
+<h2 id="裁剪"><a href="#裁剪" class="headerlink" title="裁剪"></a>裁剪</h2><p>一个图元和摄像机视野的关系有3种：</p>
+<ul>
+<li>完全在视野范围内<br>不裁剪，直接进入下一流水线阶段。</li>
+<li>部分在视野范围内<br>进行裁剪后，进入下一流水线阶段。</li>
+<li>完全在视野范围外<br>被剔除，不会进入下一流水线阶段。</li>
+</ul>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/667274/1636258977422-afc79763-005b-4cb7-8c86-7f59ed1af6e5.png" alt></p>
+<h2 id="屏幕映射"><a href="#屏幕映射" class="headerlink" title="屏幕映射"></a>屏幕映射</h2><p>屏幕映射前，顶点的坐标仍然在三维坐标系下，屏幕映射的任务是将每个图元的x、y坐标转换到屏幕坐标系下。<br>屏幕坐标系和z坐标一起构成了<strong>窗口坐标系</strong>。</p>
+<p>屏幕坐标系在OpenGL和DirectX之间的差异：</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/667274/1636270163778-140af187-8cd9-42fb-8ba9-ee51d4bc6843.png" alt></p>
+<h2 id="三角形设置"><a href="#三角形设置" class="headerlink" title="三角形设置"></a>三角形设置</h2><p>光栅化的第一个流水线阶段。<br>光栅化两个最重要的目标：</p>
+<ul>
+<li>计算每个图元（一般是三角形面片）覆盖了哪些像素</li>
+<li>为这些像素计算颜色</li>
+</ul>
+<p>三角形设置是一个计算三角形网格表示数据的过程，提供三角形边界的表示方式，为下阶段三角形遍历做准备。</p>
+<h2 id="三角形遍历"><a href="#三角形遍历" class="headerlink" title="三角形遍历"></a>三角形遍历</h2><p>遍历判断每个像素是否被一个三角网格覆盖，若覆盖，则生成一个<strong>片元（fragment）</strong>，这个过程也叫扫描变换。片元的信息数据通过三个顶点差值得到。</p>
+<h2 id="片元着色器"><a href="#片元着色器" class="headerlink" title="片元着色器"></a>片元着色器</h2><p>DirectX中也被称为<strong>像素着色器（Pixel Shader）</strong>。<br>片元着色器的输入是顶点着色器的输出差值得到的结果，片元着色器的输出是一个或多个颜色值。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/667274/1636271363390-4e01f026-3052-492f-b083-f1a50f1da76b.png" alt></p>
+<h2 id="逐片元操作"><a href="#逐片元操作" class="headerlink" title="逐片元操作"></a>逐片元操作</h2><p>OpenGL里称为<strong>逐片元操作</strong>，DirectX中称为<strong>输出合并阶段</strong>。这个阶段有几个主要任务：</p>
+<ul>
+<li>决定每个片元可见性，涉及：深度测试、模板测试等。</li>
+<li>通过测试后的片元与颜色缓冲区的颜色进行合并/混合。</li>
+</ul>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/667274/1636271706161-cf961793-d40d-4f5e-831b-56490d081bee.png" alt></p>
+<p>深度测试、模板测试的简化流程图：</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/667274/1636271807768-5ff5ccbb-266b-4d87-b319-b2c9b4aedc13.png?x-oss-process=image%2Fresize%2Cw_750%2Climit_0" alt></p>
+<ul>
+<li><p><strong>模板测试</strong><br>高度可配置。<br>模板缓冲，和颜色缓冲、深度缓冲几乎是一类东西。即当前像素读取的参考值和模板缓冲中读取的参考值进行比较，满足条件则通过模板测试，条件规则由开发者指定。<br>不管模板测试有没有通过，我们都可以根据模板测试和深度测试的结果来修改模板缓冲区，操作修改可由开发者指定。</p>
+</li>
+<li><p><strong>深度测试</strong><br>高度可配置。<br>与模板测试类似，将当前片元的深度值和深度缓冲区的深度值进行比较，比较函数可由开发者设置，通常这个比较函数是小于等于的关系，也就是显示距离相机更近的物体。<br>如果深度测试没有通过，它没有权利更改深度缓冲区中的值；如果通过了，开发者可以指定是否用这个片元的深度值盖掉缓冲区中的深度值——通过开启/关闭深度写入来控制。</p>
+</li>
+</ul>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/667274/1636272525328-090af578-5dce-4ee3-928c-9acfae346fe1.png" alt></p>
+<ul>
+<li><strong>混合</strong><br>高度可配置。<br>开发者可选择开启/关闭混合模式，来控制是直接覆盖，还是将源颜色（当前片元的颜色）和目标颜色（颜色缓冲区的颜色）进行混合后写入颜色缓冲区。</li>
+</ul>
+<p>有些GPU为了提高性能，将深度测试放到片元着色器之前处理，这种技术称为<strong>Early-Z技术</strong>。</p>
+<p>经过上述流程，颜色缓冲区中的颜色值被显示到屏幕上，但是为了防止正在进行光栅化的图元被显示在屏幕上，GPU采取了 <strong>双重缓冲（Double Buffering）</strong> 的策略，所以对场景的渲染是发生在幕后的，即： <strong>后置缓冲（Back Buffer）</strong> 中。</p>
+<h1 id="什么是Shader"><a href="#什么是Shader" class="headerlink" title="什么是Shader"></a>什么是Shader</h1><p>Shader本质就是运行在GPU流水线上的可高度编程的代码，主要有：<strong>顶点着色器（Vertex Shader）</strong>、<strong>片元着色器（Fragment Shader）</strong>，今后的开发学习中也主要是和这两个着色器打交道。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>再小的鼓励也是一种支持!</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="代码咖啡 WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="代码咖啡 Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Unity-Shader/" rel="tag"># Unity Shader</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/GuideMgr02/" rel="next" title="从零开始设计游戏引导框架（二）">
+                <i class="fa fa-chevron-left"></i> 从零开始设计游戏引导框架（二）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar_sidebar.png" alt="代码咖啡">
+            
+              <p class="site-author-name" itemprop="name">代码咖啡</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss2.html" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/wjnovember" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:wnovember@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.jianshu.com/u/9b87ba5fc959" title="我的简书" target="_blank">我的简书</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://runnerwoo.com/" title="老班长的博客" target="_blank">老班长的博客</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#渲染流水线"><span class="nav-number">1.</span> <span class="nav-text">渲染流水线</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CPU和GPU之间的通信"><span class="nav-number">2.</span> <span class="nav-text">CPU和GPU之间的通信</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GPU流水线"><span class="nav-number">3.</span> <span class="nav-text">GPU流水线</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#顶点着色器"><span class="nav-number">3.1.</span> <span class="nav-text">顶点着色器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#裁剪"><span class="nav-number">3.2.</span> <span class="nav-text">裁剪</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#屏幕映射"><span class="nav-number">3.3.</span> <span class="nav-text">屏幕映射</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三角形设置"><span class="nav-number">3.4.</span> <span class="nav-text">三角形设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三角形遍历"><span class="nav-number">3.5.</span> <span class="nav-text">三角形遍历</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#片元着色器"><span class="nav-number">3.6.</span> <span class="nav-text">片元着色器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#逐片元操作"><span class="nav-number">3.7.</span> <span class="nav-text">逐片元操作</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是Shader"><span class="nav-number">4.</span> <span class="nav-text">什么是Shader</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2016 &mdash; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">代码咖啡</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: '8vMRQb0bSf05Hd5zFNhrSHXz-gzGzoHsz',
+        appKey: 'uD8TcECp3UshQsLS1vxEocGy',
+        placeholder: '欢迎评论留言哦~',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("8vMRQb0bSf05Hd5zFNhrSHXz-gzGzoHsz", "uD8TcECp3UshQsLS1vxEocGy");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

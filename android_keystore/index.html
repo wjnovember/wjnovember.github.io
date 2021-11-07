@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/avatar_32x32.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/avatar_16x16.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="数字签名,Android开发,">
+
+
+
+
+
+  <link rel="alternate" href="/rss2.html" title="程序员叨叨叨" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="写在前面今天使用高德地图为应用添加Key的时候，发现有一项需要用到安全码SHA1，而SHA1存在于Keystore中，遂简单地了解了一下Keystore。虽然之前实习开发中有用同事生成的Keystore对应用加过密，但是对它并不熟，今天以此文对Keystore的认识做一个记录，也希望可以给未接触过Keystore的小伙伴们作为参考。 为什么使用Keystore?为什么使用Keystore？在回答这">
+<meta name="keywords" content="数字签名,Android开发">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android Keystore漫谈">
+<meta property="og:url" content="http://wjnovember.github.io/android_keystore/index.html">
+<meta property="og:site_name" content="程序员叨叨叨">
+<meta property="og:description" content="写在前面今天使用高德地图为应用添加Key的时候，发现有一项需要用到安全码SHA1，而SHA1存在于Keystore中，遂简单地了解了一下Keystore。虽然之前实习开发中有用同事生成的Keystore对应用加过密，但是对它并不熟，今天以此文对Keystore的认识做一个记录，也希望可以给未接触过Keystore的小伙伴们作为参考。 为什么使用Keystore?为什么使用Keystore？在回答这">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-b42dfbdbddc4cbd2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-6b3fa8642e7f3d56.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-70d3d4a88f0beaf3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-b3453c70b6a474ed.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-e851e470bc74f29f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-9c7bc41de08a6c83.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-fcfa9bc32e7b6f81.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-214f8c31ceeb71ea.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2021-11-07T09:06:10.104Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android Keystore漫谈">
+<meta name="twitter:description" content="写在前面今天使用高德地图为应用添加Key的时候，发现有一项需要用到安全码SHA1，而SHA1存在于Keystore中，遂简单地了解了一下Keystore。虽然之前实习开发中有用同事生成的Keystore对应用加过密，但是对它并不熟，今天以此文对Keystore的认识做一个记录，也希望可以给未接触过Keystore的小伙伴们作为参考。 为什么使用Keystore?为什么使用Keystore？在回答这">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/291600-b42dfbdbddc4cbd2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"hide","offset":12,"b2t":true,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: 'P169SBHT9P',
+      apiKey: 'aff6672534638c8530052ce885f3d28a',
+      indexName: 'blog_NAME',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"输入关键词就可以搜索啦~","hits_empty":"T.T 没有找到与“ ${query} ”相关的文章","hits_stats":"找到 ${hits} 篇文章，耗时 ${time} 毫秒！"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://wjnovember.github.io/android_keystore/">
+
+
+
+
+
+  <title>Android Keystore漫谈 | 程序员叨叨叨</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">程序员叨叨叨</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一枚程序猿的叨叨日常</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-首页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-目录">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            目录
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-时光机">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            时光机
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wjnovember.github.io/android_keystore/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="代码咖啡">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar_sidebar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="程序员叨叨叨">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android Keystore漫谈</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-19T23:39:50+08:00">
+                2017-12-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android开发从入门到炸机/" itemprop="url" rel="index">
+                    <span itemprop="name">Android开发从入门到炸机</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/android_keystore/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/android_keystore/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/android_keystore/" class="leancloud_visitors" data-flag-title="Android Keystore漫谈">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>今天使用高德地图为应用添加Key的时候，发现有一项需要用到安全码SHA1，而SHA1存在于Keystore中，遂简单地了解了一下Keystore。虽然之前实习开发中有用同事生成的Keystore对应用加过密，但是对它并不熟，今天以此文对Keystore的认识做一个记录，也希望可以给未接触过Keystore的小伙伴们作为参考。</p>
+<h1 id="为什么使用Keystore"><a href="#为什么使用Keystore" class="headerlink" title="为什么使用Keystore?"></a>为什么使用Keystore?</h1><p>为什么使用Keystore？在回答这个问题前，我们先来看看Keystore是什么东西。我们都知道，古时丫鬟被买下时，主人要求丫鬟签写卖身契，表示这个丫鬟是老王头家的。Keystore就如同卖身契，表示这个APP是某一名开发者开发的。有了Keystore，开发者在发布自己的应用到市场时，就无需担心自己的APP被他人抢走了，因此使用Keystore很有必要。</p>
+<p>那么Keystore怎么证明APP开发者的身份呢？在生成Keystore的时候，开发者会录入自己<strong>姓名、单位、组织、所在城市、省份、国家代码</strong>等信息以保证此Keystore是自己的，将录入自己信息的Keystore放入APP中，这样就可以保证这个APP是自己开发的了。</p>
+<p><em>此处添加<a href="https://www.jianshu.com/u/f339f96aa3e3" target="_blank" rel="noopener">莫再讲xml</a>对 *</em>Keystore放入APP** 的纠正和补充*：</p>
+<blockquote>
+<p>Keystore 传统理解为密钥库，或者钥匙串。一个keystore里面可以放多组秘钥，每组密钥都有有效期、地址、公司等信息，可以通过别名来进行区分拿取。开发者将录入自己信息的秘钥（而非秘钥库Keystore）存入APP中，以认证此APP为自己开发。</p>
+</blockquote>
+<p>Keystore可理解为一个容器，存放开发者信息、私钥、公钥的容器。乍一听，未接触过密码学的小伙伴们可能会对这些名词感到陌生，接下来我们来简单了解一下Keystore相关名词。</p>
+<h1 id="名词解释"><a href="#名词解释" class="headerlink" title="名词解释"></a>名词解释</h1><h2 id="加密"><a href="#加密" class="headerlink" title="加密"></a>加密</h2><p>为了防止我的信息数据被不想看到的人看到，用特殊的算法打乱（信息内容的改变，而非简单的顺序改变）原来的信息数据，使他人即使得到打乱后的信息数据也无法理解其中的含义。</p>
+<h2 id="解密"><a href="#解密" class="headerlink" title="解密"></a>解密</h2><p>为了看懂被打乱的信息数据，使用特殊的算法将打乱后的信息数据还原成原来的内容，以理解其中的含义。</p>
+<h2 id="实体"><a href="#实体" class="headerlink" title="实体"></a>实体</h2><p>原始未被打乱的信息数据，密码学称之为<strong>明文</strong>，在Keystore里面我们称之为<strong>实体</strong>。</p>
+<h2 id="公钥"><a href="#公钥" class="headerlink" title="公钥"></a>公钥</h2><p>加密过程中，算法为了提高其加密程度，传入一个参数，使同一个算法在不同参数的作用下产生不同的加密效果。公钥持有者一般为群体，其作用是<strong>验证</strong>与<strong>加密</strong>。</p>
+<h2 id="私钥"><a href="#私钥" class="headerlink" title="私钥"></a>私钥</h2><p>通过传入与公钥钥配对的私钥到算法中，实现解密的效果。一般私钥由个人持有，需妥善保管，不可告诉他人，其作用是<strong>解密</strong>与<strong>签章</strong>。关于私钥、公钥的知识，在此不做过多讲解，引用<a href="http://blog.csdn.net/tanyujing/article/details/17348321" target="_blank" rel="noopener">公钥和私钥</a>中的内容，相信小伙伴们会有点收获。</p>
+<blockquote>
+<p>比如说，我要给你发送一个加密的邮件。首先，我必须拥有你的公钥，你也必须拥有我的公钥。<br><br>首先，我用你的公钥给这个邮件加密，这样就保证这个邮件不被别人看到，而且保证这个邮件在传送过程中没有被修改。你收到邮件后，用你的私钥就可以解密，就能看到内容。<br><br>其次我用我的私钥给这个邮件加密，发送到你手里后，你可以用我的公钥解密。因为私钥只有我手里有，这样就保证了这个邮件是我发送的。</p>
+</blockquote>
+<h2 id="数字签名"><a href="#数字签名" class="headerlink" title="数字签名"></a>数字签名</h2><p>实体经私钥加密后得到的数据。它可以通过公钥来解密，从而将解密后的内容与实体进行比对，来验证信息数据是否被篡改过。关于数字签名更深入的了解，可参考《<a href="https://wjnovember.github.io/digital-signature">一文读懂数字签名</a>》一文。</p>
+<h2 id="别名"><a href="#别名" class="headerlink" title="别名"></a>别名</h2><p>用来区分Keystore的唯一标识（字符串）。</p>
+<h1 id="默认Keystore和自定义Keystore"><a href="#默认Keystore和自定义Keystore" class="headerlink" title="默认Keystore和自定义Keystore"></a>默认Keystore和自定义Keystore</h1><p>通过对Keystore相关名词的了解，我们大致清楚Keystore其实就是验证APP开发者身份的一个文件。Keystore分为默认Keystore和自定义Keystore，通常应用发布时不用默认的Keystore，因为它不包含开发者的有效信息，且密码是android，任何人都可通过keytool指令对其内容进行修改，无法验证APP的有效性。默认Keystore的存放位置为<code>$HOME/.android/debug.keystore</code>，若Android Studio打包签名apk的时候未找到默认的Keystore时会自动创建它。自定义Keystore可使用Keytool指令或Android Studio来生成，接下来我们来了解自定义KeyStore的生成方式。</p>
+<h1 id="Keytool指令参数"><a href="#Keytool指令参数" class="headerlink" title="Keytool指令参数"></a>Keytool指令参数</h1><p>Keytool是一个很有用的安全钥匙和证书的管理工具，使用该指令可实现密钥库（Keystore）的创建和查看等操作。我们先来看一下Keytool指令相关的参数。</p>
+<blockquote>
+<p><strong>-genkey</strong><br><br>在用户主目录中创建密钥库（Keystore），后缀名为.keystore。<br><br><strong>-alias</strong> [alias]<br><br>产生别名，后面跟别名内容。若未指定，则别名默认为mykey.<br><br><strong>-keystore</strong><br><br>指定.keystore文件的名称，如：<br><br><code>keytool -genkey -keystore dmkf.keystore</code><br><br>用户主目录中会产生名称为<strong>dmkf.keystore</strong>的Keystore文件。若未使用该参数，则文件名默认为<strong>.keystore</strong>。<br><br><strong>-keyalg</strong> [DSA/RSA]<br><br>指定密钥的算法，未指定时默认为DSA算法。<br><br><strong>-validity</strong><br><br>指定创建的证书有效期，单位为<strong>天</strong>。未指定时默认为1天。<br><br><strong>-dname</strong><br><br>证书持有者（APP开发者）信息。<br><br>CN：名字或姓氏<br><br>OU：组织单位名称<br><br>O：组织名称<br><br>L：城市或区域名称<br><br>ST：州或省份名称<br><br>C：单位的两字国家代码<br><br><strong>-list</strong><br><br>显示证书信息。<br><br><strong>-v</strong><br><br>显示证书详细信息。<br><br><strong>-export</strong><br><br>结合<strong>-alias</strong>导出指定的证书信息。如：<br><br><code>keytool -export -alias dmkf -keystore dmkf.keystore -file D:/mykeystore/myexport.crt</code><br><br><strong>-import</strong><br><br>将已签名的证书导入到密钥库，如：<br><br><code>keytool -import -alias dmkf -keystore mystore.keystore -file D:/mykeystore/myanother.crt</code><br><br><strong>-keysize</strong><br><br>指定密钥长度。<br><br><strong>-storepass</strong><br><br>操作密钥库所需的密码。<br><br><strong>-storepasswd</strong><br><br>修改操作密钥库所需的密码。<br><br><strong>-keypass</strong><br><br>指定别名条目的密码（私钥的密码）。<br><br><strong>-keypasswd</strong><br><br>修改指定别名条目的密码。<br><br><strong>-file</strong><br><br>结合<strong>-export</strong>，指定导出的证书位置及证书名称。<br><br><strong>-delete</strong><br><br>删除密钥库中某一条目。如：<br><br><code>keytool -delete -alias dmkf -keystore dmkf.keystore</code><br><br><strong>-printcert</strong><br><br>查询导出的证书信息，如：<br><br><code>keytool -printcert -file D:/mykeystore/dmkf.crt</code><br></p>
+</blockquote>
+<h1 id="常用Keytool指令操作"><a href="#常用Keytool指令操作" class="headerlink" title="常用Keytool指令操作"></a>常用Keytool指令操作</h1><h2 id="创建Keystore文件"><a href="#创建Keystore文件" class="headerlink" title="创建Keystore文件"></a>创建Keystore文件</h2><p>生成一个别名为<code>dmkf</code>，名为<code>dmkf.keystore</code>的文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keytool -genkey -alias dmkf -keystore dmkf.keystore -keyalg RSA</span><br></pre></td></tr></table></figure>
+
+<h2 id="查看Keystore文件"><a href="#查看Keystore文件" class="headerlink" title="查看Keystore文件"></a>查看Keystore文件</h2><p>查看名为<code>dmkf.keystore</code>的Keystore文件信息。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">keytool -list -v -keystore dmkf.keystore</span><br><span class="line">Enter keystore password: ****（输入Keystore操作密码）</span><br></pre></td></tr></table></figure>
+
+<h2 id="输出Keystore证书"><a href="#输出Keystore证书" class="headerlink" title="输出Keystore证书"></a>输出Keystore证书</h2><p>从密钥库<code>dmkf.keystore</code>中导出别名为<code>dmkf</code>的证书到<code>dmkf.crt</code>文件中（导出的证书中包括主体信息和公钥）。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">keytool -export -alias dmkf -keystore dmkf.keystore -file dmkf.crt</span><br><span class="line">Enter keystore password: ****（输入Keystore操作密码）</span><br></pre></td></tr></table></figure>
+
+<h2 id="查看导出的证书信息"><a href="#查看导出的证书信息" class="headerlink" title="查看导出的证书信息"></a>查看导出的证书信息</h2><p>查看导出并保存在<code>dmkf.crt</code>文件中的证书信息。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keytool -printcert -file dmkf.crt</span><br></pre></td></tr></table></figure>
+
+<h2 id="导入证书"><a href="#导入证书" class="headerlink" title="导入证书"></a>导入证书</h2><p>从名为<code>dmkf.crt</code>文件中取出别名为<code>dmkf</code>的证书信息导入到名为<code>truststore.keystore</code>密钥库中。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keytool -import -alias dmfk -keystore truststore.keystore -file dmkf.crt</span><br></pre></td></tr></table></figure>
+
+<h1 id="Android-Studio生成Keystore"><a href="#Android-Studio生成Keystore" class="headerlink" title="Android Studio生成Keystore"></a>Android Studio生成Keystore</h1><p>打开Android Studio，在菜单栏中找到<code>Build</code>，单击弹出下拉框，选择<code>Generate Signed APK...</code>。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-b42dfbdbddc4cbd2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Generate Signed APK..."></p>
+<p>选择<code>app</code>，单击Next按钮。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-6b3fa8642e7f3d56.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Generate Signed APK"></p>
+<p>单击Create new…按钮。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-70d3d4a88f0beaf3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Generate Signed APK"></p>
+<p>在弹出的New Key Store窗口中选择Keystore存放路径，设置Keystore密码、别名、别名密码、有效期以及个人信息，单击OK按钮完成Keystore的创建。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-b3453c70b6a474ed.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="New Key Store"></p>
+<p>此时Android Studio自动填充新建的Keystore相关信息，至此Android Studio已完成Keystore的创建。若想用这个Keystore继续打包APK，单击Next按钮。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-e851e470bc74f29f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Generate Signed APK"></p>
+<p>设置密码数据库的密码，单击OK按钮，进入下一步。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-9c7bc41de08a6c83.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="设置密码数据库的密码"></p>
+<p>选择好APK导出的位置和编译方式（发布/调试），单击Finish按钮完成APK的打包。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-fcfa9bc32e7b6f81.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"></p>
+<p>在项目根目录的<code>app</code>文件夹里可以找到命名为<code>app-release.apk</code>的apk文件。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-214f8c31ceeb71ea.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="生成apk"></p>
+<p>以上就是本次Keystore漫谈的所有内容，有不准确的地方，欢迎在文章下方的评论处评论指正！</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="http://blog.csdn.net/yangsainan/article/details/40820699" target="_blank" rel="noopener">android keystore sha1 md5的理解</a></li>
+<li><a href="http://blog.csdn.net/wf632856695/article/details/51193885" target="_blank" rel="noopener">Android Studio中的keystore</a></li>
+<li><a href="http://blog.csdn.net/nimasike/article/details/51457229" target="_blank" rel="noopener">Android Studio 默认keystore 以及自定义keystore</a></li>
+<li><a href="http://blog.csdn.net/u012005313/article/details/48577751" target="_blank" rel="noopener">Andriod Studio debug.keystore(默认)和如何生成自定义的keystore 以及如何生成数字签名</a></li>
+<li><a href="http://blog.csdn.net/yangsainan/article/details/40820699" target="_blank" rel="noopener">android keystore sha1 md5的理解</a></li>
+<li><a href="http://marlay.iteye.com/blog/1402264" target="_blank" rel="noopener">keystore 介绍</a></li>
+<li><a href="http://blog.csdn.net/dotuian/article/details/51722300" target="_blank" rel="noopener">关于keystore的简单介绍</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>再小的鼓励也是一种支持!</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="代码咖啡 WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="代码咖啡 Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数字签名/" rel="tag"># 数字签名</a>
+          
+            <a href="/tags/Android开发/" rel="tag"># Android开发</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog_advanced/" rel="next" title="2小时还你一个集打赏、评论、RSS功能于一身的个性化博客">
+                <i class="fa fa-chevron-left"></i> 2小时还你一个集打赏、评论、RSS功能于一身的个性化博客
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/digital_signature/" rel="prev" title="一文读懂数字签名">
+                一文读懂数字签名 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar_sidebar.png" alt="代码咖啡">
+            
+              <p class="site-author-name" itemprop="name">代码咖啡</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss2.html" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/wjnovember" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:wnovember@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.jianshu.com/u/9b87ba5fc959" title="我的简书" target="_blank">我的简书</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://runnerwoo.com/" title="老班长的博客" target="_blank">老班长的博客</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#写在前面"><span class="nav-number">1.</span> <span class="nav-text">写在前面</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#为什么使用Keystore"><span class="nav-number">2.</span> <span class="nav-text">为什么使用Keystore?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#名词解释"><span class="nav-number">3.</span> <span class="nav-text">名词解释</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#加密"><span class="nav-number">3.1.</span> <span class="nav-text">加密</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解密"><span class="nav-number">3.2.</span> <span class="nav-text">解密</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实体"><span class="nav-number">3.3.</span> <span class="nav-text">实体</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#公钥"><span class="nav-number">3.4.</span> <span class="nav-text">公钥</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#私钥"><span class="nav-number">3.5.</span> <span class="nav-text">私钥</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数字签名"><span class="nav-number">3.6.</span> <span class="nav-text">数字签名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#别名"><span class="nav-number">3.7.</span> <span class="nav-text">别名</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#默认Keystore和自定义Keystore"><span class="nav-number">4.</span> <span class="nav-text">默认Keystore和自定义Keystore</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Keytool指令参数"><span class="nav-number">5.</span> <span class="nav-text">Keytool指令参数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常用Keytool指令操作"><span class="nav-number">6.</span> <span class="nav-text">常用Keytool指令操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建Keystore文件"><span class="nav-number">6.1.</span> <span class="nav-text">创建Keystore文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看Keystore文件"><span class="nav-number">6.2.</span> <span class="nav-text">查看Keystore文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#输出Keystore证书"><span class="nav-number">6.3.</span> <span class="nav-text">输出Keystore证书</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看导出的证书信息"><span class="nav-number">6.4.</span> <span class="nav-text">查看导出的证书信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#导入证书"><span class="nav-number">6.5.</span> <span class="nav-text">导入证书</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Android-Studio生成Keystore"><span class="nav-number">7.</span> <span class="nav-text">Android Studio生成Keystore</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">8.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2016 &mdash; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">代码咖啡</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: '8vMRQb0bSf05Hd5zFNhrSHXz-gzGzoHsz',
+        appKey: 'uD8TcECp3UshQsLS1vxEocGy',
+        placeholder: '欢迎评论留言哦~',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("8vMRQb0bSf05Hd5zFNhrSHXz-gzGzoHsz", "uD8TcECp3UshQsLS1vxEocGy");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/avatar_32x32.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/avatar_16x16.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Cocos-2dx,">
+
+
+
+
+
+  <link rel="alternate" href="/rss2.html" title="程序员叨叨叨" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="前情提要今天在开发游戏引导框架时，遇到这样的需求：人物对话文本支持打字机效果，且需要个别文字高亮。如果仅仅是前者的需求，是挺好实现的，创建一个Label，通过getLetter(index)获取每个字，调用setVisible(isVisible)即可；但是个别文字高亮是RichText才有的功能，于是难点变成了如何获取RichText里的每个字？ 代码分析话不多说，看源代码，从UIRichTex">
+<meta name="keywords" content="Cocos-2dx">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RichText打字机效果实现思路分享">
+<meta property="og:url" content="http://wjnovember.github.io/richtext_getallletters/index.html">
+<meta property="og:site_name" content="程序员叨叨叨">
+<meta property="og:description" content="前情提要今天在开发游戏引导框架时，遇到这样的需求：人物对话文本支持打字机效果，且需要个别文字高亮。如果仅仅是前者的需求，是挺好实现的，创建一个Label，通过getLetter(index)获取每个字，调用setVisible(isVisible)即可；但是个别文字高亮是RichText才有的功能，于是难点变成了如何获取RichText里的每个字？ 代码分析话不多说，看源代码，从UIRichTex">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2021-11-07T09:06:10.120Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="RichText打字机效果实现思路分享">
+<meta name="twitter:description" content="前情提要今天在开发游戏引导框架时，遇到这样的需求：人物对话文本支持打字机效果，且需要个别文字高亮。如果仅仅是前者的需求，是挺好实现的，创建一个Label，通过getLetter(index)获取每个字，调用setVisible(isVisible)即可；但是个别文字高亮是RichText才有的功能，于是难点变成了如何获取RichText里的每个字？ 代码分析话不多说，看源代码，从UIRichTex">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"hide","offset":12,"b2t":true,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: 'P169SBHT9P',
+      apiKey: 'aff6672534638c8530052ce885f3d28a',
+      indexName: 'blog_NAME',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"输入关键词就可以搜索啦~","hits_empty":"T.T 没有找到与“ ${query} ”相关的文章","hits_stats":"找到 ${hits} 篇文章，耗时 ${time} 毫秒！"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://wjnovember.github.io/richtext_getallletters/">
+
+
+
+
+
+  <title>RichText打字机效果实现思路分享 | 程序员叨叨叨</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">程序员叨叨叨</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一枚程序猿的叨叨日常</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-首页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-目录">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            目录
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-时光机">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            时光机
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wjnovember.github.io/richtext_getallletters/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="代码咖啡">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar_sidebar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="程序员叨叨叨">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">RichText打字机效果实现思路分享</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-10-17T20:18:53+08:00">
+                2019-10-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/站在巨人的肩膀上/" itemprop="url" rel="index">
+                    <span itemprop="name">站在巨人的肩膀上</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/richtext_getallletters/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/richtext_getallletters/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/richtext_getallletters/" class="leancloud_visitors" data-flag-title="RichText打字机效果实现思路分享">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="前情提要"><a href="#前情提要" class="headerlink" title="前情提要"></a>前情提要</h1><p>今天在开发游戏引导框架时，遇到这样的需求：人物对话文本支持<strong>打字机效果</strong>，且需要<strong>个别文字高亮</strong>。如果仅仅是前者的需求，是挺好实现的，创建一个<code>Label</code>，通过<code>getLetter(index)</code>获取每个字，调用<code>setVisible(isVisible)</code>即可；但是个别文字高亮是RichText才有的功能，于是难点变成了<strong>如何获取RichText里的每个字</strong>？</p>
+<h1 id="代码分析"><a href="#代码分析" class="headerlink" title="代码分析"></a>代码分析</h1><p>话不多说，看源代码，从<code>UIRichText.cpp</code>文件的<code>formatText</code>方法中，我们发现<code>RichText</code>的本质就是多个<code>Label</code>的拼接：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> RichText::formatText(<span class="keyword">bool</span> isForce)</span><br><span class="line">&#123;</span><br><span class="line">  ...</span><br><span class="line">        _elementRenders.clear();</span><br><span class="line">            ...</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">ssize_t</span> i=<span class="number">0</span>; i&lt;_richElements.size(); i++)</span><br><span class="line">            &#123;</span><br><span class="line">                RichElement* element = _richElements.at(i);</span><br><span class="line">                Node* elementRenderer = <span class="literal">nullptr</span>;</span><br><span class="line">                <span class="keyword">switch</span> (element-&gt;_type)</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">case</span> RichElement::Type::TEXT:</span><br><span class="line">                    &#123;</span><br><span class="line">                        RichElementText* elmtText = <span class="keyword">static_cast</span>&lt;RichElementText*&gt;(element);</span><br><span class="line">                        Label* label;</span><br><span class="line">                        <span class="keyword">if</span> (FileUtils::getInstance()-&gt;isFileExist(elmtText-&gt;_fontName))</span><br><span class="line">                        &#123;</span><br><span class="line">                             label = Label::createWithTTF(elmtText-&gt;_text, elmtText-&gt;_fontName, elmtText-&gt;_fontSize);</span><br><span class="line">                        &#125;</span><br><span class="line">                        <span class="keyword">else</span></span><br><span class="line">                        &#123;</span><br><span class="line">                            label = Label::createWithSystemFont(elmtText-&gt;_text, elmtText-&gt;_fontName, elmtText-&gt;_fontSize);</span><br><span class="line">                        &#125;</span><br><span class="line">                        ...</span><br><span class="line">                        elementRenderer = label;</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">case</span> RichElement::Type::IMAGE:</span><br><span class="line">                    &#123;</span><br><span class="line">                      ...</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">case</span> RichElement::Type::CUSTOM:</span><br><span class="line">                    &#123;</span><br><span class="line">                      ...</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">case</span> RichElement::Type::NEWLINE:</span><br><span class="line">                    &#123;</span><br><span class="line">                      ...</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">default</span>:</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (elementRenderer)</span><br><span class="line">                &#123;</span><br><span class="line">                    Label * pLabel = <span class="keyword">dynamic_cast</span>&lt;Label *&gt;(elementRenderer);</span><br><span class="line">                    <span class="keyword">if</span> (pLabel)</span><br><span class="line">                    &#123;</span><br><span class="line">                        pLabel-&gt;setTextColor(Color4B(element-&gt;_color, element-&gt;_opacity));</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">else</span></span><br><span class="line">                    &#123;</span><br><span class="line">                        elementRenderer-&gt;setColor(element-&gt;_color);</span><br><span class="line">                        elementRenderer-&gt;setOpacity(element-&gt;_opacity);</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    pushToContainer(elementRenderer);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">          <span class="comment">// 与前一段if结构基本一致</span></span><br><span class="line">          ...</span><br><span class="line">        &#125;</span><br><span class="line">        formarRenderers();</span><br><span class="line">        _formatTextDirty = <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这段代码的逻辑是通过读取<code>insertElement()</code>方法传入的<code>RichElement</code>，根据RichElement类别的不同，创建<code>Label</code>、<code>Sprite</code>、<code>Node</code>等，放入RichText这个容器中，因为在当前情境下，只有<code>Label</code>被创建，所以其他不在考虑范围。</p>
+<p>有了<code>Label</code>就可以拿到每个文字了，那么<code>Label</code>从哪里获取呢？我们把上面代码再精简下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> RichText::formatText(<span class="keyword">bool</span> isForce)</span><br><span class="line">&#123;</span><br><span class="line">    _elementRenders.clear();</span><br><span class="line">    Node* elementRender = Label::create...</span><br><span class="line">    pushToContainer(elementRender);</span><br><span class="line">    formarRenderers();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>发现<code>Label</code>被传进了<code>pushToContainer(render)</code>方法中，这个方法的代码很简单：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> RichText::pushToContainer(cocos2d::Node *renderer)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (_elementRenders.size() &lt;= <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    _elementRenders[_elementRenders.size()<span class="number">-1</span>]-&gt;pushBack(renderer);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>所以思路就变成了<strong>如何从<code>_elementRenders</code>中获取所有的<code>Label</code></strong>？</p>
+<h1 id="逻辑编写"><a href="#逻辑编写" class="headerlink" title="逻辑编写"></a>逻辑编写</h1><p>基于上述梳理，编写获取<code>RichText</code>中所有文字的逻辑如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> RichText::getAllLetters()</span><br><span class="line">&#123;</span><br><span class="line">    Vector&lt;Sprite*&gt; letters;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span>&amp; element : _elementRenders)</span><br><span class="line">    &#123;</span><br><span class="line">        Vector&lt;Node*&gt;* row = element;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">ssize_t</span> i = <span class="number">0</span>; i&lt;row-&gt;size(); i++)</span><br><span class="line">        &#123;</span><br><span class="line">            Node* pNode = row-&gt;at(i);</span><br><span class="line">            Label * pLabel = <span class="keyword">dynamic_cast</span>&lt;Label*&gt;(pNode);</span><br><span class="line">            <span class="keyword">if</span> (pLabel)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">int</span> len = pLabel-&gt;getStringLength();</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; len; j++)</span><br><span class="line">                &#123;</span><br><span class="line">                    Sprite* letter = pLabel-&gt;getLetter(j);</span><br><span class="line">                    <span class="keyword">if</span> (letter)</span><br><span class="line">                        letters.pushBack(letter);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> letters;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>编写完成，将<code>CPP</code>转为<code>Lua</code>，看一下效果！</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">代码：</span><br><span class="line">local ret = richText:getAllLetters()</span><br><span class="line"></span><br><span class="line">输出：</span><br><span class="line">ret: &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>为什么会出现这样的情况呢？</p>
+<p>打断点，进入<code>getAllLetters()</code>，傻眼了，<code>_elementRenders</code>是个空数组。原因是<code>formatText()</code>方法的最后，RichText调用了<code>formarRenderers()</code>方法，我们来简单地看一下<code>formarRenderers</code>的逻辑：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> RichText::formarRenderers()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 此处省略一大坨代码...</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">size_t</span> length = _elementRenders.size();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">size_t</span> i = <span class="number">0</span>; i&lt;length; i++)</span><br><span class="line">	  &#123;</span><br><span class="line">        Vector&lt;Node*&gt;* l = _elementRenders[i];</span><br><span class="line">        l-&gt;clear();</span><br><span class="line">        <span class="keyword">delete</span> l;</span><br><span class="line">	  &#125;    </span><br><span class="line">    _elementRenders.clear();</span><br><span class="line">    </span><br><span class="line">    updateContentSizeWithTextureSize(_contentSize);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>前面做了什么逻辑我们不关心，我们关心的是方法的最后调用了<code>_elementRenders.clear()</code>，也就是说：每次执行<code>formatText()</code>后，<code>_elementRenders</code>都会被清空，它只是一个临时变量，所以接下来要做的就是<strong>在<code>_elementRenders</code>被清掉前，遍历获取每一个Letter并存下来</strong>。</p>
+<p>于是代码变成了这样：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line">UIRichText.h</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CC_GUI_DLL</span> <span class="title">RichText</span> :</span> <span class="keyword">public</span> Widget</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    Vector&lt;Sprite*&gt;&amp; getAllLetters();</span><br><span class="line"></span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">    Vector&lt;Sprite*&gt; _letters;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">--------------------------------------------------</span><br><span class="line"></span><br><span class="line">UIRichText.CPP</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> RichText::updateLetters()</span><br><span class="line">&#123;</span><br><span class="line">    _letters.clear();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span>&amp; element : _elementRenders)</span><br><span class="line">    &#123;</span><br><span class="line">        Vector&lt;Node*&gt;* row = element;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">ssize_t</span> i = <span class="number">0</span>; i&lt;row-&gt;size(); i++)</span><br><span class="line">        &#123;</span><br><span class="line">            Node* pNode = row-&gt;at(i);</span><br><span class="line">            Label * pLabel = <span class="keyword">dynamic_cast</span>&lt;Label*&gt;(pNode);</span><br><span class="line">            <span class="keyword">if</span> (pLabel)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">int</span> len = pLabel-&gt;getStringLength();</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; len; j++)</span><br><span class="line">                &#123;</span><br><span class="line">                    Sprite* letter = pLabel-&gt;getLetter(j);</span><br><span class="line">                    <span class="keyword">if</span> (letter)</span><br><span class="line">                        _letters.pushBack(letter);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Vector&lt;Sprite*&gt;&amp; RichText::getAllLetters()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> _letters;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> RichText::formarRenderers()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 此处省略一大坨代码...</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// ------------------</span></span><br><span class="line">    <span class="comment">// 添加的代码</span></span><br><span class="line">    updateLetters();</span><br><span class="line">    <span class="comment">// ------------------</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">size_t</span> length = _elementRenders.size();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">size_t</span> i = <span class="number">0</span>; i&lt;length; i++)</span><br><span class="line">	  &#123;</span><br><span class="line">        Vector&lt;Node*&gt;* l = _elementRenders[i];</span><br><span class="line">        l-&gt;clear();</span><br><span class="line">        <span class="keyword">delete</span> l;</span><br><span class="line">	  &#125;    </span><br><span class="line">    _elementRenders.clear();</span><br><span class="line">    </span><br><span class="line">    updateContentSizeWithTextureSize(_contentSize);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>终于，CPP层间的逻辑算是实现了。但这时候，又有新的问题出现了。</p>
+<h1 id="解决LabelLetter无法转Lua问题"><a href="#解决LabelLetter无法转Lua问题" class="headerlink" title="解决LabelLetter无法转Lua问题"></a>解决LabelLetter无法转Lua问题</h1><p>按照新的逻辑，从Lua层面调用<code>getAllLetters()</code>方法，发现获取的结果依然是空table；但是在CPP层面，却是可以获取到数据的。那么问题就出在<code>toLua</code>的过程。</p>
+<blockquote>
+<p><strong>说明</strong>：tolua是cocos2d-x提供的lua-binding工具，位于项目tools/tolua目录下。</p>
+</blockquote>
+<p>继续断点调试，将问题定位在了下面这个方法：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Push a table converted from a cocos2d::Vector object into the Lua stack.</span></span><br><span class="line"><span class="comment"> * The format of table as follows: &#123;userdata1, userdata2, ..., userdataVectorSize&#125;</span></span><br><span class="line"><span class="comment"> * The object in the cocos2d::Vector which would be pushed into the table should be Ref type.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * @param L the current lua_State.</span></span><br><span class="line"><span class="comment"> * @param inValue a cocos2d::Vector object.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">void</span> <span class="title">ccvector_to_luaval</span>(<span class="title">lua_State</span>* <span class="title">L</span>,<span class="title">const</span> <span class="title">cocos2d</span>:</span>:Vector&lt;T&gt;&amp; inValue)</span><br><span class="line">&#123;</span><br><span class="line">    lua_newtable(L);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="literal">nullptr</span> == L)</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> indexTable = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; obj : inValue)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="literal">nullptr</span> == obj)</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (<span class="literal">nullptr</span> != <span class="keyword">dynamic_cast</span>&lt;cocos2d::Ref *&gt;(obj))</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">std</span>::<span class="built_in">string</span> typeName = <span class="keyword">typeid</span>(*obj).name();</span><br><span class="line">            <span class="keyword">auto</span> iter = g_luaType.find(typeName);</span><br><span class="line">            <span class="keyword">if</span> (g_luaType.end() != iter)</span><br><span class="line">            &#123;</span><br><span class="line">                lua_pushnumber(L, (lua_Number)indexTable);</span><br><span class="line">                <span class="keyword">int</span> ID = (obj) ? (<span class="keyword">int</span>)obj-&gt;_ID : <span class="number">-1</span>;</span><br><span class="line">                <span class="keyword">int</span>* luaID = (obj) ? &amp;obj-&gt;_luaID : <span class="literal">NULL</span>;</span><br><span class="line">                toluafix_pushusertype_ccobject(L, ID, luaID, (<span class="keyword">void</span>*)obj,iter-&gt;second.c_str());</span><br><span class="line">                lua_rawset(L, <span class="number">-3</span>);</span><br><span class="line">                ++indexTable;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>问题的症结出在了<code>g_luaType</code>这里，在这个数组里，找不到<code>LabelLetter</code>类，虽然<code>getAllLetters()</code>返回的是<code>Sprite</code>的数组，但本质上，<code>Label::getLetter()</code>中返回的Sprite是通过<code>LabelLetter</code>创建的，而<code>LabelLetter</code>是在<code>CCLabel.cpp</code>里面定义的，<code>g_luaType</code>根本不知道<code>LabelLetter</code>的存在。</p>
+<p>既然如此，就一改到底吧！</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">void</span> <span class="title">ccvector_to_luaval</span>(<span class="title">lua_State</span>* <span class="title">L</span>,<span class="title">const</span> <span class="title">cocos2d</span>:</span>:Vector&lt;T&gt;&amp; inValue)</span><br><span class="line">&#123;</span><br><span class="line">    lua_newtable(L);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="literal">nullptr</span> == L)</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> indexTable = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; obj : inValue)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="literal">nullptr</span> == obj)</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (<span class="literal">nullptr</span> != <span class="keyword">dynamic_cast</span>&lt;cocos2d::Ref *&gt;(obj))</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">std</span>::<span class="built_in">string</span> typeName = <span class="keyword">typeid</span>(*obj).name();</span><br><span class="line"></span><br><span class="line">            <span class="comment">// --------------------------------------------</span></span><br><span class="line">            <span class="comment">// 添加的代码</span></span><br><span class="line">            <span class="keyword">if</span> (typeName == <span class="string">"class cocos2d::LabelLetter"</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                typeName = <span class="string">"class cocos2d::Sprite"</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// --------------------------------------------</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">auto</span> iter = g_luaType.find(typeName);</span><br><span class="line">            <span class="keyword">if</span> (g_luaType.end() != iter)</span><br><span class="line">            &#123;</span><br><span class="line">                lua_pushnumber(L, (lua_Number)indexTable);</span><br><span class="line">                <span class="keyword">int</span> ID = (obj) ? (<span class="keyword">int</span>)obj-&gt;_ID : <span class="number">-1</span>;</span><br><span class="line">                <span class="keyword">int</span>* luaID = (obj) ? &amp;obj-&gt;_luaID : <span class="literal">NULL</span>;</span><br><span class="line">                toluafix_pushusertype_ccobject(L, ID, luaID, (<span class="keyword">void</span>*)obj,iter-&gt;second.c_str());</span><br><span class="line">                lua_rawset(L, <span class="number">-3</span>);</span><br><span class="line">                ++indexTable;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在获取typeName以后，判断typeName的类别，若是<code>class cocos2d::LabelLetter</code>，则将其强行改为<code>class cocos2d::Sprite</code>。</p>
+<p>至此，RichText可算可以调用<code>getAllLetters()</code>拿到所有的文字了，本教程也算告一段落。</p>
+<h1 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h1><p>本文的逻辑重在实现思路，其实其中也存在很多待优化的地方，如：富文本存在表情图片时如何支持打字机效果？又如：后面转Lua裸写类别名的判断不够优雅。还有诸如：不需要打字机效果的文本存_letters会造成内存浪费等。感兴趣的读者欢迎在本文的基础上进行优化修改！感谢阅读~</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>再小的鼓励也是一种支持!</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="代码咖啡 WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="代码咖啡 Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Cocos-2dx/" rel="tag"># Cocos-2dx</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/guide_xlsx/" rel="next" title="万恶的引导设计：配表篇">
+                <i class="fa fa-chevron-left"></i> 万恶的引导设计：配表篇
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/game_thinking/" rel="prev" title="游戏闪念：饭途中的叨叨笔记（持续更新）">
+                游戏闪念：饭途中的叨叨笔记（持续更新） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar_sidebar.png" alt="代码咖啡">
+            
+              <p class="site-author-name" itemprop="name">代码咖啡</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss2.html" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/wjnovember" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:wnovember@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.jianshu.com/u/9b87ba5fc959" title="我的简书" target="_blank">我的简书</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://runnerwoo.com/" title="老班长的博客" target="_blank">老班长的博客</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前情提要"><span class="nav-number">1.</span> <span class="nav-text">前情提要</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#代码分析"><span class="nav-number">2.</span> <span class="nav-text">代码分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#逻辑编写"><span class="nav-number">3.</span> <span class="nav-text">逻辑编写</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#解决LabelLetter无法转Lua问题"><span class="nav-number">4.</span> <span class="nav-text">解决LabelLetter无法转Lua问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#写在最后"><span class="nav-number">5.</span> <span class="nav-text">写在最后</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2016 &mdash; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">代码咖啡</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: '8vMRQb0bSf05Hd5zFNhrSHXz-gzGzoHsz',
+        appKey: 'uD8TcECp3UshQsLS1vxEocGy',
+        placeholder: '欢迎评论留言哦~',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("8vMRQb0bSf05Hd5zFNhrSHXz-gzGzoHsz", "uD8TcECp3UshQsLS1vxEocGy");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

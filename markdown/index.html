@@ -1,0 +1,1265 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/avatar_32x32.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/avatar_16x16.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="博客,Markdown,">
+
+
+
+
+
+  <link rel="alternate" href="/rss2.html" title="程序员叨叨叨" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="叨叨在前之前无意间接触到Markdown，花了一个下午的时间学习了语法，此后养成了用Markdown写博客的习惯，再也停不下来。相比于富文本，Markdown省去了点点点的烦恼，不在为了让标题字号大一些，费神找字体放大按钮，可以让作者将更多的精力集中在写作本身上。今天分享常用的Markdown语法，希望可以帮助读者们快速入门Markdown。 语法标题 输入    效果   文本文本的显示形式可分">
+<meta name="keywords" content="博客,Markdown">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Markdown，一款让你爱上写博客的神器（内附Markdown编辑器推荐）">
+<meta property="og:url" content="http://wjnovember.github.io/markdown/index.html">
+<meta property="og:site_name" content="程序员叨叨叨">
+<meta property="og:description" content="叨叨在前之前无意间接触到Markdown，花了一个下午的时间学习了语法，此后养成了用Markdown写博客的习惯，再也停不下来。相比于富文本，Markdown省去了点点点的烦恼，不在为了让标题字号大一些，费神找字体放大按钮，可以让作者将更多的精力集中在写作本身上。今天分享常用的Markdown语法，希望可以帮助读者们快速入门Markdown。 语法标题 输入    效果   文本文本的显示形式可分">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/291600-bae0cbcd048bb01f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/291600-3f132765d2c2b8f5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/291600-ced2cc15b791efd9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/291600-b32492d026bc3c52.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/291600-d8e4f2d84168533d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-f1aa74cf4c14c6c0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-3b00271942fef854.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/291600-ea28ab14cb1cc0b6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/291600-5859da00d763d690.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/291600-136681039a78a4d3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/291600-6bf13cfa2db165b2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/291600-4147b72e5e553255.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/291600-05c9029870267125.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/291600-d7fcfeac3f987718.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/291600-a6a81e72f30388fb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/291600-d3fc5e932453430f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/291600-afb377fbc78eacac.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/291600-de817c64d61abfb7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/291600-617904b3b02df032.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-486b29859e021c70.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-89e5fc65cf97ad71.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-6248d4b5443b6901.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-cc0bf1c046d4b055.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-db35a832a1ecd54c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-7299bfc2163bb81a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-22e4e4b56b70be34.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-ece80fd826efb38f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-b9e1cf6d891de5b5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-2db580ea7b5f9563.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-264af054aaa12c24.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-902c6f72b766a08c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-6fccd4a7583f4bef.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-9f3ecabdc091dce1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-ead6377370329138.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/291600-fdfb0c42a819590b.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/291600-eefe611c2009def7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2021-11-07T09:06:10.119Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Markdown，一款让你爱上写博客的神器（内附Markdown编辑器推荐）">
+<meta name="twitter:description" content="叨叨在前之前无意间接触到Markdown，花了一个下午的时间学习了语法，此后养成了用Markdown写博客的习惯，再也停不下来。相比于富文本，Markdown省去了点点点的烦恼，不在为了让标题字号大一些，费神找字体放大按钮，可以让作者将更多的精力集中在写作本身上。今天分享常用的Markdown语法，希望可以帮助读者们快速入门Markdown。 语法标题 输入    效果   文本文本的显示形式可分">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/291600-bae0cbcd048bb01f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"hide","offset":12,"b2t":true,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: 'P169SBHT9P',
+      apiKey: 'aff6672534638c8530052ce885f3d28a',
+      indexName: 'blog_NAME',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"输入关键词就可以搜索啦~","hits_empty":"T.T 没有找到与“ ${query} ”相关的文章","hits_stats":"找到 ${hits} 篇文章，耗时 ${time} 毫秒！"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://wjnovember.github.io/markdown/">
+
+
+
+
+
+  <title>Markdown，一款让你爱上写博客的神器（内附Markdown编辑器推荐） | 程序员叨叨叨</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">程序员叨叨叨</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一枚程序猿的叨叨日常</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-首页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-目录">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            目录
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-时光机">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            时光机
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wjnovember.github.io/markdown/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="代码咖啡">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar_sidebar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="程序员叨叨叨">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Markdown，一款让你爱上写博客的神器（内附Markdown编辑器推荐）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-09-16T22:10:00+08:00">
+                2016-09-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/零基础学习博客搭建/" itemprop="url" rel="index">
+                    <span itemprop="name">零基础学习博客搭建</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/markdown/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/markdown/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/markdown/" class="leancloud_visitors" data-flag-title="Markdown，一款让你爱上写博客的神器（内附Markdown编辑器推荐）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="叨叨在前"><a href="#叨叨在前" class="headerlink" title="叨叨在前"></a>叨叨在前</h1><p>之前无意间接触到Markdown，花了一个下午的时间学习了语法，此后养成了用Markdown写博客的习惯，再也停不下来。相比于富文本，Markdown省去了点点点的烦恼，不在为了让标题字号大一些，费神找字体放大按钮，可以让作者将更多的精力集中在写作本身上。今天分享常用的Markdown语法，希望可以帮助读者们快速入门Markdown。</p>
+<h1 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h1><h2 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h2><ul>
+<li>输入</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/291600-bae0cbcd048bb01f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<ul>
+<li>效果</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/291600-3f132765d2c2b8f5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<h2 id="文本"><a href="#文本" class="headerlink" title="文本"></a>文本</h2><p>文本的显示形式可分为粗体、斜体两种，通过在文本前后输入若干个<code>*</code>。</p>
+<ul>
+<li>输入</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/291600-ced2cc15b791efd9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<ul>
+<li>效果</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/291600-b32492d026bc3c52.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<h2 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h2><p>图片的输入语法为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![图片内容](图片链接)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>输入</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/291600-d8e4f2d84168533d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<ul>
+<li>效果</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-f1aa74cf4c14c6c0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="我的简书个人主页"></p>
+<blockquote>
+<p><strong>注意</strong>：这里的<code>!</code>、<code>[</code>、<code>]</code>、<code>(</code>、<code>)</code>均为英文输入法。</p>
+</blockquote>
+<p>除了静态图片，Markdown支持Gif动图，效果如下，语法与静态图一致：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-3b00271942fef854.gif?imageMogr2/auto-orient/strip" alt="动图效果"></p>
+<h2 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h2><p>链接的语法与图片类似，只要在图片语法的基础上去掉<code>!</code>即可。</p>
+<ul>
+<li>输入</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/291600-ea28ab14cb1cc0b6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<ul>
+<li>效果</li>
+</ul>
+<p><a href="https://wjnovember.github.io">这个我的博客链接</a></p>
+<h2 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h2><p>列表可分为<strong>有序列表</strong>和<strong>无序列表</strong>。</p>
+<p><strong>无序列表</strong>可通过在每行文本前输入<code>*</code>、<code>+</code>、<code>-</code>来实现。</p>
+<ul>
+<li>输入</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/291600-5859da00d763d690.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<ul>
+<li>效果</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/291600-136681039a78a4d3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p><strong>有序列表</strong>可通过在每行文本前面输入<code>数字</code>+<code>.</code>+<code>空格</code>来实现。</p>
+<ul>
+<li>输入</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/291600-6bf13cfa2db165b2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<ul>
+<li>效果</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/291600-4147b72e5e553255.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<h2 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h2><p><strong>引用</strong>即我们文章中摘抄他人文章中写的内容，也可以作提示文字的样式，可以通过<code>&gt;</code>来实现。</p>
+<ul>
+<li>输入</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/291600-05c9029870267125.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<ul>
+<li>效果</li>
+</ul>
+<blockquote>
+<p>这是一段引用文章的文字，此处省略1000字。。。</p>
+</blockquote>
+<h2 id="行内代码块"><a href="#行内代码块" class="headerlink" title="行内代码块"></a>行内代码块</h2><p><strong>行内代码块</strong>可用于关键字词，将其与普通文本区分开，语法是在文字内容开始与结尾添加 <code></code> `。</p>
+<ul>
+<li>输入</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/291600-d7fcfeac3f987718.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<ul>
+<li>效果</li>
+</ul>
+<p><code>这是行内代码块</code></p>
+<h2 id="代码块"><a href="#代码块" class="headerlink" title="代码块"></a>代码块</h2><p><strong>代码块</strong>实则是行内代码快的扩展，用于将多行代码或文本内容与其他文本内容区分开来，其效果如下：</p>
+<ul>
+<li>输入</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/291600-a6a81e72f30388fb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p>（每两个竖线之间是4个Tab键或8个空格键）</p>
+<ul>
+<li><p>效果</p>
+<pre><code>public int add(int a, int b) {
+    return a + b;
+}</code></pre></li>
+</ul>
+<h2 id="加强代码块"><a href="#加强代码块" class="headerlink" title="加强代码块"></a>加强代码块</h2><p><strong>加强代码块</strong>是代码块的增强版，省去了多行代码每行输入Tab键的烦恼，只要在多行代码的开始和结尾输入3个点即可。</p>
+<ul>
+<li>输入</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/291600-d3fc5e932453430f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<ul>
+<li>效果</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public int add(int a, int b) &#123;</span><br><span class="line">    return a + b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h2><p>表格的语法主要用到的符号为<code>|</code>、<code>-</code>、<code>:</code>。</p>
+<ul>
+<li>输入</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/291600-afb377fbc78eacac.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<ul>
+<li>效果</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>默认</th>
+<th align="center">居中</th>
+<th align="left">左对齐</th>
+<th align="right">右对齐</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>换行\n换行失败</td>
+<td align="center">简书Markdown</td>
+<td align="left">不支持</td>
+<td align="right">换行</td>
+</tr>
+<tr>
+<td><em>支持斜体</em></td>
+<td align="center"><strong>粗体</strong></td>
+<td align="left"><strong><em>斜体+粗体</em></strong></td>
+<td align="right"></td>
+</tr>
+<tr>
+<td># 不支持标题</td>
+<td align="center"><a href="http://jianshu.com" target="_blank" rel="noopener">支持链接</a></td>
+<td align="left">[图片上传失败…(image-ea8611-1532052436234)]</td>
+<td align="right"><code>支持行内代码块</code></td>
+</tr>
+</tbody></table>
+<h2 id="删除线"><a href="#删除线" class="headerlink" title="删除线"></a>删除线</h2><ul>
+<li>输入</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/291600-de817c64d61abfb7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<ul>
+<li>效果</li>
+</ul>
+<p><del>删除线</del></p>
+<h2 id="分割线"><a href="#分割线" class="headerlink" title="分割线"></a>分割线</h2><p>分割线可使用<code>*</code>、<code>-</code>来实现。</p>
+<ul>
+<li>输入</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/291600-617904b3b02df032.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="分割线"></p>
+<ul>
+<li>效果</li>
+</ul>
+<hr>
+<hr>
+<p>以上是笔者针对常用的Markdown用法进行罗列，读者们也可以在其他平台上看到Markdown更加高阶的用法，如：<a href="https://www.zybuluo.com/mdeditor?url=https://www.zybuluo.com/static/editor/md-help.markdown#fn:footnote" target="_blank" rel="noopener">cmd Markdown</a>，对原生Markdown进行了更进一步的封装和扩展，可支持LaTex、Todo列表、Toc目录、Mermaid 序列图等，Markdown是一个很有意思的语法，感兴趣的读者们可以进行更深入的探索！</p>
+<h1 id="Markdown工具"><a href="#Markdown工具" class="headerlink" title="Markdown工具"></a>Markdown工具</h1><p>Markdown工具可分为<strong>在线</strong>和<strong>客户端</strong>两种，接下来笔者给大家推荐几款体验较好的Markdown编辑工具。</p>
+<h2 id="在线"><a href="#在线" class="headerlink" title="在线"></a>在线</h2><h3 id="简书"><a href="#简书" class="headerlink" title="简书"></a><a href="http://jianshu.com" target="_blank" rel="noopener">简书</a></h3><p><img src="http://upload-images.jianshu.io/upload_images/291600-486b29859e021c70.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p><strong>简书</strong>设置Markdown编辑器方法如下：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-89e5fc65cf97ad71.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p>点击齿轮图标，进入设置；</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-6248d4b5443b6901.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p><strong>基础设置</strong>页签下，在下方<strong>选择常用的编辑器</strong>选择<code>Markdown</code>，点击<code>保存</code>按钮即可；</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-cc0bf1c046d4b055.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<h3 id="作业部落"><a href="#作业部落" class="headerlink" title="作业部落"></a><a href="https://www.zybuluo.com" target="_blank" rel="noopener">作业部落</a></h3><p><img src="http://upload-images.jianshu.io/upload_images/291600-db35a832a1ecd54c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p><strong>作业部落</strong>乍一听，有点学生气，有点小学时候用的错题本的感觉，但是其功能非常强大，<strong>支持实时预览</strong>，对Markdown进行了<strong>完美的封装</strong>，扩展了以下功能：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">1. Todo列表</span><br><span class="line">2. LaTex公式</span><br><span class="line">3. 简易流程图</span><br><span class="line">4. 序列图</span><br><span class="line">5. 甘特图</span><br><span class="line">6. TOC目录</span><br><span class="line">7. 标签分类</span><br><span class="line">8. 注脚</span><br><span class="line">9. Mermaid 流程图</span><br><span class="line">10. Mermaid 序列图</span><br><span class="line">11. 定义型列表</span><br><span class="line">12. 内嵌图标</span><br></pre></td></tr></table></figure>
+
+<p>可以说，使用Cmd Markdown完成一篇格式比较专业的学术论文是没问题的。</p>
+<h3 id="马克飞象"><a href="#马克飞象" class="headerlink" title="马克飞象"></a><a href="https://maxiang.io" target="_blank" rel="noopener">马克飞象</a></h3><p><img src="http://upload-images.jianshu.io/upload_images/291600-7299bfc2163bb81a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p>如果读者们是<strong>印象笔记</strong>迷，那么<strong>马克飞象</strong>可以说是福音了，它支持将文本存到印象笔记，且功能特性与<strong>作业部落</strong>相差无几，但是有一点让人遗憾的是：</p>
+<p>马克飞象是一款收费软件，在10天的试用期结束后，只有通过收费才能继续使用！</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-22e4e4b56b70be34.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p>同<strong>作业部落</strong>一样，<strong>马克飞象</strong>也支持客户端，支持本地缓存。</p>
+<h3 id="有道云笔记"><a href="#有道云笔记" class="headerlink" title="有道云笔记"></a><a href="http://note.youdao.com" target="_blank" rel="noopener">有道云笔记</a></h3><p><img src="http://upload-images.jianshu.io/upload_images/291600-ece80fd826efb38f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p>或许你听惯了<strong>有道词典</strong>，这个八竿子打不着的<strong>词典</strong>与<strong>Markdown</strong>突然有一天走到一起产生了爱情的火花，诞生出了<strong>有道云笔记</strong>。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-b9e1cf6d891de5b5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-2db580ea7b5f9563.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p>有一个功能有道云笔记做的不错，就是可以<strong>将自己的笔记发布到网上，他人可以像浏览网页一样查看自己的记录</strong>。</p>
+<h3 id="小书匠"><a href="#小书匠" class="headerlink" title="小书匠"></a><a href="http://soft.xiaoshujiang.com" target="_blank" rel="noopener">小书匠</a></h3><p><img src="http://upload-images.jianshu.io/upload_images/291600-264af054aaa12c24.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p><strong>小书匠</strong>是一款内容丰富的个性化Markdown编辑工具，为什么说它个性化呢？我们来看看它的功能：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">1. 全屏预览</span><br><span class="line">2. 实时可获取html代码</span><br><span class="line">3. 自定义CSS样式</span><br><span class="line">4. 多方式预览：普通预览、ppt预览、pdf预览</span><br><span class="line">5. 多种预览排版方式：上、下、左、右、浮动</span><br><span class="line">6. 内容可以标题为节点隐藏</span><br><span class="line">7. 映射关系</span><br><span class="line">8 大纲查看，自动生成目录</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://upload-images.jianshu.io/upload_images/291600-902c6f72b766a08c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p><strong>土豪金</strong>配上<strong>经典黑</strong>就足以闪瞎凡人的双眸，高逼格、高内涵、<del>高血压</del>高品质的Markdown编辑器，你值得拥有！</p>
+<p>另外，<strong>小书匠支持windows、Linux、Mac、Web多端编辑！</strong></p>
+<h2 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h2><p>除了以上同时支持客户端的在线Markdown编辑器外，来说说其他的客户端Markdown编辑器。</p>
+<h3 id="Mou"><a href="#Mou" class="headerlink" title="Mou"></a><a href="http://25.io/mou/" target="_blank" rel="noopener">Mou</a></h3><p><img src="http://upload-images.jianshu.io/upload_images/291600-6fccd4a7583f4bef.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p><strong>Mou</strong>是笔者尝试的第一款Markdown客户端软件，支持最基本的Markdown语法，界面简洁。因其主题风格不是很心仪，后来笔者将它静静地从电脑上卸载了-_-#，但这并不影响Markdown迷们对它的喜爱！</p>
+<h3 id="MacDown"><a href="#MacDown" class="headerlink" title="MacDown"></a><a href="http://macdown.uranusjr.com" target="_blank" rel="noopener">MacDown</a></h3><p><img src="http://upload-images.jianshu.io/upload_images/291600-9f3ecabdc091dce1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p><strong>MacDown</strong>是笔者使用Markdown编辑器以来用的最久的一款，其主题样式和预览效果都还是不错的，重要的是：它<strong>开源<em>免费</em></strong>，<strong><em>免费</em></strong>，<strong><em>免费</em></strong>，<strong><em>免费！</em></strong></p>
+<p>但它有一个不足，就是：一个窗口只能打开一个文件，这就显得比较鸡肋了，后来笔者弃用了MacDown-_-||</p>
+<h3 id="Atom"><a href="#Atom" class="headerlink" title="Atom"></a><a href="https://atom.io" target="_blank" rel="noopener">Atom</a></h3><p><img src="http://upload-images.jianshu.io/upload_images/291600-ead6377370329138.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p><strong>Atom</strong>是一款很强大比较稳定的一款Markdown编辑器，支持多文件显示，文件目录缩进，有丰富的插件，插件的下载方式为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Preferences-&gt;install-&gt;想要插件的名称-&gt;搜索-&gt;下载</span><br></pre></td></tr></table></figure>
+
+<p>然后重启即可。</p>
+<h3 id="Sublime"><a href="#Sublime" class="headerlink" title="Sublime"></a><a href="http://www.sublimetext.com" target="_blank" rel="noopener">Sublime</a></h3><p><img src="http://upload-images.jianshu.io/upload_images/291600-fdfb0c42a819590b.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p><strong>Sublime</strong>是一款通用型编辑器。<strong>如果说Atom是17世纪的物理牛顿，那么Sublime就是15世纪的全能达芬奇。</strong>之所以提到Sublime，是因为Sublime支持Markdown<strong>插件</strong>，通过安装下载，Sublime也同样可以实现Markdown编辑器的效果，但是它的预览还是挺鸡肋的，它只能像Html一样，在浏览器中预览，而且<strong>不支持实时预览</strong>。但是毕竟是老牌编辑器，强大的通用性让其在编辑器领域鹤立鸡群。</p>
+<h3 id="Visual-Studio-Code"><a href="#Visual-Studio-Code" class="headerlink" title="Visual Studio Code"></a><a href="https://code.visualstudio.com/" target="_blank" rel="noopener">Visual Studio Code</a></h3><p><img src="https://upload-images.jianshu.io/upload_images/291600-eefe611c2009def7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p>VS Code自带Markdown实时预览功能，也支持加强型预览插件下载，笔者个人还是挺心仪这款工具的，且经常用它来做开发，是一款多能型工具。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="http://www.williamlong.info/archives/4319.html" target="_blank" rel="noopener">好用的Markdown编辑器一览</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>再小的鼓励也是一种支持!</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="代码咖啡 WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="代码咖啡 Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/博客/" rel="tag"># 博客</a>
+          
+            <a href="/tags/Markdown/" rel="tag"># Markdown</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/recyclerview_gridview/" rel="next" title="听说你想玩RecyclerView嵌套GridView">
+                <i class="fa fa-chevron-left"></i> 听说你想玩RecyclerView嵌套GridView
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog_basic/" rel="prev" title="全民博客时代的到来——20分钟简要教程">
+                全民博客时代的到来——20分钟简要教程 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar_sidebar.png" alt="代码咖啡">
+            
+              <p class="site-author-name" itemprop="name">代码咖啡</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss2.html" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/wjnovember" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:wnovember@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.jianshu.com/u/9b87ba5fc959" title="我的简书" target="_blank">我的简书</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://runnerwoo.com/" title="老班长的博客" target="_blank">老班长的博客</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#叨叨在前"><span class="nav-number">1.</span> <span class="nav-text">叨叨在前</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#语法"><span class="nav-number">2.</span> <span class="nav-text">语法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#标题"><span class="nav-number">2.1.</span> <span class="nav-text">标题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文本"><span class="nav-number">2.2.</span> <span class="nav-text">文本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#图片"><span class="nav-number">2.3.</span> <span class="nav-text">图片</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#链接"><span class="nav-number">2.4.</span> <span class="nav-text">链接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#列表"><span class="nav-number">2.5.</span> <span class="nav-text">列表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引用"><span class="nav-number">2.6.</span> <span class="nav-text">引用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#行内代码块"><span class="nav-number">2.7.</span> <span class="nav-text">行内代码块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码块"><span class="nav-number">2.8.</span> <span class="nav-text">代码块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#加强代码块"><span class="nav-number">2.9.</span> <span class="nav-text">加强代码块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#表格"><span class="nav-number">2.10.</span> <span class="nav-text">表格</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除线"><span class="nav-number">2.11.</span> <span class="nav-text">删除线</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分割线"><span class="nav-number">2.12.</span> <span class="nav-text">分割线</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Markdown工具"><span class="nav-number">3.</span> <span class="nav-text">Markdown工具</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#在线"><span class="nav-number">3.1.</span> <span class="nav-text">在线</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简书"><span class="nav-number">3.1.1.</span> <span class="nav-text">简书</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#作业部落"><span class="nav-number">3.1.2.</span> <span class="nav-text">作业部落</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#马克飞象"><span class="nav-number">3.1.3.</span> <span class="nav-text">马克飞象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#有道云笔记"><span class="nav-number">3.1.4.</span> <span class="nav-text">有道云笔记</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小书匠"><span class="nav-number">3.1.5.</span> <span class="nav-text">小书匠</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#客户端"><span class="nav-number">3.2.</span> <span class="nav-text">客户端</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Mou"><span class="nav-number">3.2.1.</span> <span class="nav-text">Mou</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MacDown"><span class="nav-number">3.2.2.</span> <span class="nav-text">MacDown</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Atom"><span class="nav-number">3.2.3.</span> <span class="nav-text">Atom</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Sublime"><span class="nav-number">3.2.4.</span> <span class="nav-text">Sublime</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Visual-Studio-Code"><span class="nav-number">3.2.5.</span> <span class="nav-text">Visual Studio Code</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2016 &mdash; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">代码咖啡</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: '8vMRQb0bSf05Hd5zFNhrSHXz-gzGzoHsz',
+        appKey: 'uD8TcECp3UshQsLS1vxEocGy',
+        placeholder: '欢迎评论留言哦~',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("8vMRQb0bSf05Hd5zFNhrSHXz-gzGzoHsz", "uD8TcECp3UshQsLS1vxEocGy");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

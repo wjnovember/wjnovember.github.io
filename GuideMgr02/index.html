@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/avatar_32x32.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/avatar_16x16.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="游戏开发,引导设计,">
+
+
+
+
+
+  <link rel="alternate" href="/rss2.html" title="程序员叨叨叨" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="前情提要上文主要讲解了引导设计的一些理论概念，包括：引导分段、引导步骤、引导的触发、引导的操作以及引导的保存点。其中引导的触发分为触发点和触发条件，此外还提到了引导的多条件判断；引导操作提到了操作的分类、操作定义和操作参数及扩展。本文将基于引导的理论概念，进行实操演练，主要包含配表和代码框架的初步编写。 配表考虑到引导的触发和操作逻辑模块的不同，引导相关的表将分成两张，一张是引导的触发表，另一张是">
+<meta name="keywords" content="游戏开发,引导设计">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从零开始设计游戏引导框架（二）">
+<meta property="og:url" content="http://wjnovember.github.io/GuideMgr02/index.html">
+<meta property="og:site_name" content="程序员叨叨叨">
+<meta property="og:description" content="前情提要上文主要讲解了引导设计的一些理论概念，包括：引导分段、引导步骤、引导的触发、引导的操作以及引导的保存点。其中引导的触发分为触发点和触发条件，此外还提到了引导的多条件判断；引导操作提到了操作的分类、操作定义和操作参数及扩展。本文将基于引导的理论概念，进行实操演练，主要包含配表和代码框架的初步编写。 配表考虑到引导的触发和操作逻辑模块的不同，引导相关的表将分成两张，一张是引导的触发表，另一张是">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://wjnovember.github.io/.io//img_guide_step_01.png">
+<meta property="og:image" content="http://wjnovember.github.io/.io//img_guide_step_02.png">
+<meta property="og:image" content="http://wjnovember.github.io/.io//img_guide_trigger_01.png">
+<meta property="og:updated_time" content="2021-11-07T09:06:10.092Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="从零开始设计游戏引导框架（二）">
+<meta name="twitter:description" content="前情提要上文主要讲解了引导设计的一些理论概念，包括：引导分段、引导步骤、引导的触发、引导的操作以及引导的保存点。其中引导的触发分为触发点和触发条件，此外还提到了引导的多条件判断；引导操作提到了操作的分类、操作定义和操作参数及扩展。本文将基于引导的理论概念，进行实操演练，主要包含配表和代码框架的初步编写。 配表考虑到引导的触发和操作逻辑模块的不同，引导相关的表将分成两张，一张是引导的触发表，另一张是">
+<meta name="twitter:image" content="http://wjnovember.github.io/.io//img_guide_step_01.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"hide","offset":12,"b2t":true,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: 'P169SBHT9P',
+      apiKey: 'aff6672534638c8530052ce885f3d28a',
+      indexName: 'blog_NAME',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"输入关键词就可以搜索啦~","hits_empty":"T.T 没有找到与“ ${query} ”相关的文章","hits_stats":"找到 ${hits} 篇文章，耗时 ${time} 毫秒！"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://wjnovember.github.io/GuideMgr02/">
+
+
+
+
+
+  <title>从零开始设计游戏引导框架（二） | 程序员叨叨叨</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">程序员叨叨叨</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一枚程序猿的叨叨日常</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-首页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-目录">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            目录
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-时光机">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            时光机
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wjnovember.github.io/GuideMgr02/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="代码咖啡">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar_sidebar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="程序员叨叨叨">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">从零开始设计游戏引导框架（二）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-19T13:11:50+08:00">
+                2020-04-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/游戏人生/" itemprop="url" rel="index">
+                    <span itemprop="name">游戏人生</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/GuideMgr02/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/GuideMgr02/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/GuideMgr02/" class="leancloud_visitors" data-flag-title="从零开始设计游戏引导框架（二）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="前情提要"><a href="#前情提要" class="headerlink" title="前情提要"></a>前情提要</h1><p>上文主要讲解了引导设计的一些理论概念，包括：引导分段、引导步骤、引导的触发、引导的操作以及引导的保存点。其中引导的触发分为触发点和触发条件，此外还提到了引导的多条件判断；引导操作提到了操作的分类、操作定义和操作参数及扩展。本文将基于引导的理论概念，进行实操演练，主要包含配表和代码框架的初步编写。</p>
+<h1 id="配表"><a href="#配表" class="headerlink" title="配表"></a>配表</h1><p>考虑到引导的触发和操作逻辑模块的不同，引导相关的表将分成两张，一张是引导的<strong>触发表</strong>，另一张是引导的<strong>步骤表</strong>。考虑到xlsx在合分支时的不便，这里使用csv格式进行配表。我们对上述两张表分别命名为：</p>
+<ul>
+<li>GuideTrigger.csv 引导触发表</li>
+<li>GuideStep.csv 引导步骤表</li>
+</ul>
+<p>因为不同的团队会有自己的配表习惯，所以这里的配表格式仅以笔者的习惯为例，读者们主要了解配表分哪几列，每列配表的数据结构如何即可。</p>
+<h2 id="步骤表"><a href="#步骤表" class="headerlink" title="步骤表"></a>步骤表</h2><img src="/.io//img_guide_step_01.png">
+
+<p>上图是基于前一篇文章里提到的卡牌卡牌进阶引导进行了基本的配表操作，接下来对每一列的配置作详细说明。</p>
+<h3 id="ID"><a href="#ID" class="headerlink" title="ID"></a>ID</h3><p>ID表示引导步骤的唯一标识，为数字类型，通常同一段引导里的步骤ID以连续的数字相连。上图中展示的是卡牌进阶引导的所有步骤，一共分为8步。</p>
+<p>步骤表是要配置当前游戏所有的引导步骤的，那么不同分段的引导的步骤如何区分呢？</p>
+<p>这里需要对ID的范围进行划分，笔者习惯以100作为一段引导的ID区间，如何理解呢？比如这里除了进阶引导外，还有一个卡牌重置引导，那么卡牌重置引导步骤的id范围可以规定在101~200之间，我们可以将这个引导的起始id设置为从101开始，配到表里面大概是这样的：</p>
+<img src="/.io//img_guide_step_02.png">
+
+<p>绿框里的内容表示卡牌进阶引导，红框里的内容表示卡牌重置引导。若后续还有其他引导，可以从201开始，以此类推。</p>
+<h3 id="类别"><a href="#类别" class="headerlink" title="类别"></a>类别</h3><p>类别表示操作的分类，按照前文《理论篇》提到的分类方法，在类别这一列填写类别定义的数字。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 操作类别定义</span><br><span class="line">1. 立绘对话</span><br><span class="line">2. 点击</span><br><span class="line">3. 拖动</span><br></pre></td></tr></table></figure>
+
+<p>操作类别可根据需求自己定义。</p>
+<h3 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h3><p>操作表示当前步骤具体做什么事，每一个具体的操作都需要做详细的定义，参考前文《理论篇》的定义，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">0. 无操作</span><br><span class="line"></span><br><span class="line">// 点击操作定义</span><br><span class="line">201. 点击自己卡池里满足进阶条件的一张卡牌</span><br><span class="line">202. 点击卡牌详情界面的进阶按钮</span><br><span class="line">203. 点击进阶面板的进阶按钮</span><br><span class="line"></span><br><span class="line">// 拖动操作定义</span><br><span class="line">301. 在进阶面板拖动第1张材料卡到进阶消耗框</span><br></pre></td></tr></table></figure>
+
+<p>定义后，将定义中操作内容对应的数字填写到表中“操作”一列中。操作的定义数字最好是类别定义的数字乘以100加X，这样方便知晓对应的操作属于哪一类别，方便抽象和扩展.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">操作 = 类别 * 100 + X</span><br></pre></td></tr></table></figure>
+
+<h3 id="操作参数"><a href="#操作参数" class="headerlink" title="操作参数"></a>操作参数</h3><p>操作参数是对操作的补充，对做相同事情但操作对象有略微差别的一种说明。以卡牌进阶引导中，拖动卡池里的材料卡为例。假如卡牌进阶需要消耗两张卡池中的同名卡，这时候需要有两步引导操作，分别是：</p>
+<ul>
+<li>拖动卡池中第一张材料卡到待消耗区域</li>
+<li>拖动卡池中第二张材料卡到待消耗区域</li>
+</ul>
+<p>这两步引导做的是相同的事情，但是拖动的卡牌略有不同，这时可以将“拖动卡池中的材料卡到待消耗区域”定义成一种操作，加上操作参数：第几张卡。</p>
+<p>考虑到操作的补充参数可能不止一种，这里使用Json格式的字符串填写，方便扩展。</p>
+<h3 id="对话内容"><a href="#对话内容" class="headerlink" title="对话内容"></a>对话内容</h3><p>对话内容只要用于立绘对话形式的引导步骤，直接填写对话文本即可，没有立绘对话的引导步骤可不填或填0表示内容为空。</p>
+<h3 id="说话人物"><a href="#说话人物" class="headerlink" title="说话人物"></a>说话人物</h3><p>说话人物用于立绘对话形式的引导步骤，表示不同的说话人物。与操作定义类似，说话人物也需要定义，若说话人物使用的是本身游戏中的角色，可直接填写角色的id，填0表示无人物。</p>
+<h3 id="保存点"><a href="#保存点" class="headerlink" title="保存点"></a>保存点</h3><p>保存点的必要性在前文《理论篇》已经提及，保存点的逻辑操作是，在当前步的操作已经做完，即将进入下一步前，往服务端发送一个引导ID，表示下一次重新登录时，引导从那一步ID开始。填0表示不往服务端发送保存点。</p>
+<p>那为什么表里面会配置100？100这个引导ID并没有在表里出现呀？而且为什么引导走到了第7步还要往服务端发送引导ID为1的点呢？</p>
+<p>其实这里的保存点不是引导ID，而是一个<strong>差值</strong>，填1表示将当前步的下一步引导ID发送给服务端保存，填2表示当前步骤的后面第2不的引导ID发送到服务端保存，而100则表示结束当前引导分段，并标记当前分段引导已完成，后续不再触发。</p>
+<p>之所以填<strong>差值</strong>而不直接填<strong>引导ID</strong>的值，是因为引导的需求是在不断地变化的，很可能一段很长的引导，在前面步骤插入了一步，那么后续的引导ID都将往后+1，这样保存点也要跟着变动，保存点多的情况下很容易出现漏改的情况，因此使用<strong>差值</strong>可以减少变动。</p>
+<p>一般情况下，引导保存点在当前步骤以后，所以默认引导保存点的值只有大于0的时候才有意义。</p>
+<h2 id="触发表"><a href="#触发表" class="headerlink" title="触发表"></a>触发表</h2><img src="/.io//img_guide_trigger_01.png">
+
+<p>上图是集成了卡牌进阶引导和卡牌重置引导的引导触发表，接下来对触发表的各列配置进行说明。</p>
+<h3 id="ID-1"><a href="#ID-1" class="headerlink" title="ID"></a>ID</h3><p>引导触发表的ID，无实际意义，仅表示序列。</p>
+<h3 id="分段ID"><a href="#分段ID" class="headerlink" title="分段ID"></a>分段ID</h3><p>分段ID是引导分段的唯一标识，结合步骤表的引导ID以100作为区间规则，我们默认：1~100的引导分段ID是0，101~200的分段ID是1，后续引导分段以此类推。</p>
+<h3 id="触发点、触发点参数"><a href="#触发点、触发点参数" class="headerlink" title="触发点、触发点参数"></a>触发点、触发点参数</h3><p>触发点的概念在前文《理论篇》中已做详细讲解，这里补充一下触发点参数及定义。与操作参数类似，触发点参数是对触发点逻辑的补充，有了参数的补充，触发点可以做一些逻辑上的抽象，定义如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">// 触发点及参数的定义</span><br><span class="line">1. 英雄等级达到N级时，判断引导触发条件</span><br><span class="line">参数：</span><br><span class="line">level：英雄等级</span><br><span class="line"></span><br><span class="line">例子：</span><br><span class="line">&#123;&apos;level&apos;:20&#125;</span><br><span class="line">当英雄升级到20级时，判断引导是否满足触发条件</span><br><span class="line"></span><br><span class="line">2. 当打开某个场景时，判断引导触发条件</span><br><span class="line">参数：</span><br><span class="line">scene：场景名字</span><br><span class="line"></span><br><span class="line">例子：</span><br><span class="line">&#123;&apos;scene&apos;:&apos;HeroesScene&apos;&#125;</span><br><span class="line">当进入卡池场景时，判断引导是否满足触发条件</span><br><span class="line"></span><br><span class="line">3. 卡牌重置功能解锁时，判断引导是否满足触发条件</span><br></pre></td></tr></table></figure>
+
+<h3 id="触发条件、触发条件参数"><a href="#触发条件、触发条件参数" class="headerlink" title="触发条件、触发条件参数"></a>触发条件、触发条件参数</h3><p>触发条件的概念在前文《理论篇》中也做过讲解，这里也仅做补充说明。触发条件的填写与触发点类似，唯一不同的是：触发条件的配置是数组，需要支持多条件的填写，数字定义以<code>|</code>隔开，参数的填写也同理，多个Json字符串之间用<code>|</code>隔开，当不需要参数时，在参数列填0即可。多个触发条件之间是<strong>并</strong>的关系。定义如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">// 触发条件及参数的定义</span><br><span class="line">0. 无需条件，即可触发引导</span><br><span class="line"></span><br><span class="line">1. 当前在某个场景中</span><br><span class="line">参数：</span><br><span class="line">scene：场景名字</span><br><span class="line"></span><br><span class="line">例子：</span><br><span class="line">&#123;&apos;scene&apos;:&apos;HeroesScene&apos;&#125;</span><br><span class="line">引导满足当前场景在卡池界面时触发</span><br><span class="line"></span><br><span class="line">2. 卡池中有卡牌等级达到N级，且同名卡数量达到一定张数</span><br><span class="line">参数：</span><br><span class="line">level：卡牌等级</span><br><span class="line">num：同名卡数量</span><br><span class="line"></span><br><span class="line">例子：</span><br><span class="line">&#123;&apos;level&apos;:20,&apos;num&apos;:2&#125;</span><br><span class="line">当卡池中有卡牌等级达到20级，且同名卡数量至少有2张时，触发引导</span><br></pre></td></tr></table></figure>
+
+<p>了解了触发表的各列含义，我们将其串联起来理解，便是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">卡牌进阶引导的触发（_groupId为0）：</span><br><span class="line">触发一：</span><br><span class="line">当有卡牌等级升到了20级时，判断当前场景在卡池界面，且有等级超过20级的卡牌有2张同名卡，触发引导。</span><br><span class="line">触发二：</span><br><span class="line">当进入卡池场景时，判断卡池中有卡牌等级达到20级且有至少2张同名卡，触发引导。</span><br><span class="line"></span><br><span class="line">卡牌重置引导的触发（_groupId为1）：</span><br><span class="line">触发一：</span><br><span class="line">当卡牌重置功能解锁时，即触发引导。</span><br></pre></td></tr></table></figure>
+
+<h1 id="编码"><a href="#编码" class="headerlink" title="编码"></a>编码</h1><blockquote>
+<p>友情提示：请读者们将思维切换到编码思维。</p>
+</blockquote>
+<p>创建一个引导类，命名为GuideMgr.lua（Guide Manager）。</p>
+<p>引导是分段触发的，所以需要有触发的判断和当前段引导的终止：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">GuideMgr.checkTrigger</span><span class="params">()</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">GuideMgr.finish</span><span class="params">()</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<p>引导分步骤，所以需要有当前步的开始和下一步：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">GuideMgr.start</span><span class="params">()</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">GuideMgr.next</span><span class="params">()</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<p>引导需要知晓当前在哪一步，以及记录哪些引导是已经走过的：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GuideMgr._guideId</span><br><span class="line">GuideMgr._finished = &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这两个值一般在客户端收到登录包时，从服务器拿数据并解析得到。GuideMgr._finished的数据结构大概是这样的：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">GuideMgr._finished = &#123;</span><br><span class="line">    [<span class="number">1</span>] = <span class="literal">true</span>,</span><br><span class="line">    [<span class="number">3</span>] = <span class="literal">true</span>,</span><br><span class="line">    [<span class="number">11</span>] = <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其中的1、3、11表示引导的分段ID，每当有新的引导完成时，该引导分段ID都将记录在这个结构里。</p>
+<p>记录了引导ID以后，需要留一个接口，用来获取引导步骤表里面的对应步骤信息：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">GuideMgr.getInfo</span><span class="params">()</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<p>定义了上述几个方法后，就可以开始搭建引导的框架了：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">GuideMgr = class(<span class="string">"GuideMgr"</span>)</span><br><span class="line"></span><br><span class="line">GuideMgr._guideId = <span class="literal">nil</span></span><br><span class="line">GuideMgr._finished = &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">GuideMgr.checkTrigger</span><span class="params">()</span></span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">GuideMgr.finish</span><span class="params">()</span></span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">GuideMgr.start</span><span class="params">()</span></span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">GuideMgr.next</span><span class="params">()</span></span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">GuideMgr.getInfo</span><span class="params">()</span></span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="触发判断"><a href="#触发判断" class="headerlink" title="触发判断"></a>触发判断</h2><p>先从触发的判断开始吧！触发的判断逻辑思维主要是传入对应的触发点，以及想要触发的引导分段id，然后在<code>GuideMgr.checkStart</code>方法里判断是否满足条件，若满足条件则调用<code>GuideMgr.start</code>方法开始分段引导的第一步。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">GuideMgr.checkTrigger</span><span class="params">(point, group)</span></span></span><br><span class="line">    <span class="comment">-- No point, no trigger.</span></span><br><span class="line">    <span class="keyword">if</span> point == <span class="literal">nil</span> <span class="keyword">then</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">-- Do not trigger a new guide when guiding.</span></span><br><span class="line">    <span class="keyword">if</span> GuideMgr.isGuiding() <span class="keyword">then</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">-- Init the candidate infos.</span></span><br><span class="line">    <span class="keyword">local</span> candidateInfos</span><br><span class="line">    <span class="keyword">if</span> group == <span class="literal">nil</span> <span class="keyword">then</span></span><br><span class="line">        candidateInfos = GuideMgr.getAllInfos()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">elseif</span> <span class="built_in">type</span>(group) == <span class="string">"number"</span> <span class="keyword">or</span> <span class="built_in">type</span>(group) == <span class="string">"table"</span> <span class="keyword">then</span></span><br><span class="line">        candidateInfos = GuideMgr.getInfosByGroup(group)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> candidateInfos == <span class="literal">nil</span> <span class="keyword">then</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">-- Filter infos by finished.</span></span><br><span class="line">    candidateInfos = GuideMgr.getUnfinishedInfos(candidateInfos)</span><br><span class="line"></span><br><span class="line">    <span class="comment">-- Filter infos by trigger point.</span></span><br><span class="line">    candidateInfos = GuideMgr.getPointValidInfos(point, candidateInfos)</span><br><span class="line"></span><br><span class="line">    <span class="comment">-- Filter infos by trigger condition.</span></span><br><span class="line">    candidateInfos = GuideMgr.getConditionValidInfos(candidateInfos)</span><br><span class="line"></span><br><span class="line">    <span class="comment">-- Check candidate infos empty.</span></span><br><span class="line">    <span class="keyword">if</span> #candidateInfos == <span class="number">0</span> <span class="keyword">then</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">-- Sort by priority and group id.</span></span><br><span class="line">    <span class="built_in">table</span>.<span class="built_in">sort</span>(candidateInfos, <span class="function"><span class="keyword">function</span><span class="params">(ele1, ele2)</span></span></span><br><span class="line">        <span class="keyword">if</span> ele1._priority == ele2._priority <span class="keyword">then</span></span><br><span class="line">            <span class="keyword">return</span> ele1._groupId &lt; ele2._groupId</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">return</span> ele1._priority &gt; ele2._priority</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">end</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">-- Start first guide step.</span></span><br><span class="line">    <span class="keyword">local</span> info = candidateInfos[<span class="number">1</span>]</span><br><span class="line">    <span class="keyword">local</span> triggerGroupId = info._groupId</span><br><span class="line">    <span class="keyword">local</span> guideId = triggerGroupId * <span class="number">100</span> + <span class="number">1</span></span><br><span class="line">    GuideMgr.start(guideId)</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<p><code>GuideMgr.isGuiding</code>方法判断目前是否在引导中，通过GuideMgr._guideId是否大于0来区分，因为每走一步引导，GuideMgr._guideId都会被赋值，而这个值就是引导步骤表GuideStep.csv的<code>_id</code>一列的值。当引导结束时，GuideMgr._guideId会被赋值为0。代码如下：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">GuideMgr.isGuiding</span><span class="params">()</span></span></span><br><span class="line">    <span class="keyword">return</span> GuideMgr._guideId <span class="keyword">and</span> GuideMgr._guideId &gt; <span class="number">0</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<p>其中<code>GuideMgr.getAllInfos</code>方法是从GuideTrigger.csv中获取每一行触发信息，以数组的形式返回。不同的项目组有不同的读表逻辑，这里就不贴出详细代码了。</p>
+<p><code>GuideMgr.getInfosByGroup</code>方法是从GuideTrigger.csv中通过<code>_groupId</code>一列的值，筛选出指定引导分段的触发信息，以数组的形式返回。</p>
+<p><code>GuideMgr.getUnfinishedInfos</code>方法是为了过滤掉已经触发过的引导，一般引导只会走一次，所以已经走过的引导不再触发。思路是从触发表中拿到<code>_groupId</code>的值，与GuideMgr._finished进行比对，若存在该值，则表示引导已经触发过。代码如下：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">GuideMgr.getUnfinishedInfos</span><span class="params">(infos)</span></span></span><br><span class="line">    <span class="keyword">if</span> infos == <span class="literal">nil</span> <span class="keyword">then</span></span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">local</span> ret = &#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> i = <span class="number">1</span>, #infos <span class="keyword">do</span></span><br><span class="line">        <span class="keyword">local</span> info = infos[i]</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> GuideMgr.isFinished(info._groupId) <span class="keyword">then</span></span><br><span class="line">            ret[#ret + <span class="number">1</span>] = info</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">return</span> ret</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">GuideMgr.isFinished</span><span class="params">(groupId)</span></span></span><br><span class="line">    <span class="keyword">return</span> GuideMgr._finished[groupId] == <span class="literal">true</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<p><code>GuideMgr.getPointValidInfos</code>方法是在触发信息中筛选出相同<strong>触发点</strong>的信息，以数组形式返回。详细的触发点信息判断在<code>GuideMgr.isTriggerPointValid</code>方法中处理。传入的触发点变量可以是<code>number</code>类别，仅表示触发点；也可以是<code>table</code>类别，内包含触发点和触发点参数，结构如下：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    _point = GuideMgr.Point.enter_scene,</span><br><span class="line">    _param = &#123;</span><br><span class="line">        _sceneId = Data.SceneId.main_scene</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>GuideMgr.getPointValidInfos</code>和<code>GuideMgr.isTriggerPointValid</code>详细代码如下：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">GuideMgr.getPointValidInfos</span><span class="params">(point, infos)</span></span></span><br><span class="line">    <span class="keyword">local</span> ret = &#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> i = <span class="number">1</span>, #infos <span class="keyword">do</span></span><br><span class="line">        <span class="keyword">local</span> info = infos[i]</span><br><span class="line">        <span class="keyword">if</span> GuideMgr.isTriggerPointValid(info, point) <span class="keyword">then</span></span><br><span class="line">            ret[#ret + <span class="number">1</span>] = info</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">return</span> ret</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">GuideMgr.isTriggerPointValid</span><span class="params">(info, point)</span></span></span><br><span class="line">    <span class="keyword">local</span> param</span><br><span class="line"></span><br><span class="line">    <span class="comment">-- Parse param.</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">type</span>(point) == <span class="string">"table"</span> <span class="keyword">then</span></span><br><span class="line">        param = point._param</span><br><span class="line">        point = point._point</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">-- Different trigger point.</span></span><br><span class="line">    <span class="keyword">if</span> info._point ~= point <span class="keyword">then</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">-- Special handling.</span></span><br><span class="line">    <span class="keyword">if</span> point == GuideMgr.Point.enter_scene <span class="keyword">then</span></span><br><span class="line">        <span class="comment">-- Compare with the info in GuideTrigger.csv.</span></span><br><span class="line">        <span class="keyword">local</span> sceneName = info._pointParam.scene</span><br><span class="line">        <span class="keyword">return</span> Data.SceneId[sceneName] == param._sceneId</span><br><span class="line"></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="comment">-- More point param check.</span></span><br><span class="line">        <span class="comment">-- ...</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<p>筛选出满足触发点的触发信息后，继续通过<code>GuideMgr.getConditionValidInfos</code>方法筛选出<strong>触发条件</strong>满足的信息。详细判断逻辑在<code>GuideMgr.isConditionValid</code>方法中，通过传入<code>触发条件定义</code>和<code>触发条件参数</code>，具体逻辑具体判断。代码如下：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">GuideMgr.getConditionValidInfos</span><span class="params">(infos)</span></span></span><br><span class="line">    <span class="keyword">local</span> ret = &#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> i = <span class="number">1</span>, #infos <span class="keyword">do</span></span><br><span class="line">        <span class="keyword">local</span> isValid = <span class="literal">true</span></span><br><span class="line">        <span class="keyword">local</span> info = infos[i]</span><br><span class="line">        <span class="comment">-- Array already parsed.</span></span><br><span class="line">        <span class="keyword">local</span> conds = info._conds</span><br><span class="line">        <span class="comment">-- Parse param array.</span></span><br><span class="line">        <span class="keyword">local</span> params = <span class="built_in">string</span>.split(info._params, <span class="string">"|"</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> j = <span class="number">1</span>, #conds <span class="keyword">do</span></span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> GuideMgr.isConditionValid(conds[j], params[j]) <span class="keyword">then</span></span><br><span class="line">                isValid = <span class="literal">false</span></span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> isValid <span class="keyword">then</span></span><br><span class="line">            ret[#ret + <span class="number">1</span>] = info</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">return</span> ret</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">GuideMgr.isConditionValid</span><span class="params">(condition, param)</span></span></span><br><span class="line">    <span class="keyword">if</span> condition == GuideMgr.Cond.current_scene <span class="keyword">then</span></span><br><span class="line">        <span class="comment">-- Get current scene.</span></span><br><span class="line">        <span class="keyword">local</span> scene = ...</span><br><span class="line">        <span class="keyword">return</span> Data.SceneId[param.scene] == scene._sceneId</span><br><span class="line"></span><br><span class="line">    <span class="keyword">elseif</span> condition == GuideMgr.Cond.hero_by_num_level <span class="keyword">then</span></span><br><span class="line">        <span class="comment">-- Check condition validation.</span></span><br><span class="line">        <span class="comment">-- ...</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<p>过滤出满足触发点和触发条件的触发信息后，对信息按照优先级进行排序，排序后取第一条触发信息里的引导分段ID（_groupId），将分段ID转为当前分段引导的第一步引导ID，传入<code>GuideMgr.start</code>方法中开始当前分段的引导。</p>
+<h2 id="开始引导"><a href="#开始引导" class="headerlink" title="开始引导"></a>开始引导</h2><p>触发判断筛选出符合要求的引导分段后开始引导，<code>GuideMgr.start</code>方法通过传入引导步骤ID，做当前步骤的引导操作，如：立绘说话、引导点击、其他引导效果等。<code>GuideMgr.starat</code>代码如下：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">GuideMgr.start</span><span class="params">(guideId)</span></span></span><br><span class="line">    guideId = guideId <span class="keyword">or</span> M._guideId</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> guideId == <span class="literal">nil</span> <span class="keyword">then</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">-- Check guide info validation.</span></span><br><span class="line">    <span class="keyword">local</span> info = GuideMgr.getInfo(guideId)</span><br><span class="line">    <span class="keyword">if</span> info == <span class="literal">nil</span> <span class="keyword">then</span></span><br><span class="line">        <span class="comment">-- Guide info not exists.</span></span><br><span class="line">        GuideMgr.finish()</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">-- Set guide id.</span></span><br><span class="line">    GuideMgr._guideId = guideId</span><br><span class="line"></span><br><span class="line">    <span class="comment">-- Set view</span></span><br><span class="line">    GuideMgr.setView(info)</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<p><code>GuideMgr.start</code>传入的参数——引导步骤ID（下称“引导ID”），当没有传参时，默认使用之前记录的引导ID。通过引导ID判断对应的引导步骤信息是否存在，若存在，将引导ID记录下来，并将对应的引导步骤信息传入视图层，做进一步的操作。</p>
+<p><code>GuideMgr.getInfo</code>方法通过传入引导ID，从步骤表GuideStep.csv中读取对应<code>_id</code>的信息，若没有传参，则默认使用当前已记录的引导ID。代码如下：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">GuideMgr.getInfo</span><span class="params">(guideId)</span></span></span><br><span class="line">    guideId = guideId <span class="keyword">or</span> M._guideId</span><br><span class="line">    <span class="keyword">if</span> guideId == <span class="literal">nil</span> <span class="keyword">then</span></span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">-- Get info in GuideStep.csv by _id.</span></span><br><span class="line">    <span class="comment">-- ...</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="下一步引导"><a href="#下一步引导" class="headerlink" title="下一步引导"></a>下一步引导</h2><p><code>GuideMgr.next</code>是引导从当前步走向下一步的逻辑方法。</p>
+<p>首先判断当前步骤的引导信息是否存在，不存在则结束当前引导，这个逻辑是一个容错，一般情况下不会存在：调用<code>GuideMgr.next</code>时，当前步骤信息不存在的情况。</p>
+<p>然后判断当前步骤是否存在保存点，存在则将保存点对应的引导ID保存到服务端。</p>
+<p>最后引导ID加1，传入<code>GuideMgr.start</code>方法中，开始下一步引导。</p>
+<p>代码如下：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">GuideMgr.next</span><span class="params">()</span></span></span><br><span class="line">    <span class="comment">-- Check current step info validation.</span></span><br><span class="line">    <span class="keyword">local</span> info = GuideMgr.getInfo()</span><br><span class="line">    <span class="keyword">if</span> info == <span class="literal">nil</span> <span class="keyword">then</span></span><br><span class="line">        GuideMgr.finish()</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">-- Check saving guide id.</span></span><br><span class="line">    GuideMgr.checkSave(info)</span><br><span class="line"></span><br><span class="line">    <span class="comment">-- Next guide step id.</span></span><br><span class="line">    <span class="keyword">local</span> guideId = M._guideId + <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> GuideMgr.start(guideId)</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<p>保存点的逻辑是读取GuideStep.csv的<code>_saveId</code>一列，若对应的值大于0，则将该值加上当前步骤的ID（<code>_saveId</code>填的数值是相对值）所得的值，传入服务器进行保存。代码如下：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">GuideMgr.checkSave</span><span class="params">(info)</span></span></span><br><span class="line">    <span class="keyword">if</span> info == <span class="literal">nil</span> <span class="keyword">then</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">local</span> saveId = info._saveId</span><br><span class="line">    <span class="keyword">if</span> saveId &gt; <span class="number">0</span> <span class="keyword">then</span></span><br><span class="line">        saveId = info._id + saveId</span><br><span class="line">        <span class="comment">-- Save the id to the server.</span></span><br><span class="line">        GuideMgr.saveGuideId(saveId)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<p><code>GuideMgr.saveGuideId</code>方法做的逻辑是将传入的id发送到服务端进行保存。</p>
+<h2 id="结束引导"><a href="#结束引导" class="headerlink" title="结束引导"></a>结束引导</h2><p>结束引导主要做重置数据、移除视图的操作，先看下代码：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">GuideMgr.finish</span><span class="params">()</span></span></span><br><span class="line">    <span class="comment">-- Guide is not started.</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> GuideMgr.isGuiding() <span class="keyword">then</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">--[[ Reset data ]]</span><span class="comment">--</span></span><br><span class="line">    <span class="comment">-- Save guide group.</span></span><br><span class="line">    <span class="keyword">local</span> guideId = GuideMgr._guideId</span><br><span class="line">    <span class="keyword">local</span> groupId = <span class="built_in">math</span>.<span class="built_in">floor</span>(guideId / <span class="number">100</span>)</span><br><span class="line">    GuideMgr.saveGuideGroup(groupId)</span><br><span class="line"></span><br><span class="line">    <span class="comment">-- Reset guide id.</span></span><br><span class="line">    GuideMgr.saveGuideId(<span class="number">0</span>)</span><br><span class="line">    GuideMgr._guideId = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">--[[ Remove view ]]</span><span class="comment">--</span></span><br><span class="line">    GuideMgr.removeView()</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<p><code>GuideMgr.saveGuideGroup</code>往服务端保存一个引导分段ID，表示当前分段的引导已经完成，后面不再触发；实际的逻辑操作类似于把分段ID加到服务端的GuideMgr._finished结构里。</p>
+<p><code>GuideMgr.removeView</code>做视图的移除操作，考虑到篇幅的限制，视图相关的逻辑将在下一篇文章中讲解。</p>
+<h1 id="下篇预告"><a href="#下篇预告" class="headerlink" title="下篇预告"></a>下篇预告</h1><p>下一篇文章将继续本文的<strong>实操篇</strong>进行视图逻辑的讲解，主要包含：引导手指、高亮框、文本框的添加，点击、触摸限制逻辑的判断等，读者们看完下篇文章，基本可以自己写一个引导了。考虑到工作的原因，文章更新会比较慢，还请大家海涵！</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>再小的鼓励也是一种支持!</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="代码咖啡 WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="代码咖啡 Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/游戏开发/" rel="tag"># 游戏开发</a>
+          
+            <a href="/tags/引导设计/" rel="tag"># 引导设计</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/GuideMgr01/" rel="next" title="从零开始设计游戏引导框架（一）">
+                <i class="fa fa-chevron-left"></i> 从零开始设计游戏引导框架（一）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/UnityShadersBook01/" rel="prev" title="《Unity Shader入门精要》笔记（一）">
+                《Unity Shader入门精要》笔记（一） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar_sidebar.png" alt="代码咖啡">
+            
+              <p class="site-author-name" itemprop="name">代码咖啡</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss2.html" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/wjnovember" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:wnovember@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.jianshu.com/u/9b87ba5fc959" title="我的简书" target="_blank">我的简书</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://runnerwoo.com/" title="老班长的博客" target="_blank">老班长的博客</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前情提要"><span class="nav-number">1.</span> <span class="nav-text">前情提要</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配表"><span class="nav-number">2.</span> <span class="nav-text">配表</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#步骤表"><span class="nav-number">2.1.</span> <span class="nav-text">步骤表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ID"><span class="nav-number">2.1.1.</span> <span class="nav-text">ID</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类别"><span class="nav-number">2.1.2.</span> <span class="nav-text">类别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#操作"><span class="nav-number">2.1.3.</span> <span class="nav-text">操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#操作参数"><span class="nav-number">2.1.4.</span> <span class="nav-text">操作参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对话内容"><span class="nav-number">2.1.5.</span> <span class="nav-text">对话内容</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#说话人物"><span class="nav-number">2.1.6.</span> <span class="nav-text">说话人物</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#保存点"><span class="nav-number">2.1.7.</span> <span class="nav-text">保存点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#触发表"><span class="nav-number">2.2.</span> <span class="nav-text">触发表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ID-1"><span class="nav-number">2.2.1.</span> <span class="nav-text">ID</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分段ID"><span class="nav-number">2.2.2.</span> <span class="nav-text">分段ID</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#触发点、触发点参数"><span class="nav-number">2.2.3.</span> <span class="nav-text">触发点、触发点参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#触发条件、触发条件参数"><span class="nav-number">2.2.4.</span> <span class="nav-text">触发条件、触发条件参数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#编码"><span class="nav-number">3.</span> <span class="nav-text">编码</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#触发判断"><span class="nav-number">3.1.</span> <span class="nav-text">触发判断</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开始引导"><span class="nav-number">3.2.</span> <span class="nav-text">开始引导</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#下一步引导"><span class="nav-number">3.3.</span> <span class="nav-text">下一步引导</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结束引导"><span class="nav-number">3.4.</span> <span class="nav-text">结束引导</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#下篇预告"><span class="nav-number">4.</span> <span class="nav-text">下篇预告</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2016 &mdash; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">代码咖啡</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: '8vMRQb0bSf05Hd5zFNhrSHXz-gzGzoHsz',
+        appKey: 'uD8TcECp3UshQsLS1vxEocGy',
+        placeholder: '欢迎评论留言哦~',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("8vMRQb0bSf05Hd5zFNhrSHXz-gzGzoHsz", "uD8TcECp3UshQsLS1vxEocGy");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
