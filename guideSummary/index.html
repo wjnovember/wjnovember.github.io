@@ -1,0 +1,1345 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/avatar_32x32.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/avatar_16x16.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="游戏开发,引导设计,">
+
+
+
+
+
+  <link rel="alternate" href="/rss2.html" title="程序员叨叨叨" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="一年多以前写了两篇从零开始设计游戏引导框架，第二篇写完后，发现写不下去了。游戏引擎形形色色，语言多种多样，如果继续写下去发现并不具有通用性，所以中断了。现在，引导的代码经过多个项目的打磨，有了一定的改进，想着简单分享一下引导的实现思路吧！本文以Lua代码作为样例，重在思路分享，其他语言亦可实现。  1. 引导认知1.1 引导分类引导的分类可分为新手引导、触发式引导、任务前往引导。 1）新手引导新">
+<meta name="keywords" content="游戏开发,引导设计">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一文入门游戏中的引导设计">
+<meta property="og:url" content="http://wjnovember.github.io/guideSummary/index.html">
+<meta property="og:site_name" content="程序员叨叨叨">
+<meta property="og:description" content="一年多以前写了两篇从零开始设计游戏引导框架，第二篇写完后，发现写不下去了。游戏引擎形形色色，语言多种多样，如果继续写下去发现并不具有通用性，所以中断了。现在，引导的代码经过多个项目的打磨，有了一定的改进，想着简单分享一下引导的实现思路吧！本文以Lua代码作为样例，重在思路分享，其他语言亦可实现。  1. 引导认知1.1 引导分类引导的分类可分为新手引导、触发式引导、任务前往引导。 1）新手引导新">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2021-11-09T15:30:36.980Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="一文入门游戏中的引导设计">
+<meta name="twitter:description" content="一年多以前写了两篇从零开始设计游戏引导框架，第二篇写完后，发现写不下去了。游戏引擎形形色色，语言多种多样，如果继续写下去发现并不具有通用性，所以中断了。现在，引导的代码经过多个项目的打磨，有了一定的改进，想着简单分享一下引导的实现思路吧！本文以Lua代码作为样例，重在思路分享，其他语言亦可实现。  1. 引导认知1.1 引导分类引导的分类可分为新手引导、触发式引导、任务前往引导。 1）新手引导新">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"hide","offset":12,"b2t":true,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: 'P169SBHT9P',
+      apiKey: 'aff6672534638c8530052ce885f3d28a',
+      indexName: 'blog_NAME',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"输入关键词就可以搜索啦~","hits_empty":"T.T 没有找到与“ ${query} ”相关的文章","hits_stats":"找到 ${hits} 篇文章，耗时 ${time} 毫秒！"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://wjnovember.github.io/guideSummary/">
+
+
+
+
+
+  <title>一文入门游戏中的引导设计 | 程序员叨叨叨</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">程序员叨叨叨</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一枚程序猿的叨叨日常</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-首页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-目录">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            目录
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-时光机">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            时光机
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wjnovember.github.io/guideSummary/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="代码咖啡">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar_sidebar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="程序员叨叨叨">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">一文入门游戏中的引导设计</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-11-01T21:34:59+08:00">
+                2021-11-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/游戏开发/" itemprop="url" rel="index">
+                    <span itemprop="name">游戏开发</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/guideSummary/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/guideSummary/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/guideSummary/" class="leancloud_visitors" data-flag-title="一文入门游戏中的引导设计">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>一年多以前写了两篇从零开始设计游戏引导框架，第二篇写完后，发现写不下去了。游戏引擎形形色色，语言多种多样，如果继续写下去发现并不具有通用性，所以中断了。现在，引导的代码经过多个项目的打磨，有了一定的改进，想着简单分享一下引导的实现思路吧！<br>本文以Lua代码作为样例，重在思路分享，其他语言亦可实现。</p>
+</blockquote>
+<h1 id="1-引导认知"><a href="#1-引导认知" class="headerlink" title="1. 引导认知"></a>1. 引导认知</h1><h2 id="1-1-引导分类"><a href="#1-1-引导分类" class="headerlink" title="1.1 引导分类"></a>1.1 引导分类</h2><p>引导的分类可分为<strong>新手引导</strong>、<strong>触发式引导</strong>、<strong>任务前往引导</strong>。</p>
+<h3 id="1）新手引导"><a href="#1）新手引导" class="headerlink" title="1）新手引导"></a>1）新手引导</h3><p>新注册的账号进入游戏后，出现立绘对话、交代游戏背景、告知玩家基础操作的引导，称为<strong>新手引导</strong>。一般新手引导持续至玩家可以自由操作时结束。</p>
+<h3 id="2）触发式引导"><a href="#2）触发式引导" class="headerlink" title="2）触发式引导"></a>2）触发式引导</h3><p>玩家自由操作过程中，因达到某种条件而触发的引导，称为<strong>触发式引导</strong>。大多数情况下，触发式引导会随着新系统的开启。</p>
+<h3 id="3）任务前往引导"><a href="#3）任务前往引导" class="headerlink" title="3）任务前往引导"></a>3）任务前往引导</h3><p>点击任务前往按钮后，出现手指引导玩家按照任务实现流程去操作的过程，称为<strong>任务前往引导</strong>。</p>
+<h2 id="1-2-组别和步骤"><a href="#1-2-组别和步骤" class="headerlink" title="1.2 组别和步骤"></a>1.2 组别和步骤</h2><h3 id="1）组别"><a href="#1）组别" class="headerlink" title="1）组别"></a>1）组别</h3><p>为方便后续内容达成统一认知，在此将一个个不同功能作用的引导以组别进行区分。比如：一进入游戏即出现的新手引导、英雄升星引导、文字版的抽卡引导等，每一个引导特定功能的引导都是一个组别。</p>
+<h3 id="2）步骤"><a href="#2）步骤" class="headerlink" title="2）步骤"></a>2）步骤</h3><p>在一个引导组别里，每一步引导的操作都成为<strong>步骤</strong>，比如：引导点击一个按钮、出现一个立绘对话、出现一个高亮框等，都是引导的步骤。</p>
+<h2 id="1-3-触发条件与触发点"><a href="#1-3-触发条件与触发点" class="headerlink" title="1.3 触发条件与触发点"></a>1.3 触发条件与触发点</h2><p><strong>触发条件</strong>和<strong>触发点</strong>，是引导<strong>组别</strong>的概念。<br>举个例子，文字版里有一个抽卡引导，条件是玩家通关1-4。那么对于抽卡这个组别的引导，通关1-4就是它的触发条件，而触发点就是每一个关卡通关那一刻。通俗来讲就是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">触发点：</span><br><span class="line">什么时候判断</span><br><span class="line"></span><br><span class="line">触发条件：</span><br><span class="line">判断是否满足条件</span><br></pre></td></tr></table></figure>
+
+<h2 id="1-4-操作"><a href="#1-4-操作" class="headerlink" title="1.4 操作"></a>1.4 操作</h2><p><strong>操作</strong>是引导<strong>步骤</strong>的概念。<br>举个例子，文字版抽卡引导的步骤流程是：</p>
+<ul>
+<li>出现立绘对话，告知玩家“招仙台”系统已开启</li>
+<li>点击主界面“道场”页签</li>
+<li>点击“招仙台”按钮</li>
+<li>提示免费单抽</li>
+<li>点击“单抽”按钮</li>
+</ul>
+<p>上面的每一个步骤都是<strong>操作</strong>。</p>
+<p>操作根据表现形式可分为如下几类：</p>
+<ul>
+<li>点击</li>
+<li>拖动</li>
+<li>立绘对话</li>
+<li>提示文本</li>
+<li>效果（高亮框等）</li>
+</ul>
+<h2 id="1-5-保存点"><a href="#1-5-保存点" class="headerlink" title="1.5 保存点"></a>1.5 保存点</h2><p><strong>保存点</strong>的作用：为保证引导在玩家中途退出重进时依然能从中断点恢复。保存点需要上传记录到服务端。</p>
+<p>结合以上几点，我们建立起对引导的认知：<br>在某个 <strong><em>触发点</em></strong> ，判断某个 <strong><em>组别</em></strong> 的引导满足 <strong><em>触发条件</em></strong> ，于是一个 <strong><em>步骤</em></strong> 一个步骤地引导玩家去完成最基础的系统流程的 <strong><em>操作</em></strong> ，并且支持退出游戏重进时能从中途的 <strong><em>保存点</em></strong> 恢复并继续引导。</p>
+<h1 id="2-引导的配表"><a href="#2-引导的配表" class="headerlink" title="2. 引导的配表"></a>2. 引导的配表</h1><p>引导的配表可分为：<strong>guide_group</strong>表、<strong>guide_step</strong>表、<strong>guide_text</strong>表。</p>
+<h2 id="2-1-guide-group配表"><a href="#2-1-guide-group配表" class="headerlink" title="2.1 guide_group配表"></a>2.1 guide_group配表</h2><p>guide_group表，主要控制某个组别的引导要不要触发，具体配置如下：</p>
+<table>
+<thead>
+<tr>
+<th align="center">ID</th>
+<th align="left">说明</th>
+<th align="center">起始步骤</th>
+<th align="left">触发条件</th>
+<th align="center">优先级</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">_id</td>
+<td align="left">_stepId</td>
+<td align="center">_triggerCond</td>
+<td align="left">_priority</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">I</td>
+<td align="left"></td>
+<td align="center">I</td>
+<td align="left">[S</td>
+<td align="center">I</td>
+</tr>
+<tr>
+<td align="center">1</td>
+<td align="left">初始的新手引导</td>
+<td align="center"></td>
+<td align="left">101</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="left">抽卡引导</td>
+<td align="center">201</td>
+<td align="left">{“scene”:”MainScene”,”form”:””,”missionId”:100004}</td>
+<td align="center">1</td>
+</tr>
+</tbody></table>
+<h2 id="2-2-guide-step配表"><a href="#2-2-guide-step配表" class="headerlink" title="2.2 guide_step配表"></a>2.2 guide_step配表</h2><p>guide_step表，主要控制在某个组别的引导触发时，每一步操作具体是什么。相同组别引导的步骤ID连续，且ID不为100的倍数。具体配置如下：</p>
+<table>
+<thead>
+<tr>
+<th align="center">ID</th>
+<th align="left">说明</th>
+<th align="center">操作</th>
+<th align="center">数值</th>
+<th align="left">其他参数</th>
+<th align="center">保存步骤</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">_id</td>
+<td align="left"></td>
+<td align="center">_action</td>
+<td align="center">_val</td>
+<td align="left">_param</td>
+<td align="center">_saveId</td>
+</tr>
+<tr>
+<td align="center">H</td>
+<td align="left"></td>
+<td align="center">I</td>
+<td align="center">I</td>
+<td align="left">S</td>
+<td align="center">I</td>
+</tr>
+<tr>
+<td align="center">201</td>
+<td align="left">立绘对话</td>
+<td align="center">30001</td>
+<td align="center">1002</td>
+<td align="left"></td>
+<td align="center">202</td>
+</tr>
+<tr>
+<td align="center">202</td>
+<td align="left">点击“道场”页签</td>
+<td align="center">10001</td>
+<td align="center">1</td>
+<td align="left"></td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="center">203</td>
+<td align="left">点击“招仙台”按钮</td>
+<td align="center">10002</td>
+<td align="center">1</td>
+<td align="left"></td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="center">204</td>
+<td align="left">提示免费单抽</td>
+<td align="center">40001</td>
+<td align="center">1002</td>
+<td align="left">{“form_show”:105,”form”:105,”node”:”_btnLotteryOne”,”dir”:”top”}</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="center">205</td>
+<td align="left">点击“单抽”按钮后关闭提示</td>
+<td align="center">10003</td>
+<td align="center">0</td>
+<td align="left">{“form”:105,”node”:”_btnLotteryOne”}</td>
+<td align="center">100</td>
+</tr>
+</tbody></table>
+<p><strong>_action说明</strong>：</p>
+<blockquote>
+<p><strong>10000+</strong>：点击<br><strong>10001</strong> 点击主界面的页签 ，val 表示第几个页签<br><strong>10002</strong> 点击某个系统入口，val 表示哪个系统<br><strong>10003</strong> 按照代码变量名找到按钮进行点击</p>
+<p><strong>20000+</strong>：拖拽<br>…</p>
+<p><strong>30000+</strong>：立绘对话<br><strong>30001</strong> 普通立绘对话</p>
+<p><strong>40000+</strong>：文本提示<br><strong>40001</strong> 普通文本提示</p>
+</blockquote>
+<p><strong>_val说明</strong>：</p>
+<blockquote>
+<p>不同_action，对应_val表意不同</p>
+<p><strong>10001</strong> 主界面第几个页签<br><strong>10002</strong> 表示系统ID枚举</p>
+<p><strong>30000+</strong> 表示立绘对话的文本ID，从guide_text表里读取<br><strong>40000+</strong> 表示文本提示的文本ID，从guide_text表里读取</p>
+</blockquote>
+<p><strong>_param说明</strong>：</p>
+<blockquote>
+<p>一些无法通过_val单个值表意的参数，用_param表意。使用Json字符串配置，扩展性较好，自由度大，可根据需求任意定义。</p>
+<p><strong>form_show</strong> 某个界面打开的时候执行操作，数值为：界面ID枚举<br><strong>form</strong> 执行当前操作需要在哪个界面，数值为：界面ID枚举<br><strong>node</strong> 关联某个node，通常与form配合使用，旨在找到目标节点，与不同_action关联，表意不同，与点击            关联，表示点击哪个按钮；与提示文本关联，表示文本框依附于哪个UI控件<br><strong>dir</strong> 表示文本框依附在UI控件的哪个方位，数值可以是：”top”、”bottom”、”left”、”right”<br>…</p>
+</blockquote>
+<p><strong>_saveId说明</strong>：</p>
+<blockquote>
+<p>在当前操作结束时，将_saveId保存到服务器，下次断线重连时，从保存点继续引导</p>
+<p><strong>0</strong> 不设置保存点，不做任何操作<br><strong>100</strong> 将当前引导保存点去掉，标记当前组别引导已完成<br><strong>其他</strong> 保存该步骤ID到服务器</p>
+</blockquote>
+<h2 id="2-3-guide-text表"><a href="#2-3-guide-text表" class="headerlink" title="2.3 guide_text表"></a>2.3 guide_text表</h2><p>guide_text表，主要配置立绘对话、文本提示等操作的一些文本内容。具体配置如下：</p>
+<table>
+<thead>
+<tr>
+<th align="center">ID</th>
+<th align="left">说明</th>
+<th align="left">文本内容</th>
+<th align="left">参数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">_id</td>
+<td align="left"></td>
+<td align="left">_textSid</td>
+<td align="left">_param</td>
+</tr>
+<tr>
+<td align="center">I</td>
+<td align="left"></td>
+<td align="left">D</td>
+<td align="left">S</td>
+</tr>
+<tr>
+<td align="center">1001</td>
+<td align="left">立绘对话</td>
+<td align="left">招仙台已开启，请道友移步入内，招募仙士。</td>
+<td align="left">{“role_index”:1,”role_id”:1}</td>
+</tr>
+<tr>
+<td align="center">1002</td>
+<td align="left">文本提示</td>
+<td align="left">每隔一段时间都会获得一次免费召唤机会</td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<p><strong>_param说明</strong>：</p>
+<blockquote>
+<p><strong>role_index</strong> 立绘的位置，1：左，2：中，3：右<br><strong>role_id</strong> 立绘角色ID</p>
+</blockquote>
+<h2 id="2-4-程序与策划的配合"><a href="#2-4-程序与策划的配合" class="headerlink" title="2.4 程序与策划的配合"></a>2.4 程序与策划的配合</h2><h3 id="1）添加新的引导时"><a href="#1）添加新的引导时" class="headerlink" title="1）添加新的引导时"></a>1）添加新的引导时</h3><p>策划出一份引导流程文档，程序根据负责添加引导的逻辑配表：guide_group、guide_step，策划配置负责配置引导的文案：guide_text。</p>
+<h3 id="2）修改引导时"><a href="#2）修改引导时" class="headerlink" title="2）修改引导时"></a>2）修改引导时</h3><p>如果仅涉及引导文案修改时，策划只需要维护guide_text表即可，如果仅涉及文案增删，策划也可在了解引导配表逻辑的基础上，维护guide_step表；<br>如果涉及逻辑改动，需要程序配合策划进行改表，程序负责guide_group、guide_step，策划负责guide_text。</p>
+<p>可有效规避策划和程序改一份表，影响引导逻辑。</p>
+<h1 id="3-引导代码的实现"><a href="#3-引导代码的实现" class="headerlink" title="3. 引导代码的实现"></a>3. 引导代码的实现</h1><p>根据：</p>
+<blockquote>
+<p>在某个 <strong><em>触发点</em></strong> ，判断某个 <strong><em>组别</em></strong> 的引导满足 <strong><em>触发条件</em></strong> ，于是一个 <strong><em>步骤</em></strong> 一个步骤地引导玩家去完成最基础的系统流程的 <strong><em>操作</em></strong> ，并且支持退出游戏重进时能从中途的 <strong><em>保存点</em></strong> 恢复并继续引导。</p>
+</blockquote>
+<p>代码需要实现的逻辑包括：</p>
+<ul>
+<li>引导的触发</li>
+<li>引导的操作</li>
+<li>引导的保存点（结合在操作中）</li>
+<li>引导步骤的连接（如何从当前步骤跳到下一步）</li>
+</ul>
+<p>我们把引导的框架逻辑写在<code>GuideMgr.lua</code>里。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> M = class(<span class="string">"GuideMgr"</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">M.tryStart</span><span class="params">()</span></span> <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">M.start</span><span class="params">(groupConfig)</span></span> <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">M.step</span><span class="params">(stepId)</span></span> <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">M.finish</span><span class="params">()</span></span> <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">M.saveGuideStep</span><span class="params">(stepId)</span></span> <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> M</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-1-引导的触发"><a href="#3-1-引导的触发" class="headerlink" title="3.1 引导的触发"></a>3.1 引导的触发</h2><p>引导的触发，可分为：触发总入口、触发条件判定和正式触发。</p>
+<h3 id="1）触发总入口"><a href="#1）触发总入口" class="headerlink" title="1）触发总入口"></a>1）触发总入口</h3><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> M = class(<span class="string">"GuideMgr"</span>)</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 引导触发判定总入口</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">M.tryStart</span><span class="params">()</span></span></span><br><span class="line">    <span class="comment">-- 引导禁用</span></span><br><span class="line">    <span class="keyword">if</span> M.isForbidGuide() <span class="keyword">then</span> <span class="keyword">return</span> <span class="keyword">end</span></span><br><span class="line">    <span class="comment">-- 正在引导，不触发判定</span></span><br><span class="line">    <span class="keyword">if</span> M.isGuiding() <span class="keyword">then</span> <span class="keyword">return</span> <span class="keyword">end</span></span><br><span class="line">  </span><br><span class="line">    <span class="comment">-- 获取没有触发过的引导组别，判定是否满足触发条件</span></span><br><span class="line">    <span class="keyword">local</span> groupConfigs = M.getGroupConfigs()</span><br><span class="line">  	<span class="keyword">for</span> i = <span class="number">1</span>, #groupConfigs <span class="keyword">do</span></span><br><span class="line">        <span class="keyword">local</span> <span class="built_in">config</span> = groupConfigs[i]</span><br><span class="line">        <span class="comment">-- 如果满足触发条件</span></span><br><span class="line">    	<span class="keyword">if</span> CondMgr.isConditionArrayMet(<span class="built_in">config</span>._triggerCond) <span class="keyword">then</span></span><br><span class="line">            <span class="comment">-- 触发引导</span></span><br><span class="line">            M.start(<span class="built_in">config</span>)</span><br><span class="line">      	    <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 获取没有触发过的引导组别</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">M.getGroupConfigs</span><span class="params">()</span></span></span><br><span class="line">    <span class="keyword">local</span> configs = M._groupConfigs</span><br><span class="line">    <span class="keyword">if</span> configs == <span class="literal">nil</span> <span class="keyword">then</span></span><br><span class="line">        configs = &#123;&#125;</span><br><span class="line">    		</span><br><span class="line">    	<span class="keyword">for</span> k, v <span class="keyword">in</span> <span class="built_in">pairs</span>(D._guideGroupConfig) <span class="keyword">do</span></span><br><span class="line">      		<span class="comment">-- 取没有触发过的引导组别</span></span><br><span class="line">      	    <span class="keyword">if</span> <span class="keyword">not</span> M.isFinished(k) <span class="keyword">then</span></span><br><span class="line">                configs[#configs + <span class="number">1</span>] = v</span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">    </span><br><span class="line">    	<span class="built_in">table</span>.<span class="built_in">sort</span>(configs, <span class="function"><span class="keyword">function</span><span class="params">(a, b)</span></span> <span class="keyword">return</span> a._priority &lt; b._priority <span class="keyword">end</span>)</span><br><span class="line">    	M._groupConfigs = configs</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">return</span> configs</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> M</span><br></pre></td></tr></table></figure>
+
+<h3 id="2）条件判定"><a href="#2）条件判定" class="headerlink" title="2）条件判定"></a>2）条件判定</h3><table>
+<thead>
+<tr>
+<th align="center">ID</th>
+<th align="left">说明</th>
+<th align="center">起始步骤</th>
+<th align="left">触发条件</th>
+<th align="center">优先级</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">_id</td>
+<td align="left"></td>
+<td align="center">_stepId</td>
+<td align="left">_triggerCond</td>
+<td align="center">_priority</td>
+</tr>
+<tr>
+<td align="center">I</td>
+<td align="left"></td>
+<td align="center">I</td>
+<td align="left">[S</td>
+<td align="center">I</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="left">抽卡引导</td>
+<td align="center">201</td>
+<td align="left">{“scene”:”MainScene”,”form”:””,”missionId”:100004}</td>
+<td align="center">1</td>
+</tr>
+</tbody></table>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> M = class(<span class="string">"CondMgr"</span>)</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="comment">--[[--</span></span><br><span class="line"><span class="comment">配表类型：[S</span></span><br><span class="line"><span class="comment">配表写法：&#123;"form": 101, "hero_level": 20&#125; | &#123;"form":101, "vip_level":3&#125;</span></span><br><span class="line"><span class="comment">在101界面，英雄等级达到20级或vip等级达到3级，触发引导</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">cond参数结构：</span></span><br><span class="line"><span class="comment">table数组</span></span><br><span class="line"><span class="comment">&#123;</span></span><br><span class="line"><span class="comment">    &#123;form = 101, hero_level = 20&#125;,</span></span><br><span class="line"><span class="comment">    &#123;form = 101, vip_level = 3&#125;</span></span><br><span class="line"><span class="comment">&#125;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">只要数组中其中一个条件满足即可</span></span><br><span class="line"><span class="comment">--]]</span><span class="comment">--</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">M.isConditionArrayMet</span><span class="params">(conds)</span></span></span><br><span class="line">    <span class="keyword">for</span> i = <span class="number">1</span>, #conds <span class="keyword">do</span></span><br><span class="line">        <span class="keyword">if</span> M.isConditionMet(conds[i]) <span class="keyword">then</span></span><br><span class="line">      	    <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">      	<span class="keyword">end</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">M.isConditionMet</span><span class="params">(cond)</span></span></span><br><span class="line">    <span class="keyword">for</span> k, v <span class="keyword">in</span> <span class="built_in">pairs</span>(cond) <span class="keyword">do</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> M.CondCheck[k](v) <span class="keyword">then</span> <span class="keyword">return</span> <span class="literal">false</span> <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">M.CondCheck = &#123;</span><br><span class="line">    [<span class="string">"form"</span>] = <span class="function"><span class="keyword">function</span><span class="params">(val)</span></span></span><br><span class="line">        <span class="keyword">local</span> form = Form.getTop()</span><br><span class="line">        <span class="keyword">return</span> form <span class="keyword">and</span> form._id == val</span><br><span class="line">    <span class="keyword">end</span>,</span><br><span class="line">    [<span class="string">"hero_level"</span>] = <span class="function"><span class="keyword">function</span><span class="params">(val)</span></span></span><br><span class="line">        <span class="keyword">local</span> lv = P._playerHero:getOwnedHeroMaxLevel()</span><br><span class="line">        <span class="keyword">return</span> lv &gt;= val</span><br><span class="line">    <span class="keyword">end</span>,</span><br><span class="line">    [<span class="string">"vip_level"</span>] = <span class="function"><span class="keyword">function</span><span class="params">(val)</span></span></span><br><span class="line">        <span class="keyword">return</span> P:vipLevel() &gt;= val</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> M</span><br></pre></td></tr></table></figure>
+
+<h3 id="3）触发引导"><a href="#3）触发引导" class="headerlink" title="3）触发引导"></a>3）触发引导</h3><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> M = class(<span class="string">"GuideMgr"</span>)</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">M.start</span><span class="params">(groupConfig)</span></span></span><br><span class="line">    <span class="comment">-- 如果有引导正在进行，结束所有引导，开始触发传入组别的引导</span></span><br><span class="line">    M.finish()</span><br><span class="line"></span><br><span class="line">    <span class="comment">-- 保存当前正在触发的引导组别ID</span></span><br><span class="line">    <span class="keyword">local</span> groupId = groupConfig._id</span><br><span class="line">    M.saveGuideGroup(groupId)</span><br><span class="line">  </span><br><span class="line">    <span class="keyword">local</span> stepId = groupConfig._stepId</span><br><span class="line">    M.saveGuideStep(stepId)</span><br><span class="line">  </span><br><span class="line">    <span class="comment">-- 引导视图层准备工作</span></span><br><span class="line">    M.prepareLayer()</span><br><span class="line">  </span><br><span class="line">    <span class="comment">-- 开始当前引导组的第一步操作</span></span><br><span class="line">    M._groupId = groupId</span><br><span class="line">    M._stepId = stepId</span><br><span class="line">    M.step(stepId)</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 创建引导图层，后续的所有操作添加的元素都放在这里</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">M.prepareLayer</span><span class="params">()</span></span></span><br><span class="line">    <span class="keyword">local</span> layer = M._layer</span><br><span class="line">    <span class="keyword">if</span> layer == <span class="literal">nil</span> <span class="keyword">then</span></span><br><span class="line">        layer = class(<span class="literal">nil</span>, V).new(lc.CocosClass.ui_widget)</span><br><span class="line">        layer:setContentSize(lc.ScrSize)</span><br><span class="line">        lc.addChildToCenter(Scene._current, layer, V.ZOrder.guide)</span><br><span class="line">        M._layer = layer</span><br><span class="line"></span><br><span class="line">        layer:setTouchListener(<span class="function"><span class="keyword">function</span><span class="params">()</span></span> <span class="keyword">end</span>)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">M.saveGuideGroup</span><span class="params">(groupId)</span></span></span><br><span class="line">    <span class="comment">-- TODO：保存到服务端</span></span><br><span class="line">    ...</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">M.saveGuideStep</span><span class="params">(stepId)</span></span></span><br><span class="line">    <span class="comment">-- TODO：保存到服务端</span></span><br><span class="line">    ...</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> M</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-2-引导的操作"><a href="#3-2-引导的操作" class="headerlink" title="3.2 引导的操作"></a>3.2 引导的操作</h2><p>引导的操作涉及：保存点逻辑、参数逻辑、具体操作（点击、对话等）。</p>
+<h3 id="1）引导步骤"><a href="#1）引导步骤" class="headerlink" title="1）引导步骤"></a>1）引导步骤</h3><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> M = class(<span class="string">"GuideMgr"</span>)</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">M.step</span><span class="params">(stepId)</span></span></span><br><span class="line">    <span class="comment">-- 保证step在引导中执行（由M.start发起）</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> M.isGuiding() <span class="keyword">then</span> <span class="keyword">return</span> <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">--[[--</span></span><br><span class="line"><span class="comment">    stepId不为空，表示开始当前步骤操作；</span></span><br><span class="line"><span class="comment">    stepId为空，表示在M._stepId基础上，进入下一步操作；</span></span><br><span class="line"><span class="comment">    --]]</span><span class="comment">--</span></span><br><span class="line">    <span class="keyword">if</span> stepId == <span class="literal">nil</span> <span class="keyword">then</span></span><br><span class="line">        stepId = M._stepId</span><br><span class="line"> </span><br><span class="line">        <span class="comment">-- 在当前步骤结束，准备进入下一步时，记录当前步骤的保存点</span></span><br><span class="line">        <span class="keyword">local</span> stepConfig = D._guideStepConfig[stepId]</span><br><span class="line">        <span class="keyword">local</span> saveId = stepConfig._saveId</span><br><span class="line">        <span class="keyword">if</span> saveId <span class="keyword">then</span></span><br><span class="line">            <span class="keyword">if</span> saveId == <span class="number">100</span> <span class="keyword">then</span></span><br><span class="line">                M.setGroupFinished(M._groupId)</span><br><span class="line">                M.saveGuideStep()</span><br><span class="line"></span><br><span class="line">            <span class="keyword">elseif</span> saveId &gt; <span class="number">0</span> <span class="keyword">then</span></span><br><span class="line">                M.saveGuideStep(saveId)</span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">        stepId = stepId + <span class="number">1</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  </span><br><span class="line">    <span class="comment">-- 传入的步骤ID不存在，结束引导</span></span><br><span class="line">    <span class="keyword">local</span> <span class="built_in">config</span> = D._guideStepConfig[stepId]</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">config</span> == <span class="literal">nil</span> <span class="keyword">then</span></span><br><span class="line">        M.finish()</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  </span><br><span class="line">    M._stepId = stepId</span><br><span class="line"></span><br><span class="line">    <span class="comment">-- 清除所有引导元素</span></span><br><span class="line">    M.clearLayer()</span><br><span class="line"></span><br><span class="line">    <span class="comment">-- 根据步骤参数做相应处理</span></span><br><span class="line">    <span class="comment">-- （后面继续）</span></span><br><span class="line">    ...</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">M.isGuiding</span><span class="params">()</span></span></span><br><span class="line">    <span class="keyword">return</span> M._stepId <span class="keyword">and</span> D._guideStepConfig[M._stepId]</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 清理所有layer上的引导元素，包括手指、高亮、立绘对话等</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">M.clearLayer</span><span class="params">()</span></span></span><br><span class="line">    <span class="keyword">local</span> layer = M._layer</span><br><span class="line">    <span class="keyword">if</span> layer == <span class="literal">nil</span> <span class="keyword">then</span> <span class="keyword">return</span> <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    layer:setSwallowTouches(<span class="literal">true</span>)</span><br><span class="line">    layer:setTouchListener(<span class="function"><span class="keyword">function</span><span class="params">()</span></span> <span class="keyword">end</span>)</span><br><span class="line"></span><br><span class="line">    M.removeFinger()</span><br><span class="line">    M.removeDilog()</span><br><span class="line">    M.removeTipText()</span><br><span class="line">    ...</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> M</span><br></pre></td></tr></table></figure>
+
+<h3 id="2）参数处理"><a href="#2）参数处理" class="headerlink" title="2）参数处理"></a>2）参数处理</h3><table>
+<thead>
+<tr>
+<th align="center">ID</th>
+<th align="left">说明</th>
+<th align="center">操作</th>
+<th align="center">数值</th>
+<th align="left">其他参数</th>
+<th align="center">保存步骤</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">_id</td>
+<td align="left"></td>
+<td align="center">_action</td>
+<td align="center">_val</td>
+<td align="left">_param</td>
+<td align="center">_saveId</td>
+</tr>
+<tr>
+<td align="center">H</td>
+<td align="left"></td>
+<td align="center">I</td>
+<td align="center">I</td>
+<td align="left">S</td>
+<td align="center">I</td>
+</tr>
+<tr>
+<td align="center">204</td>
+<td align="left"></td>
+<td align="center">40001</td>
+<td align="center">1002</td>
+<td align="left">{“form_show”:105,”form”:105,”node”:”_btnLotteryOne”,”dir”:”top”}</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="center">205</td>
+<td align="left"></td>
+<td align="center">10003</td>
+<td align="center">0</td>
+<td align="left">{“form”:105,”node”:”_btnLotteryOne”}</td>
+<td align="center">100</td>
+</tr>
+</tbody></table>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> M = class(<span class="string">"GuideMgr"</span>)</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">M.step</span><span class="params">(stepId)</span></span></span><br><span class="line">    ...</span><br><span class="line">  </span><br><span class="line">    <span class="comment">-- （接上面的代码）</span></span><br><span class="line">    <span class="keyword">local</span> <span class="built_in">config</span> = D._guideStepConfig[stepId]</span><br><span class="line"></span><br><span class="line">    <span class="comment">-- 根据步骤参数做相应处理</span></span><br><span class="line">    <span class="keyword">local</span> param = M.getStepParam(<span class="built_in">config</span>)</span><br><span class="line">    <span class="keyword">if</span> param <span class="keyword">then</span></span><br><span class="line">        <span class="comment">-- 允许玩家自由点击</span></span><br><span class="line">        <span class="keyword">if</span> param.free_op <span class="keyword">then</span></span><br><span class="line">            M._layer:setSwallowTouches(<span class="literal">false</span>)</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">        M._waitParam = <span class="literal">nil</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> param.delay <span class="keyword">then</span></span><br><span class="line">            M._waitParam = V.scheduleCall(<span class="function"><span class="keyword">function</span><span class="params">()</span></span> M.doAction() <span class="keyword">end</span>, param.delay)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">elseif</span> param.event <span class="keyword">then</span></span><br><span class="line">            _, M._waitParam = lc.event.once(param.event, <span class="function"><span class="keyword">function</span><span class="params">()</span></span> M.doAction() <span class="keyword">end</span>)</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> param.free_op <span class="keyword">then</span></span><br><span class="line">                M._layer:setTouchListener(<span class="function"><span class="keyword">function</span><span class="params">()</span></span></span><br><span class="line">                    <span class="comment">-- 提示当前无法点击</span></span><br><span class="line">                <span class="keyword">end</span>)</span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">      </span><br><span class="line">        <span class="keyword">elseif</span> param.form_show <span class="keyword">then</span></span><br><span class="line">            <span class="keyword">local</span> form = Form.getTop()</span><br><span class="line">            <span class="keyword">if</span> form == <span class="literal">nil</span> <span class="keyword">or</span> form._id ~= param.form_show <span class="keyword">or</span> <span class="keyword">not</span> form._isShown <span class="keyword">then</span></span><br><span class="line">                _, M._waitParam = lc.event.on(<span class="string">"form.show"</span>, <span class="function"><span class="keyword">function</span><span class="params">(form)</span></span></span><br><span class="line">                    <span class="keyword">if</span> form._id == param.form_show <span class="keyword">then</span> M.doAction() <span class="keyword">end</span></span><br><span class="line">                <span class="keyword">end</span>)</span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">      </span><br><span class="line">      	<span class="keyword">elseif</span> param.form_close <span class="keyword">then</span></span><br><span class="line">            <span class="keyword">local</span> form = Form.getTop()</span><br><span class="line">            <span class="keyword">if</span> form <span class="keyword">and</span> form._id == param.form_close <span class="keyword">then</span></span><br><span class="line">                _, M._waitParam = lc.event.on(<span class="string">"form.close"</span>, <span class="function"><span class="keyword">function</span><span class="params">(formId)</span></span></span><br><span class="line">                    <span class="keyword">if</span> param.form_close == formId <span class="keyword">then</span> M.doAction() <span class="keyword">end</span></span><br><span class="line">                <span class="keyword">end</span>)</span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">    </span><br><span class="line">        <span class="keyword">if</span> M._waitParam == <span class="literal">nil</span> <span class="keyword">then</span></span><br><span class="line">            M.doAction()</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">M.getStepParam</span><span class="params">(stepConfig)</span></span></span><br><span class="line">    stepConfig = stepConfig <span class="keyword">or</span> D._guideStepConfig[M._stepId]</span><br><span class="line">    <span class="keyword">return</span> json.decode(stepConfig._param <span class="keyword">or</span> <span class="string">""</span>)</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> M</span><br></pre></td></tr></table></figure>
+
+<h3 id="3）执行操作"><a href="#3）执行操作" class="headerlink" title="3）执行操作"></a>3）执行操作</h3><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> M = class(<span class="string">"GuideMgr"</span>)</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">M.doAction</span><span class="params">()</span></span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> M.isGuiding() <span class="keyword">then</span> <span class="keyword">return</span> <span class="keyword">end</span></span><br><span class="line">  </span><br><span class="line">    <span class="keyword">local</span> <span class="built_in">config</span> = D._guideStepConfig[M._stepId]</span><br><span class="line">    M._waitParam = <span class="literal">nil</span></span><br><span class="line">  </span><br><span class="line">    <span class="keyword">local</span> layer = M._layer</span><br><span class="line">    layer:setSwallowTouches(<span class="literal">true</span>)</span><br><span class="line">  </span><br><span class="line">    <span class="keyword">local</span> action = <span class="built_in">config</span>._action</span><br><span class="line">    <span class="keyword">if</span> action == <span class="number">0</span> <span class="keyword">then</span></span><br><span class="line">        <span class="comment">-- 执行下一步操作</span></span><br><span class="line">        M.step()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">local</span> func = M.ActionFuncs[action]</span><br><span class="line">        <span class="keyword">if</span> func <span class="keyword">then</span></span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> func(<span class="built_in">config</span>) <span class="keyword">then</span></span><br><span class="line">                M.finish()</span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">  </span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="comment">-- 交给外部处理</span></span><br><span class="line">            V.scheduleCall(<span class="function"><span class="keyword">function</span><span class="params">()</span></span> lc.event.emit(<span class="string">"guide.step"</span>, <span class="built_in">config</span>) <span class="keyword">end</span>, lc.FrameInterval)</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">M.Action = &#123;</span><br><span class="line">    click_main_tab = <span class="number">10001</span>,</span><br><span class="line">    click_sys_entrance = <span class="number">10002</span>,</span><br><span class="line">    click_by_name = <span class="number">10003</span>,</span><br><span class="line">    ...</span><br><span class="line">    dialog = <span class="number">30001</span>,</span><br><span class="line">    ...</span><br><span class="line">    tip_text = <span class="number">40001</span>,</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">M.ActionFuncs = &#123;</span><br><span class="line">    [M.Action.click_main_tab] = <span class="function"><span class="keyword">function</span><span class="params">(config)</span></span></span><br><span class="line">        <span class="keyword">local</span> index = <span class="built_in">config</span>._val</span><br><span class="line">        <span class="keyword">local</span> tab = <span class="built_in">table</span>.walk(Scene._curent, <span class="string">"_tabs"</span>, index)</span><br><span class="line">        <span class="keyword">if</span> tab <span class="keyword">and</span> tab:isVisible() <span class="keyword">then</span></span><br><span class="line">            M.addTouchFinger(tab)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">end</span>,</span><br><span class="line">    [M.Action.click_sys_entrance] = <span class="function"><span class="keyword">function</span><span class="params">(config)</span></span> ... <span class="keyword">end</span>,</span><br><span class="line">    [M.Action.click_by_name] = <span class="function"><span class="keyword">function</span><span class="params">(config)</span></span> ... <span class="keyword">end</span>,</span><br><span class="line">  </span><br><span class="line">    [M.Action.role_dialog] = <span class="function"><span class="keyword">function</span><span class="params">(config)</span></span></span><br><span class="line">        <span class="keyword">local</span> textConfig = D._guideTextConfig[<span class="built_in">config</span>._val]</span><br><span class="line">        M.addDialog(textConfig)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">    <span class="keyword">end</span>,</span><br><span class="line">  </span><br><span class="line">    [M.Action.tip_text] = <span class="function"><span class="keyword">function</span><span class="params">(config)</span></span></span><br><span class="line">        <span class="keyword">local</span> textConfig = D._guideTextConfig[<span class="built_in">config</span>._val]</span><br><span class="line">        M.addTipText(textConfid._textSid, <span class="built_in">config</span>._param)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> M</span><br></pre></td></tr></table></figure>
+
+<p><strong>回顾</strong>：</p>
+<blockquote>
+<p><strong>10000+</strong>：点击<br><strong>10001</strong> 点击主界面的页签 ，val 表示第几个页签<br><strong>10002</strong> 点击某个系统入口，val 表示哪个系统<br><strong>10003</strong> 按照代码变量名找到按钮进行点击</p>
+<p><strong>20000+</strong>：拖拽<br>…</p>
+<p><strong>30000+</strong>：立绘对话<br><strong>30001</strong> 普通立绘对话</p>
+<p><strong>40000+</strong>：文本提示<br><strong>40001</strong> 普通文本提示</p>
+</blockquote>
+<h2 id="3-3-引导的结束"><a href="#3-3-引导的结束" class="headerlink" title="3.3 引导的结束"></a>3.3 引导的结束</h2><p>引导的结束包括：引导数据处理、视图层移除、尝试继续触发下一组引导。所有逻辑囊括在GuideMgr.finish()方法里。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> M = class(<span class="string">"GuideMgr"</span>)</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">M.finish</span><span class="params">()</span></span></span><br><span class="line">    <span class="comment">-- 数据层</span></span><br><span class="line">    M.saveGuideGroup()</span><br><span class="line">    M.saveGuideStep()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> M._groupId <span class="keyword">then</span></span><br><span class="line">        M.setGroupFinished(M._groupId)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  </span><br><span class="line">    M._groupId = <span class="number">0</span></span><br><span class="line">    M._stepId = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">-- 视图层</span></span><br><span class="line">    M.clearLayer()</span><br><span class="line">    M.removeLayer()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">local</span> param = M._waitParam</span><br><span class="line">    <span class="keyword">if</span> param <span class="keyword">then</span></span><br><span class="line">        <span class="comment">-- 移除事件监听</span></span><br><span class="line">        <span class="keyword">if</span> param._event <span class="keyword">then</span></span><br><span class="line">            lc.event.<span class="built_in">remove</span>(param)</span><br><span class="line">      	</span><br><span class="line">        <span class="comment">-- 移除延迟操作的定时器</span></span><br><span class="line">      	<span class="keyword">else</span></span><br><span class="line">            param:unschedule()</span><br><span class="line">      	<span class="keyword">end</span></span><br><span class="line">        M._waitParam = <span class="literal">nil</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  </span><br><span class="line">    <span class="comment">-- 延迟一帧判断是否有新的引导可以触发</span></span><br><span class="line">    V.scheduleCall(M.tryStart, lc.FrameInterval)</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> M</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-4-步骤间的连接"><a href="#3-4-步骤间的连接" class="headerlink" title="3.4 步骤间的连接"></a>3.4 步骤间的连接</h2><p>步骤间的连接，也就是当前步骤如何跳到下一步骤，需要根据操作情景做特殊处理，这里以点击、立绘对话为例，做一下讲解。</p>
+<h3 id="1）点击"><a href="#1）点击" class="headerlink" title="1）点击"></a>1）点击</h3><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> M = class(<span class="string">"GuideMgr"</span>)</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">M.addTouchFinger</span><span class="params">(node, ...)</span></span></span><br><span class="line">    ...</span><br><span class="line">    node._lastListener = node._listener</span><br><span class="line">    node._listener = M.fingerTouchListener</span><br><span class="line">    ...</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">M.fingerTouchListener</span><span class="params">(...)</span></span></span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">if</span> node._lastListener <span class="keyword">then</span></span><br><span class="line">        node._lastListener(...)</span><br><span class="line">        node._listener = node._lastListener</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  </span><br><span class="line">    <span class="comment">-- 按钮点击后，执行下一步</span></span><br><span class="line">    M.step()</span><br><span class="line">    ...</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"><span class="keyword">return</span> M</span><br></pre></td></tr></table></figure>
+
+<h3 id="2）立绘对话、文本"><a href="#2）立绘对话、文本" class="headerlink" title="2）立绘对话、文本"></a>2）立绘对话、文本</h3><p>点击屏幕任意位置，执行下一步引导操作。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> M = class(<span class="string">"GuideMgr"</span>)</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">M.addDialog</span><span class="params">()</span></span></span><br><span class="line">    ...</span><br><span class="line">  </span><br><span class="line">    M._layer:setTouchListener(<span class="function"><span class="keyword">function</span><span class="params">()</span></span></span><br><span class="line">        ...</span><br><span class="line">        <span class="comment">-- 设置layer点击事件</span></span><br><span class="line">       M.step()</span><br><span class="line">        ...</span><br><span class="line">    <span class="keyword">end</span>)</span><br><span class="line">  </span><br><span class="line">    ...</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">M.addTipText</span><span class="params">()</span></span></span><br><span class="line">    ...</span><br><span class="line">  </span><br><span class="line">    M._layer:setTouchListener(<span class="function"><span class="keyword">function</span><span class="params">()</span></span></span><br><span class="line">        ...</span><br><span class="line">        <span class="comment">-- 设置layer点击事件</span></span><br><span class="line">      	M.step()</span><br><span class="line">      	...</span><br><span class="line">    <span class="keyword">end</span>)</span><br><span class="line">  </span><br><span class="line">    ...</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"><span class="keyword">return</span> M</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>再小的鼓励也是一种支持!</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="代码咖啡 WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="代码咖啡 Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/游戏开发/" rel="tag"># 游戏开发</a>
+          
+            <a href="/tags/引导设计/" rel="tag"># 引导设计</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/GuideMgr02/" rel="next" title="从零开始设计游戏引导框架（二）">
+                <i class="fa fa-chevron-left"></i> 从零开始设计游戏引导框架（二）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/UnityShadersBook01/" rel="prev" title="《Unity Shader入门精要》笔记（一）">
+                《Unity Shader入门精要》笔记（一） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar_sidebar.png" alt="代码咖啡">
+            
+              <p class="site-author-name" itemprop="name">代码咖啡</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss2.html" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/wjnovember" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:wnovember@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.jianshu.com/u/9b87ba5fc959" title="我的简书" target="_blank">我的简书</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://runnerwoo.com/" title="老班长的博客" target="_blank">老班长的博客</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-引导认知"><span class="nav-number">1.</span> <span class="nav-text">1. 引导认知</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-引导分类"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 引导分类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1）新手引导"><span class="nav-number">1.1.1.</span> <span class="nav-text">1）新手引导</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2）触发式引导"><span class="nav-number">1.1.2.</span> <span class="nav-text">2）触发式引导</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3）任务前往引导"><span class="nav-number">1.1.3.</span> <span class="nav-text">3）任务前往引导</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-组别和步骤"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 组别和步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1）组别"><span class="nav-number">1.2.1.</span> <span class="nav-text">1）组别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2）步骤"><span class="nav-number">1.2.2.</span> <span class="nav-text">2）步骤</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-触发条件与触发点"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 触发条件与触发点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-4-操作"><span class="nav-number">1.4.</span> <span class="nav-text">1.4 操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-5-保存点"><span class="nav-number">1.5.</span> <span class="nav-text">1.5 保存点</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-引导的配表"><span class="nav-number">2.</span> <span class="nav-text">2. 引导的配表</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-guide-group配表"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 guide_group配表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-guide-step配表"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 guide_step配表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-guide-text表"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 guide_text表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-程序与策划的配合"><span class="nav-number">2.4.</span> <span class="nav-text">2.4 程序与策划的配合</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1）添加新的引导时"><span class="nav-number">2.4.1.</span> <span class="nav-text">1）添加新的引导时</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2）修改引导时"><span class="nav-number">2.4.2.</span> <span class="nav-text">2）修改引导时</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-引导代码的实现"><span class="nav-number">3.</span> <span class="nav-text">3. 引导代码的实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-引导的触发"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 引导的触发</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1）触发总入口"><span class="nav-number">3.1.1.</span> <span class="nav-text">1）触发总入口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2）条件判定"><span class="nav-number">3.1.2.</span> <span class="nav-text">2）条件判定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3）触发引导"><span class="nav-number">3.1.3.</span> <span class="nav-text">3）触发引导</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-引导的操作"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 引导的操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1）引导步骤"><span class="nav-number">3.2.1.</span> <span class="nav-text">1）引导步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2）参数处理"><span class="nav-number">3.2.2.</span> <span class="nav-text">2）参数处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3）执行操作"><span class="nav-number">3.2.3.</span> <span class="nav-text">3）执行操作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-引导的结束"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 引导的结束</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-4-步骤间的连接"><span class="nav-number">3.4.</span> <span class="nav-text">3.4 步骤间的连接</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1）点击"><span class="nav-number">3.4.1.</span> <span class="nav-text">1）点击</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2）立绘对话、文本"><span class="nav-number">3.4.2.</span> <span class="nav-text">2）立绘对话、文本</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2016 &mdash; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">代码咖啡</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: '8vMRQb0bSf05Hd5zFNhrSHXz-gzGzoHsz',
+        appKey: 'uD8TcECp3UshQsLS1vxEocGy',
+        placeholder: '欢迎评论留言哦~',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("8vMRQb0bSf05Hd5zFNhrSHXz-gzGzoHsz", "uD8TcECp3UshQsLS1vxEocGy");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
