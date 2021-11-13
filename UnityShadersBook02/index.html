@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/avatar_32x32.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/avatar_16x16.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Unity Shader,">
+
+
+
+
+
+  <link rel="alternate" href="/rss2.html" title="程序员叨叨叨" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="材质和Unity ShaderUnity Shader定义了渲染所需的各种代码、属性和指令；材质则允许我们调整这些属性，并将其最终赋给相应的模型。通俗讲就是：Shader制定了渲染的规则，材质是让这个物体在这个规则下调整渲染效果。 材质的创建：方法1：Unity菜单中选择Assets-&amp;gt;Create-&amp;gt;Material；方法2：Project视图中右击-&amp;gt;Create-&amp;gt;M">
+<meta name="keywords" content="Unity Shader">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《Unity Shader入门精要》笔记（二）">
+<meta property="og:url" content="http://wjnovember.github.io/UnityShadersBook02/index.html">
+<meta property="og:site_name" content="程序员叨叨叨">
+<meta property="og:description" content="材质和Unity ShaderUnity Shader定义了渲染所需的各种代码、属性和指令；材质则允许我们调整这些属性，并将其最终赋给相应的模型。通俗讲就是：Shader制定了渲染的规则，材质是让这个物体在这个规则下调整渲染效果。 材质的创建：方法1：Unity菜单中选择Assets-&amp;gt;Create-&amp;gt;Material；方法2：Project视图中右击-&amp;gt;Create-&amp;gt;M">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://wjnovember.github.io/UnityShadersBook02/img_01.png">
+<meta property="og:image" content="http://wjnovember.github.io/UnityShadersBook02/img_02.png">
+<meta property="og:image" content="http://wjnovember.github.io/UnityShadersBook02/img_03.png">
+<meta property="og:image" content="http://wjnovember.github.io/UnityShadersBook02/img_04.png">
+<meta property="og:image" content="http://wjnovember.github.io/UnityShadersBook02/img_05.png">
+<meta property="og:image" content="http://wjnovember.github.io/UnityShadersBook02/img_06.png">
+<meta property="og:updated_time" content="2021-11-13T05:18:08.950Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《Unity Shader入门精要》笔记（二）">
+<meta name="twitter:description" content="材质和Unity ShaderUnity Shader定义了渲染所需的各种代码、属性和指令；材质则允许我们调整这些属性，并将其最终赋给相应的模型。通俗讲就是：Shader制定了渲染的规则，材质是让这个物体在这个规则下调整渲染效果。 材质的创建：方法1：Unity菜单中选择Assets-&amp;gt;Create-&amp;gt;Material；方法2：Project视图中右击-&amp;gt;Create-&amp;gt;M">
+<meta name="twitter:image" content="http://wjnovember.github.io/UnityShadersBook02/img_01.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"hide","offset":12,"b2t":true,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: 'P169SBHT9P',
+      apiKey: 'aff6672534638c8530052ce885f3d28a',
+      indexName: 'blog_NAME',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"输入关键词就可以搜索啦~","hits_empty":"T.T 没有找到与“ ${query} ”相关的文章","hits_stats":"找到 ${hits} 篇文章，耗时 ${time} 毫秒！"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://wjnovember.github.io/UnityShadersBook02/">
+
+
+
+
+
+  <title>《Unity Shader入门精要》笔记（二） | 程序员叨叨叨</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">程序员叨叨叨</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一枚程序猿的叨叨日常</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-首页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-目录">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            目录
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-时光机">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            时光机
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wjnovember.github.io/UnityShadersBook02/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="代码咖啡">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar_sidebar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="程序员叨叨叨">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">《Unity Shader入门精要》笔记（二）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-11-13T12:49:44+08:00">
+                2021-11-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/TA不是他她它祂/" itemprop="url" rel="index">
+                    <span itemprop="name">TA不是他她它祂</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/UnityShadersBook02/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/UnityShadersBook02/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/UnityShadersBook02/" class="leancloud_visitors" data-flag-title="《Unity Shader入门精要》笔记（二）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="材质和Unity-Shader"><a href="#材质和Unity-Shader" class="headerlink" title="材质和Unity Shader"></a>材质和Unity Shader</h1><p>Unity Shader定义了渲染所需的各种代码、属性和指令；材质则允许我们调整这些属性，并将其最终赋给相应的模型。<br>通俗讲就是：Shader制定了渲染的规则，材质是让这个物体在这个规则下调整渲染效果。</p>
+<p>材质的创建：<br>方法1：Unity菜单中选择Assets-&gt;Create-&gt;Material；<br>方法2：Project视图中右击-&gt;Create-&gt;Material；<br>Unity新建的材质，默认使用Standard Shader。</p>
+<p>材质结合GameObject的<code>Mesh</code>或<code>Particle Systems</code>组件来工作：<br><img src="/UnityShadersBook02/img_01.png" alt></p>
+<p>材质Inspector窗口：<br><img src="/UnityShadersBook02/img_02.png" alt></p>
+<p>Unity Shader的创建：<br>方法1：Unity菜单中选择Assets-&gt;Create-&gt;Shader；<br>方法2：Project视图中右击-&gt;Create-&gt;Shader；</p>
+<p>Unity提供了4种Unity Shader模板：</p>
+<ul>
+<li>Standard Surface Shader<br>产生一个包含标准光照模型的表面着色器。</li>
+<li>Unlit Shader<br>产生一个不包含光照（但包含雾效）的基本的定点/片元着色器。</li>
+<li>Image Effect Shader<br>屏幕后处理的基本模板。</li>
+<li>Compute Shader<br>特殊的Shader文件，利用GPU的并行性进行一些与常规渲染流水线无关的计算。</li>
+</ul>
+<p>前期我们使用比较多的是<strong>Unlit Shader</strong>。</p>
+<h1 id="Unity-Shader的基础：ShaderLab"><a href="#Unity-Shader的基础：ShaderLab" class="headerlink" title="Unity Shader的基础：ShaderLab"></a>Unity Shader的基础：ShaderLab</h1><p>Unity Shader是Unity为开发者提供的高层级的渲染抽象层，为我们自定义渲染效果提供遍历，防止和很多文件、设置打交道。</p>
+<p><img src="/UnityShadersBook02/img_03.png" alt></p>
+<p>ShaderLab是编写Unity Shader的一种说明性语言，所有Unity Shader都是用ShaderLab编写的。它使用一些嵌套在花括号内部的<strong>语义（syntax）</strong>来描述Unity Shader文件的结构。</p>
+<h1 id="Unity-Shader结构"><a href="#Unity-Shader结构" class="headerlink" title="Unity Shader结构"></a>Unity Shader结构</h1><p>ShaderLab的语义有：Properties、SubShader、Fallback等，这些语义定义了Unity Shader的结构。</p>
+<p>Unity Shader基础结构：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Shader <span class="string">"ShaderName"</span> &#123;</span><br><span class="line">    Properties &#123;</span><br><span class="line">        <span class="comment">// 属性</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    SubShader &#123;</span><br><span class="line">        <span class="comment">// 显卡A使用的子着色器</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    SubShader &#123;</span><br><span class="line">        <span class="comment">// 显卡B使用的子着色器</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    Fallback <span class="string">"VertexLit"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="给Shader命名"><a href="#给Shader命名" class="headerlink" title="给Shader命名"></a>给Shader命名</h2><p>通过<code>Shader</code>语义指定当前Unity Shader的名字，名字由字符串定义，字符串内可添加斜杠（”/“）对Shader进行分组管理：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Shader <span class="string">"Custom/MyShader"</span> &#123; &#125;</span><br></pre></td></tr></table></figure>
+
+<p>Shader命名后，<strong>材质</strong>面板上可以找到当前Shader的位置：Shader-&gt;Custom-&gt;MyShader：<br><img src="/UnityShadersBook02/img_04.png" alt></p>
+<h2 id="Properties"><a href="#Properties" class="headerlink" title="Properties"></a>Properties</h2><p>Properties语义块包含一系列属性（Property），这些属性是材质和Unity Shader连通的桥梁。好比：C#脚本里定义一些public变量，在Inspector面板上对应的脚本组件里可以看见并设置这些变量。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Properties &#123;</span><br><span class="line">    Name (<span class="string">"display name"</span>, PropertyType) = DefaultValue</span><br><span class="line">    Name (<span class="string">"display name"</span>, PropertyType) = DefaultValue</span><br><span class="line">    <span class="comment">// 更多属性</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>Name</code>是Shader访问该属性的变量名，通常以一个下划线开始，比如：_Color、_MainTex等。<br><code>display name</code>是Shader在材质面板上看到的属性名称，没有严格的命名规范，闻其名、知其意即可。<br><code>PropertyType</code>是当前属性的类型，Unity Shader的属性类型，可以是：颜色、数值、范围值、向量、纹理等。<br><code>DefaultValue</code>是当前属性的默认值，不同的PropertyType，其默认值的结构也不同。</p>
+<p><img src="/UnityShadersBook02/img_05.png" alt></p>
+<ul>
+<li>Int、Float、Range的默认值是单独的数字；</li>
+<li>Color、Vector的默认值是圆括号包围的一个四维向量；</li>
+<li>2D、Cube、3D的默认值是字符串+换括号，字符串可以是空的，也可以是内置的纹理名称，如：”white”、”black”、”bump”等；花括号以前版本用来指定纹理属性的，如：TexGen CubeReflect、TexGen CubeNormal等固定管线坐标的生成，目前基本弃用，所以花括号里内容一般为空；</li>
+</ul>
+<p>属性代码例子：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Shader <span class="string">"Custom/ShaderLabProperties"</span> &#123;</span><br><span class="line">    Properties &#123;</span><br><span class="line">        <span class="comment">// Numbers and Sliders</span></span><br><span class="line">        _Int (<span class="string">"Int"</span>, Int) = <span class="number">2</span></span><br><span class="line">        _Float (<span class="string">"Float"</span>, Float) = <span class="number">1.5</span></span><br><span class="line">        _Range (<span class="string">"Range"</span>, Range(<span class="number">0.0</span>, <span class="number">5.0</span>)) = <span class="number">3.0</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">// Colors and Vectors</span></span><br><span class="line">        _Color (<span class="string">"Color"</span>, Color) = (<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line">        _Vector = (<span class="string">"Vector"</span>, Vector) = (<span class="number">2</span>, <span class="number">3</span>, <span class="number">6</span>, <span class="number">1</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// Textures</span></span><br><span class="line">        _2D (<span class="string">"2D"</span>, <span class="number">2</span>D) = <span class="string">""</span> &#123;&#125;</span><br><span class="line">        _Cube (<span class="string">"Cube"</span>, Cube) = <span class="string">"white"</span> &#123;&#125;</span><br><span class="line">        _3D (<span class="string">"3D"</span>, <span class="number">3</span>D) = <span class="string">"black"</span> &#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>对应材质面板的显示：<br><img src="/UnityShadersBook02/img_06.png" alt></p>
+<h2 id="SubShader"><a href="#SubShader" class="headerlink" title="SubShader"></a>SubShader</h2><p>每个Unity Shader里至少包含一个SubShader语义块，可以有多个SubShader。<br>Unity Shader可以定义不同的SubShader来适应不同平台的显卡，如：高性能显卡使用精度更大的变量、更多的渲染指令，低性能显卡使用精度较低的变量。</p>
+<p>SubShader语义块：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">SubShader &#123;</span><br><span class="line">    <span class="comment">// 可选的</span></span><br><span class="line">    [Tags]</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 可选的</span></span><br><span class="line">    [RenderSetup]</span><br><span class="line">    </span><br><span class="line">    Pass &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Other Passes</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>SubShader中可定义很多Pass和一些可选的状态（RenderSetup）和标签（Tags）。<br>每个Pass定义一次完整的渲染流程，Pass数量越多，渲染性能消耗越大。<br>状态和标签也可以在Pass中定义，但Pass中使用的标签是特定的，在SubShader中定义的状态会应用于里面的所有Pass。</p>
+<p>常见渲染状态：</p>
+<ul>
+<li>Cull<br>Cull Back | Front | Off<br>设置剔除模式：剔除背面/正面/关闭剔除。</li>
+<li>ZTest<br>ZTest Less Greater | LEqual | GEqual | Equal | NotEqual | Always<br>深度测试函数比较配置。</li>
+<li>ZWrite<br>ZWrite On | Off<br>深度写入开启/关闭。</li>
+<li>Blend<br>Blend SrcFactor DstFactor<br>开启混合模式并设置混合因子。</li>
+</ul>
+<p>配置在SubShader，则所有Pass都生效；<br>配置在Pass，则只有当前Pass生效。</p>
+<p>SubShader的标签：</p>
+<ul>
+<li>Queue<br>控制渲染顺序，指定当前SubShader渲染的物体在哪个渲染队列。</li>
+<li>RenderType<br>对着色器进行分类，比如：不透明的着色器、透明的着色器。可被用于着色器替换功能。</li>
+<li>DisableBatching<br>控制是否禁用批处理，涉及模型空间计算时，需要禁用，因为批处理会让模型坐标丢失，比如：顶点动画。</li>
+<li>ForceNoShadowCasting<br>控制当前SubShader渲染的物体是否会向其他物体投射阴影。</li>
+<li>IgnoreProjector<br>控制当前SubShader渲染的物体是否不接受其他物体投射的阴影，通常用于半透明物体。</li>
+<li>CanUseSpriteAtlas<br>若当前SubShader用于精灵时，将标签设置为“False”。</li>
+<li>PreviewType<br>控制材质面板上显示的预览样式，默认球形，此外还可以设置为“Plane”、“SkyBox”。</li>
+</ul>
+<p>写法例子：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Tags &#123;<span class="string">"Queue"</span> = <span class="string">"Transparent"</span> <span class="string">"RenderType"</span> = <span class="string">"Opaque"</span> <span class="string">"DisableBatching"</span> = <span class="string">"True"</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Pass的标签：</p>
+<ul>
+<li>LightMode<br>定义当前Pass在Unity的渲染流水线中的角色，比如：“ForwardBase”、“ForwardAdd”。</li>
+<li>RequireOptions<br>用于指定当满足条件时才渲染该Pass，它的值是一个由空格分隔的字符串，目前Unity支持的选项有：“SoftVegetation”。</li>
+</ul>
+<p>写法例子：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Tags &#123;<span class="string">"LightMode"</span> = <span class="string">"ForwardBase"</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Pass语义块"><a href="#Pass语义块" class="headerlink" title="Pass语义块"></a>Pass语义块</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Pass &#123;</span><br><span class="line">    [Name]</span><br><span class="line">    [Tags]</span><br><span class="line">    [RenderSetup]</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Other code</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>【Name】通过Pass的名称，可以使用ShaderLab的UsePass命令来直接使用其他Unity Shader中的Pass，提高Shader代码复用性。如：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UsePass <span class="string">"MyShader/MYPASSNAME"</span></span><br></pre></td></tr></table></figure>
+
+<p>Unity内部会将所有Pass名称转为大写。</p>
+<p>【Tags】SubShader的Tags同样适用于Pass，但Pass的Tags不能用于SubShader。</p>
+<p>一些特殊的Pass：</p>
+<ul>
+<li>UsePass<br>使用该指令，复用其他的Pass。</li>
+<li>GrabPass<br>该Pass负责抓取屏幕并将结果存储在一张纹理中，以用于后续的Pass处理。</li>
+</ul>
+<h2 id="Fallback"><a href="#Fallback" class="headerlink" title="Fallback"></a>Fallback</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Fallback <span class="string">"Name"</span></span><br><span class="line"><span class="comment">// 或者</span></span><br><span class="line">Fallback Off</span><br></pre></td></tr></table></figure>
+
+<p>若当前Shader的所有SubShader都不能在当前显卡上运行，则使用Fallback定义的Shader；若Fallback定义为Off，则没有后备的Shader支持，物体将显示为洋红色。</p>
+<h1 id="Unity-Shader的形式"><a href="#Unity-Shader的形式" class="headerlink" title="Unity Shader的形式"></a>Unity Shader的形式</h1><p>Unity Shader的形式有：表面着色器、顶点着色器、片元着色器、固定函数着色器。</p>
+<h2 id="表面着色器"><a href="#表面着色器" class="headerlink" title="表面着色器"></a>表面着色器</h2><p>本质是顶点/片元着色器，是Unity内置的更高一层的抽象，Unity内部处理了很多光照细节，代码量更少，但渲染代价比较大。</p>
+<p>表面着色器代码使用<code>CG/HLSL</code>编写，写在<code>CGPROGRAM</code>和<code>ENDCG</code>之间。</p>
+<p>表面着色器的代码定义在SubShader语句块中，案例代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">Shader <span class="string">"Custom/Simple Surface Shader"</span> &#123;</span><br><span class="line">    SubShader &#123;</span><br><span class="line">        Tags &#123;<span class="string">"RenderType"</span> = <span class="string">"Opaque"</span>&#125;</span><br><span class="line"></span><br><span class="line">        CGPROGRAM</span><br><span class="line">            </span><br><span class="line">        #pragma surface surf Lambert</span><br><span class="line"></span><br><span class="line">        struct Input &#123;</span><br><span class="line">            float4 color : COLOR;</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">surf</span><span class="params">(Input IN, input SurfaceOutput o)</span> </span>&#123;</span><br><span class="line">            o.Albedo = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">  </span><br><span class="line">        ENDCG</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Fallback <span class="string">"Diffuse"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="顶点-片元着色器"><a href="#顶点-片元着色器" class="headerlink" title="顶点/片元着色器"></a>顶点/片元着色器</h2><p>定点着色器、片元着色器使用<code>CG/HLSL</code>编写，写在<code>CGPROGRAM</code>和<code>ENDCG</code>之间。<br>顶点/片元着色器的代码定义在Pass语句块中，案例代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">Shader <span class="string">"Custom/Simple VertexFragment Shader"</span> &#123;</span><br><span class="line">    SubShader &#123;</span><br><span class="line">        Pass &#123;</span><br><span class="line">            CGPROGRAM</span><br><span class="line">                </span><br><span class="line">            <span class="meta">#<span class="meta-keyword">pragma</span> vertex vert</span></span><br><span class="line">            <span class="meta">#<span class="meta-keyword">pragma</span> fragment frag</span></span><br><span class="line">            </span><br><span class="line">            float4 vert(float4 v : POSITION) : SV_POSITION &#123;</span><br><span class="line">                <span class="keyword">return</span> mul(UNITY_MATRIX_MVP, v);</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            fixed4 frag() : SV_Target &#123;</span><br><span class="line">                <span class="keyword">return</span> fixed4(<span class="number">1.0</span>, <span class="number">0.0</span>, <span class="number">0.0</span>, <span class="number">1.0</span>);</span><br><span class="line">            &#125;</span><br><span class="line">                </span><br><span class="line">            ENDCG</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="固定函数着色器"><a href="#固定函数着色器" class="headerlink" title="固定函数着色器"></a>固定函数着色器</h2><p>固定函数着色器不像前两类着色器一样，它不支持可编程，用于比较老的，不支持可编程渲染管线着色器的设备中，目前基本被淘汰。案例代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Shader <span class="string">"Tutorial/Basic"</span> &#123;</span><br><span class="line">    Properties &#123;</span><br><span class="line">        _Color (<span class="string">"Main Color"</span>, Color) = (<span class="number">1</span>, <span class="number">0.5</span>, <span class="number">0.5</span>, <span class="number">1</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    SubShader &#123;</span><br><span class="line">        Pass &#123;</span><br><span class="line">            Material &#123;</span><br><span class="line">                Diffuse [_Color]</span><br><span class="line">            &#125;</span><br><span class="line">            Lighting On</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>从上面代码中可以看到，固定函数着色器仅支持使用ShaderLab的语法配置一些渲染命令，不支持使用<code>CG/HLSL</code>语言编写比较复杂的代码逻辑。</p>
+<p>如果需要跟各种光源打交道，建议使用表面着色器，但是需要留意移动平台的性能；<br>其他情况下，建议使用顶点/片元着色器；<br>若需要更多自定义的渲染效果，也建议使用顶点/片元着色器。</p>
+<h1 id="Unity-Shader-真正的Shader"><a href="#Unity-Shader-真正的Shader" class="headerlink" title="Unity Shader != 真正的Shader"></a>Unity Shader != 真正的Shader</h1><p>Unity Shader实际指的是ShaderLab文件，以<code>.shader</code>作为后缀的文件。而ShaderLab是Unity对传统Shader的封装。传统的Shader需要编写冗长的代码来设置着色器的输入输出，需要处理很多的文件；而Unity中的Shader只需要处理一个ShaderLab文件就好。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>再小的鼓励也是一种支持!</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="代码咖啡 WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="代码咖啡 Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Unity-Shader/" rel="tag"># Unity Shader</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/LuaCodeRule/" rel="next" title="游戏开发编码规范">
+                <i class="fa fa-chevron-left"></i> 游戏开发编码规范
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar_sidebar.png" alt="代码咖啡">
+            
+              <p class="site-author-name" itemprop="name">代码咖啡</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss2.html" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/wjnovember" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:wnovember@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.jianshu.com/u/9b87ba5fc959" title="我的简书" target="_blank">我的简书</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://runnerwoo.com/" title="老班长的博客" target="_blank">老班长的博客</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#材质和Unity-Shader"><span class="nav-number">1.</span> <span class="nav-text">材质和Unity Shader</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Unity-Shader的基础：ShaderLab"><span class="nav-number">2.</span> <span class="nav-text">Unity Shader的基础：ShaderLab</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Unity-Shader结构"><span class="nav-number">3.</span> <span class="nav-text">Unity Shader结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#给Shader命名"><span class="nav-number">3.1.</span> <span class="nav-text">给Shader命名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Properties"><span class="nav-number">3.2.</span> <span class="nav-text">Properties</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SubShader"><span class="nav-number">3.3.</span> <span class="nav-text">SubShader</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pass语义块"><span class="nav-number">3.4.</span> <span class="nav-text">Pass语义块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Fallback"><span class="nav-number">3.5.</span> <span class="nav-text">Fallback</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Unity-Shader的形式"><span class="nav-number">4.</span> <span class="nav-text">Unity Shader的形式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#表面着色器"><span class="nav-number">4.1.</span> <span class="nav-text">表面着色器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#顶点-片元着色器"><span class="nav-number">4.2.</span> <span class="nav-text">顶点/片元着色器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#固定函数着色器"><span class="nav-number">4.3.</span> <span class="nav-text">固定函数着色器</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Unity-Shader-真正的Shader"><span class="nav-number">5.</span> <span class="nav-text">Unity Shader != 真正的Shader</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2016 &mdash; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">代码咖啡</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: '8vMRQb0bSf05Hd5zFNhrSHXz-gzGzoHsz',
+        appKey: 'uD8TcECp3UshQsLS1vxEocGy',
+        placeholder: '欢迎评论留言哦~',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("8vMRQb0bSf05Hd5zFNhrSHXz-gzGzoHsz", "uD8TcECp3UshQsLS1vxEocGy");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
