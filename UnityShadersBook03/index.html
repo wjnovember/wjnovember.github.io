@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/avatar_32x32.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/avatar_16x16.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Unity Shader,">
+
+
+
+
+
+  <link rel="alternate" href="/rss2.html" title="程序员叨叨叨" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="本文记录《第4章 学习Shader所需的数学基础》的矩阵基础知识内容。  笛卡尔坐标系二维笛卡尔坐标系 二维笛卡尔坐标系：  原点 x轴、y轴（基矢量）  x轴、y轴朝向并非固定，如：OpenGL和DirectX使用了不同的二维笛卡尔坐标系。  三维笛卡尔坐标系 三维笛卡尔坐标系：  原点 x轴、y轴、z轴（基矢量）  标准基矢量：互相垂直，且长度为1的基矢量。正交基：互相垂直，但长度不为1的基">
+<meta name="keywords" content="Unity Shader">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《Unity Shader入门精要》笔记（三）">
+<meta property="og:url" content="http://wjnovember.github.io/UnityShadersBook03/index.html">
+<meta property="og:site_name" content="程序员叨叨叨">
+<meta property="og:description" content="本文记录《第4章 学习Shader所需的数学基础》的矩阵基础知识内容。  笛卡尔坐标系二维笛卡尔坐标系 二维笛卡尔坐标系：  原点 x轴、y轴（基矢量）  x轴、y轴朝向并非固定，如：OpenGL和DirectX使用了不同的二维笛卡尔坐标系。  三维笛卡尔坐标系 三维笛卡尔坐标系：  原点 x轴、y轴、z轴（基矢量）  标准基矢量：互相垂直，且长度为1的基矢量。正交基：互相垂直，但长度不为1的基">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://wjnovember.github.io/UnityShadersBook03/img_01.png">
+<meta property="og:image" content="http://wjnovember.github.io/UnityShadersBook03/img_02.png">
+<meta property="og:image" content="http://wjnovember.github.io/UnityShadersBook03/img_03.png">
+<meta property="og:image" content="http://wjnovember.github.io/UnityShadersBook03/img_04.png">
+<meta property="og:image" content="http://wjnovember.github.io/UnityShadersBook03/img_05.png">
+<meta property="og:image" content="http://wjnovember.github.io/UnityShadersBook03/img_06.png">
+<meta property="og:image" content="http://wjnovember.github.io/UnityShadersBook03/img_07.png">
+<meta property="og:image" content="http://wjnovember.github.io/UnityShadersBook03/img_08.png">
+<meta property="og:image" content="http://wjnovember.github.io/UnityShadersBook03/img_09.png">
+<meta property="og:image" content="http://wjnovember.github.io/UnityShadersBook03/img_10.png">
+<meta property="og:image" content="http://wjnovember.github.io/UnityShadersBook03/img_11.png">
+<meta property="og:image" content="http://wjnovember.github.io/UnityShadersBook03/img_12.png">
+<meta property="og:image" content="http://wjnovember.github.io/UnityShadersBook03/img_13.png">
+<meta property="og:image" content="http://wjnovember.github.io/UnityShadersBook03/img_14.png">
+<meta property="og:image" content="http://wjnovember.github.io/UnityShadersBook03/img_15.png">
+<meta property="og:image" content="http://wjnovember.github.io/UnityShadersBook03/img_16.png">
+<meta property="og:image" content="http://wjnovember.github.io/UnityShadersBook03/img_17.png">
+<meta property="og:image" content="http://wjnovember.github.io/UnityShadersBook03/img_18.png">
+<meta property="og:image" content="http://wjnovember.github.io/UnityShadersBook03/img_18.png">
+<meta property="og:image" content="http://wjnovember.github.io/UnityShadersBook03/img_20.png">
+<meta property="og:image" content="http://wjnovember.github.io/UnityShadersBook03/img_21.png">
+<meta property="og:image" content="http://wjnovember.github.io/UnityShadersBook03/img_23.png">
+<meta property="og:image" content="http://wjnovember.github.io/UnityShadersBook03/img_22.png">
+<meta property="og:image" content="http://wjnovember.github.io/UnityShadersBook03/img_24.png">
+<meta property="og:image" content="http://wjnovember.github.io/UnityShadersBook03/img_25.png">
+<meta property="og:image" content="http://wjnovember.github.io/UnityShadersBook03/img_26.png">
+<meta property="og:image" content="http://wjnovember.github.io/UnityShadersBook03/img_27.png">
+<meta property="og:image" content="http://wjnovember.github.io/UnityShadersBook03/img_28.png">
+<meta property="og:image" content="http://wjnovember.github.io/UnityShadersBook03/img_29.png">
+<meta property="og:image" content="http://wjnovember.github.io/UnityShadersBook03/img_30.png">
+<meta property="og:image" content="http://wjnovember.github.io/UnityShadersBook03/img_31.png">
+<meta property="og:image" content="http://wjnovember.github.io/UnityShadersBook03/img_32.png">
+<meta property="og:image" content="http://wjnovember.github.io/UnityShadersBook03/img_33.png">
+<meta property="og:image" content="http://wjnovember.github.io/UnityShadersBook03/img_34.png">
+<meta property="og:image" content="http://wjnovember.github.io/UnityShadersBook03/img_35.png">
+<meta property="og:image" content="http://wjnovember.github.io/UnityShadersBook03/img_36.png">
+<meta property="og:image" content="http://wjnovember.github.io/UnityShadersBook03/img_37.png">
+<meta property="og:image" content="http://wjnovember.github.io/UnityShadersBook03/img_38.png">
+<meta property="og:updated_time" content="2021-11-20T09:36:24.110Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《Unity Shader入门精要》笔记（三）">
+<meta name="twitter:description" content="本文记录《第4章 学习Shader所需的数学基础》的矩阵基础知识内容。  笛卡尔坐标系二维笛卡尔坐标系 二维笛卡尔坐标系：  原点 x轴、y轴（基矢量）  x轴、y轴朝向并非固定，如：OpenGL和DirectX使用了不同的二维笛卡尔坐标系。  三维笛卡尔坐标系 三维笛卡尔坐标系：  原点 x轴、y轴、z轴（基矢量）  标准基矢量：互相垂直，且长度为1的基矢量。正交基：互相垂直，但长度不为1的基">
+<meta name="twitter:image" content="http://wjnovember.github.io/UnityShadersBook03/img_01.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"hide","offset":12,"b2t":true,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: 'P169SBHT9P',
+      apiKey: 'aff6672534638c8530052ce885f3d28a',
+      indexName: 'blog_NAME',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"输入关键词就可以搜索啦~","hits_empty":"T.T 没有找到与“ ${query} ”相关的文章","hits_stats":"找到 ${hits} 篇文章，耗时 ${time} 毫秒！"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://wjnovember.github.io/UnityShadersBook03/">
+
+
+
+
+
+  <title>《Unity Shader入门精要》笔记（三） | 程序员叨叨叨</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">程序员叨叨叨</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一枚程序猿的叨叨日常</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-首页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-目录">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            目录
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-时光机">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            时光机
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wjnovember.github.io/UnityShadersBook03/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="代码咖啡">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar_sidebar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="程序员叨叨叨">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">《Unity Shader入门精要》笔记（三）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-11-20T16:02:57+08:00">
+                2021-11-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/TA不是他她它祂/" itemprop="url" rel="index">
+                    <span itemprop="name">TA不是他她它祂</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/UnityShadersBook03/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/UnityShadersBook03/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/UnityShadersBook03/" class="leancloud_visitors" data-flag-title="《Unity Shader入门精要》笔记（三）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>本文记录《第4章 学习Shader所需的数学基础》的矩阵基础知识内容。</p>
+</blockquote>
+<h1 id="笛卡尔坐标系"><a href="#笛卡尔坐标系" class="headerlink" title="笛卡尔坐标系"></a>笛卡尔坐标系</h1><h2 id="二维笛卡尔坐标系"><a href="#二维笛卡尔坐标系" class="headerlink" title="二维笛卡尔坐标系"></a>二维笛卡尔坐标系</h2><p><img src="/UnityShadersBook03/img_01.png" alt></p>
+<p>二维笛卡尔坐标系：</p>
+<ul>
+<li>原点</li>
+<li>x轴、y轴（基矢量）</li>
+</ul>
+<p>x轴、y轴朝向并非固定，如：OpenGL和DirectX使用了不同的二维笛卡尔坐标系。</p>
+<p><img src="/UnityShadersBook03/img_02.png" alt></p>
+<h2 id="三维笛卡尔坐标系"><a href="#三维笛卡尔坐标系" class="headerlink" title="三维笛卡尔坐标系"></a>三维笛卡尔坐标系</h2><p><img src="/UnityShadersBook03/img_03.png" alt></p>
+<p>三维笛卡尔坐标系：</p>
+<ul>
+<li>原点</li>
+<li>x轴、y轴、z轴（基矢量）</li>
+</ul>
+<p>标准基矢量：互相垂直，且长度为1的基矢量。<br>正交基：互相垂直，但长度不为1的基矢量。</p>
+<h2 id="左手坐标系和右手坐标系"><a href="#左手坐标系和右手坐标系" class="headerlink" title="左手坐标系和右手坐标系"></a>左手坐标系和右手坐标系</h2><p>以手的大拇指作为<code>+x</code>轴，食指作为<code>+y</code>轴，中指作为<code>+z</code>轴，将3根手指互相垂直，可以用左手示意的坐标系，为左手坐标系：</p>
+<p><img src="/UnityShadersBook03/img_04.png" alt></p>
+<p>可以用右手示意的坐标系，为右手坐标系：</p>
+<p><img src="/UnityShadersBook03/img_05.png" alt></p>
+<p>左手坐标系和右手坐标系无法通过旋转实现坐标轴指向重合。</p>
+<p>左手坐标系和右手坐标系分别对应<strong>左手法则</strong>和<strong>右手法则</strong>，用来在坐标系中定义旋转的正方向，下图4个手指指向的方向即为正方向：</p>
+<p><img src="/UnityShadersBook03/img_06.png" alt></p>
+<h2 id="Unity使用的坐标系"><a href="#Unity使用的坐标系" class="headerlink" title="Unity使用的坐标系"></a>Unity使用的坐标系</h2><p>Unity的模型空间和世界空间使用的是左手坐标系，注意观看下图红、绿、蓝轴在右上角分别对应x轴、y轴、z轴：</p>
+<p><img src="/UnityShadersBook03/img_07.png" alt></p>
+<p>Unity的观察空间使用的是右手坐标系。观察空间，就是以摄像机作为原点的坐标系，在这个坐标系中，摄像机的前向是z轴的负方向，与模型/世界空间的定义相反。即：z轴坐标的减少意味着场景深度的增加。</p>
+<p><img src="/UnityShadersBook03/img_08.png" alt></p>
+<h1 id="点和矢量"><a href="#点和矢量" class="headerlink" title="点和矢量"></a>点和矢量</h1><p>点是n维空间（游戏中主要是用二维、三维空间）中的一个位置，没有大小、宽度的概念。<br>二维空间点的表示：<code>p = (x, y)</code><br>三维空间点的表示：<code>p = (x, y, z)</code></p>
+<p>矢量是n为空间中包含模和方向的有向线段，没有位置的概念。<br>矢量的模：矢量的长度，非负数。<br>矢量的方向：矢量在空间中的指向。<br>矢量的表示与点类似，<code>v = (x, y)，v = (x, y, z)，v = (x, y, z, w)</code>。</p>
+<p>为区分点和矢量，在变量书写上，标量用小写字母表示，如：a, b, x, y, z等；矢量用小写的粗体字母表示，如：<strong>a</strong>, <strong>b</strong>, <strong>u</strong>, <strong>v</strong>等。</p>
+<p>矢量通常有一个箭头表示：</p>
+<p><img src="/UnityShadersBook03/img_09.png" alt></p>
+<h2 id="矢量和标量的乘法-除法"><a href="#矢量和标量的乘法-除法" class="headerlink" title="矢量和标量的乘法/除法"></a>矢量和标量的乘法/除法</h2><p>标量是只有模，没有方向的量，比如：距离、速度等。<br>矢量无法与标量进行加减运算，但是可以进行乘法或除法运算。</p>
+<p>矢量与标量的乘法：<br><code>kv = (kvx, kvy, kvz)</code></p>
+<p>矢量可以被非0的标量除，但是矢量无法作为除数：</p>
+<p><img src="/UnityShadersBook03/img_10.png" alt></p>
+<p>从几何意义上看，一个矢量<strong>v</strong>和一个标量k相乘，意味着对矢量<strong>v</strong>进行一个大小为|k|的缩放。若k&lt;0，则矢量方向取反，如下图：</p>
+<p><img src="/UnityShadersBook03/img_11.png" alt></p>
+<h2 id="矢量的加法和减法"><a href="#矢量的加法和减法" class="headerlink" title="矢量的加法和减法"></a>矢量的加法和减法</h2><p>两个矢量加减，即：两个矢量的对应分量进行加减，公式如下：<br><strong>a</strong> + <strong>b</strong> = (a<sub>x</sub>+b<sub>x</sub>, a<sub>y</sub>+b<sub>y</sub>, a<sub>z</sub>+b<sub>z</sub>)<br><strong>a</strong> - <strong>b</strong> = (a<sub>x</sub>-b<sub>x</sub>, a<sub>y</sub>-b<sub>y</sub>, a<sub>z</sub>-b<sub>z</sub>)</p>
+<p>从几何意义上看，矢量加法，即：把矢量<strong>a</strong>的头连接到矢量<strong>b</strong>的尾，然后画一条从<strong>a</strong>的尾到<strong>b</strong>的头的矢量，来得到<strong>a</strong>和<strong>b</strong>相加后的矢量，如下图所示：</p>
+<p><img src="/UnityShadersBook03/img_12.png" alt></p>
+<p>也可以理解为：一个点从<strong>a</strong>的尾进行位置偏移<strong>a</strong>，在进行位置偏移<strong>b</strong>，就等同于进行了<strong>a</strong>+<strong>b</strong>的位置偏移，这被称为矢量加法的<strong>三角形定则</strong>。</p>
+<p>矢量的减法类似：</p>
+<p><img src="/UnityShadersBook03/img_13.png" alt></p>
+<p>在图形学中，矢量通常用于描述位置偏移（简称位移）。我们可以利用矢量的加法和减法来计算一点相对于另一点的位移。</p>
+<h2 id="矢量的模"><a href="#矢量的模" class="headerlink" title="矢量的模"></a>矢量的模</h2><p>矢量的模是一个标量，可以理解为矢量在空间中的长度。表示符号通常是在矢量的两边加上竖线，比如：|<strong>v</strong>|。</p>
+<p>三维矢量的模的计算公式：</p>
+<p><img src="/UnityShadersBook03/img_14.png" alt></p>
+<p>其他维度的矢量的模计算类似，都是对每个分量平方相加后开根号。几何意义，可用下图解释：</p>
+<p><img src="/UnityShadersBook03/img_15.png" alt></p>
+<h2 id="单位矢量"><a href="#单位矢量" class="headerlink" title="单位矢量"></a>单位矢量</h2><p>单位矢量指模为1的矢量，也被称为被归一化的矢量（normalized vector）。通常用在只关心方向，不关心模的矢量，比如：模型的发现方向、光源方向等。</p>
+<p>把非零矢量转换成单位矢量的过程叫<strong>归一化</strong>。<br>单位矢量的表示为：</p>
+<p><img src="/UnityShadersBook03/img_16.png" alt></p>
+<p>单位矢量的公式：</p>
+<p><img src="/UnityShadersBook03/img_17.png" alt></p>
+<p>零矢量：每个分量的值都为0的矢量，如：<strong>v</strong> = (0, 0, 0)。零矢量不能被归一化，因为除法运算时，分母不能为0。</p>
+<p>从几何意义上看，对于二维空间，单位矢量就是从圆心出发、到圆边界的矢量：</p>
+<p><img src="/UnityShadersBook03/img_18.png" alt></p>
+<p>对于三维空间，单位矢量就是从圆心出发、到球面的矢量。</p>
+<p>在Unity Shader中，会经常遇到法线方向、光源方向，这些矢量不一定是归一化后的矢量，计算的时候需要将这些矢量归一化成单位矢量。</p>
+<h2 id="矢量的点积"><a href="#矢量的点积" class="headerlink" title="矢量的点积"></a>矢量的点积</h2><p>矢量的乘法有两种类型：点积（dot product）、叉积（cross product）。</p>
+<p>矢量的点积，也叫内积。点积的运算表示：<strong>a</strong>·<strong>b</strong>，中间的点不能省略。</p>
+<p><strong>点积公式一</strong>：<br><strong>a</strong>·<strong>b</strong> = (ax, ay, az) · (bx, by, by) = axby + ayby + azbz</p>
+<p>点积满足交换律：<br><strong>a</strong>·<strong>b</strong> = <strong>b</strong>·<strong>a</strong></p>
+<p>点积的几何意义：<strong>投影</strong>。</p>
+<p><img src="/UnityShadersBook03/img_18.png" alt></p>
+<p>投影的值可能是负数，投影结果的正负号与<strong>a</strong>、<strong>b</strong>两个矢量的方向有关：方向相反，结果小于0；方向相同，结果大于0；方向垂直，结果等于0。</p>
+<p>性质一：<br>点积可结合标量乘法<br>(k<strong>a</strong>)·<strong>b</strong> = <strong>a</strong>·(k<strong>b</strong>)=k(<strong>a</strong>·<strong>b</strong>)<br>k的几何意义是：对矢量进行缩放。</p>
+<p>性质二：<br>点积可结合矢量加减法<br><strong>a</strong>·(<strong>b</strong>+<strong>c</strong>) = <strong>a</strong>·<strong>b</strong> + <strong>a</strong>·<strong>c</strong><br>将<strong>c</strong>换成-<strong>c</strong>就是减法的版本。</p>
+<p>性质三：<br>一个矢量与自身点积的结果是该矢量模的平方<br><strong>v</strong>·<strong>v</strong> = v<sub>x</sub>v<sub>x</sub> + v<sub>y</sub>v<sub>y</sub> + v<sub>z</sub>v<sub>z</sub> = |<strong>v</strong>|<sup>2</sup><br>可以用矢量点积的形式来求矢量的模，Shader中常用模的平方来直接做比较或运算，目的是减少开放带来的性能消耗。</p>
+<p><strong>点积公式二</strong>：<br><strong>a</strong>·<strong>b</strong> = |<strong>a</strong>||<strong>b</strong>|cosθ</p>
+<p>公式二的证明：<br>假设对两个单位矢量进行点积</p>
+<p><img src="/UnityShadersBook03/img_20.png" alt></p>
+<p>如下图所示：</p>
+<p><img src="/UnityShadersBook03/img_21.png" alt></p>
+<p>由上图可知，cosθ对应的直角边是：<strong>a</strong>·<strong>b</strong>的点积（<strong>b</strong>矢量在<strong>a</strong>矢量的投影），且<code>cosθ = 直角边 / 斜边</code>，则<strong>a</strong>·<strong>b</strong>的点积 = <code>cosθ * 斜边</code>，因为单位矢量<strong>b</strong>的模是1（斜边长度为1），所以：<strong>a</strong>·<strong>b</strong>的点积 = cosθ，也就是两个单位矢量的点积为夹角的cos值。</p>
+<p>再由之前性质一，可得推导公式二：</p>
+<p><img src="/UnityShadersBook03/img_23.png" alt></p>
+<p>由公式二可知，点积可用于求两个矢量的夹角：</p>
+<p><img src="/UnityShadersBook03/img_22.png" alt></p>
+<h2 id="矢量的叉积"><a href="#矢量的叉积" class="headerlink" title="矢量的叉积"></a>矢量的叉积</h2><p>叉积，也叫外积。与点积不同，叉积的结果仍然是矢量，而非标量。</p>
+<p>叉积的表示：<strong>a</strong> x <strong>b</strong>，叉号不能省略。叉积的计算公式如下：<br><strong>a</strong> x <strong>b</strong> = (a<sub>x</sub>, a<sub>y</sub>, a<sub>z</sub>) x (b<sub>x</sub>, b<sub>y</sub>, b<sub>z</sub>) = (a<sub>y</sub>b<sub>z</sub>-a<sub>z</sub>b<sub>y</sub>, a<sub>z</sub>b<sub>x</sub>-a<sub>x</sub>b<sub>z</sub>, a<sub>x</sub>b<sub>y</sub>-a<sub>y</sub>b<sub>x</sub>)</p>
+<p>具体的记法，可以这样：</p>
+<ol>
+<li>先看每个分量的被减数<br>a<sub>y</sub>b<sub>z</sub>、a<sub>z</sub>b<sub>x</sub>、a<sub>x</sub>b<sub>y</sub>，它们下标的规律是不包含当前分量下标，比如：x分量的被减数只有y、z下标，y分量的被减数只有x、z下标，z分量的被减数只有x、y下标。</li>
+<li>然后看被减数中a的下标<br>a<sub>y</sub>、a<sub>z</sub>、a<sub>x</sub>，a的下标永远是当前分量的下一个，比如：x分量的下标是y，y分量的下标是z，z分量的下标是x。</li>
+<li>再看被减数中b的下标<br>b<sub>z</sub>、b<sub>x</sub>、b<sub>y</sub>，b的下标永远和a不一样，再结合第1点记忆，b的下标不是当前分量，所以x分量b的下标只能是除了x以外的y、z的其中一个，而y被a用了，所以b的下标只能是z，其他分量的b以此类推。</li>
+<li>再看每个分量的减数<br>a<sub>z</sub>b<sub>y</sub>、a<sub>x</sub>b<sub>z</sub>、a<sub>y</sub>b<sub>x</sub>，他们的下标就是被减数中a和b下标的互换，所以aybz的减数是azby，其他以此类推。</li>
+</ol>
+<p>叉积不满足交换律，即：<strong>a</strong> x <strong>b</strong> ≠ <strong>b</strong> x <strong>a</strong>；但是叉积满足反交换律，即：<strong>a</strong> x <strong>b</strong> = - (<strong>b</strong> x <strong>a</strong>)。<br>叉积不满足结合律，即：(<strong>a</strong> x <strong>b</strong>) x <strong>c</strong> ≠ <strong>a</strong> x (<strong>b</strong> x <strong>c</strong>)。</p>
+<p>叉积的几何意义：<br>对两个矢量进行叉积的结果，会得到同时垂直于这两个矢量的新矢量。</p>
+<p><strong>叉积的模</strong><br>公式：<br>|<strong>a</strong> x <strong>b</strong>| = |<strong>a</strong>||<strong>b</strong>|sinθ</p>
+<p>这容易联想到平行四边形求面积：</p>
+<p><img src="/UnityShadersBook03/img_24.png" alt></p>
+<p>面积A = |<strong>b</strong>| h = |<strong>b</strong>| (|<strong>a</strong>| sinθ) = |<strong>a</strong>||<strong>b</strong>|sinθ</p>
+<p><strong>叉积的方向</strong><br>从几何意义可知，两个矢量的叉积，会得到垂直于两个矢量的新矢量，但是与其垂直的有两个向量。这时前面学到的<strong>左/右手坐标系</strong>就派上用场了，它用来确定叉积得到新矢量的方向朝哪边。</p>
+<p>将大拇指与a同向，食指与b同向，中指指向的方向就是叉积结果的方向，所以使用左、右手就会得到不同的朝向，如下图：</p>
+<p><img src="/UnityShadersBook03/img_25.png" alt></p>
+<p>同理，左右手法则也通用可以用来判断，如下图：</p>
+<p><img src="/UnityShadersBook03/img_26.png" alt></p>
+<h1 id="矩阵"><a href="#矩阵" class="headerlink" title="矩阵"></a>矩阵</h1><h2 id="矩阵的定义"><a href="#矩阵的定义" class="headerlink" title="矩阵的定义"></a>矩阵的定义</h2><p>矩阵（Matrix），就是有m x n个标量组成的长方形数组，通常用方括号在左右两侧围住这些数字，大概像这样：</p>
+<p><img src="/UnityShadersBook03/img_27.png" alt></p>
+<p>有些资料也会用圆括号或花括号，其实都一样的。</p>
+<p>矩阵有行、列之分，上图的数组就是三行四列。以3x3矩阵为例，它可以写成：</p>
+<p><img src="/UnityShadersBook03/img_28.png" alt></p>
+<p>mij表示这个元素在矩阵M的第i行、第j列。</p>
+<h2 id="和矢量联系起来"><a href="#和矢量联系起来" class="headerlink" title="和矢量联系起来"></a>和矢量联系起来</h2><p>矢量，我们通常写成：<strong>a</strong> = (x, y, z)，可以看出矢量与矩阵一样，也是个数组。将矢量按照矩阵的写法，可以看成是<code>n x 1</code>的列矩阵或<code>1 x n</code>的行矩阵，n对应矢量的维度。</p>
+<p>以矢量<strong>v</strong> = (3, 8, 6)举例，写成行矩阵：<br><code>[3, 8, 6]</code></p>
+<p>写成列矩阵：</p>
+<p><img src="/UnityShadersBook03/img_29.png" alt></p>
+<p>为什么要和矢量联系起来？因为Shader中经常会将法线（矢量）进行坐标变换，而坐标变换是矩阵的几何意义，所以需要运用矩阵的运算来将法线从模型空间转变成世界空间。（后续会学到）</p>
+<h2 id="矩阵运算"><a href="#矩阵运算" class="headerlink" title="矩阵运算"></a>矩阵运算</h2><h3 id="矩阵和标量的乘法"><a href="#矩阵和标量的乘法" class="headerlink" title="矩阵和标量的乘法"></a>矩阵和标量的乘法</h3><p>与矢量类似，矩阵和标量相乘后，结果仍然是一个矩阵。公式如下：</p>
+<p><img src="/UnityShadersBook03/img_30.png" alt></p>
+<h3 id="矩阵和矩阵的乘法"><a href="#矩阵和矩阵的乘法" class="headerlink" title="矩阵和矩阵的乘法"></a>矩阵和矩阵的乘法</h3><p>矩阵和矩阵相乘后，结果也是矩阵。新的矩阵的维度与两个原矩阵的维度有关。一个<code>rxn</code>的矩阵A和一个<code>nxc</code>的矩阵B相乘后，得到的结果AB是一个<code>rxc</code>大小的矩阵。需要注意，<strong>第一个矩阵的列数必须和第二个矩阵的行数相等，才能相乘</strong>。</p>
+<p>比如：矩阵A的维度是<code>4x3</code>，矩阵B的维度是<code>3x6</code>，则AB的维度是<code>4x6</code>。</p>
+<p>矩阵乘法的表达式：<br>假设有<code>rxn</code>的矩阵A和<code>nxc</code>的矩阵B，相乘后得到一个<code>rxc</code>的矩阵C = AB，那么C中的每个元素Cij等于A的第i行所对应的矢量和B的第j列所对应的矢量进行点乘的结果，即：</p>
+<p><img src="/UnityShadersBook03/img_31.png" alt></p>
+<p>简单解释为：<br>对于每个元素c<sub>ij</sub>，找到A中的第<code>i</code>行和B中的第<code>j</code>列，把他们对应的元素相乘后再加起来，这个和就是c<sub>ij</sub>。</p>
+<p><img src="/UnityShadersBook03/img_32.png" alt></p>
+<p>性质一：<br>矩阵乘法不满足交换律：<code>AB ≠ BA</code></p>
+<p>性质二：<br>矩阵乘法满足结合律：<code>(AB)C = A(BC)</code>、<code>ABCDE = ((A(BC))D)E = (AB)(CD)E</code></p>
+<h3 id="特殊的矩阵"><a href="#特殊的矩阵" class="headerlink" title="特殊的矩阵"></a>特殊的矩阵</h3><h4 id="方块矩阵"><a href="#方块矩阵" class="headerlink" title="方块矩阵"></a>方块矩阵</h4><p>方块矩阵，简称方阵。指行数和列数相等的矩阵，比如：<code>3x3</code>、<code>4x4</code>的矩阵。</p>
+<p>方块矩阵独有的：<strong>对角元素</strong>——行号和列号相等的元素。只有对角元素非0的矩阵叫<strong>对角矩阵</strong>。</p>
+<h4 id="单位矩阵"><a href="#单位矩阵" class="headerlink" title="单位矩阵"></a>单位矩阵</h4><p>对角元素都为1的对角矩阵，叫做单位矩阵，用I<sub>n</sub>表示，比如：</p>
+<p><img src="/UnityShadersBook03/img_33.png" alt></p>
+<p>单位矩阵特性：任何矩阵和它相乘的结果还是原来的矩阵。相当于标量中1的地位。<br><code>MI = IM = M</code></p>
+<h4 id="转置矩阵"><a href="#转置矩阵" class="headerlink" title="转置矩阵"></a>转置矩阵</h4><p>转置矩阵实际是对原矩阵的一种运算，即转置运算。一个<code>rxc</code>的矩阵M，其转置表示成M<sup>T</sup>，是一个<code>cxr</code>的矩阵，本质是原来的矩阵行、列对换。</p>
+<p><img src="/UnityShadersBook03/img_34.png" alt></p>
+<p>性质一：<br>矩阵转置的转置等于原矩阵。<br>(M<sup>T</sup>)<sup>T</sup> = M</p>
+<p>性质二：<br>矩阵串联的转置，等于反向串联各个矩阵的转置。<br>(AB)<sup>T</sup> = B<sup>T</sup>A<sup>T</sup></p>
+<h4 id="逆矩阵"><a href="#逆矩阵" class="headerlink" title="逆矩阵"></a>逆矩阵</h4><p>只有方阵才有逆矩阵，逆矩阵表示为M<sup>-1</sup>。一个矩阵与它的逆矩阵相乘，结果是一个单位矩阵：<br>MM<sup>-1</sup> = M<sup>-1</sup>M = I<br>有点标量里面倒数的味道。</p>
+<p>不是所有方阵都有对应逆矩阵，比如：所有元素都为0的矩阵。<br>如果一个矩阵有对应的逆矩阵，则它是<strong>可逆的</strong>或<strong>非奇异性的</strong>；<br>相反，则它是<strong>不可逆的</strong>或<strong>奇异性的</strong>。</p>
+<p>判断矩阵是否可逆：<br>矩阵的<strong>行列式</strong>不为0，则它是可逆的。<br>参考视频链接：<a href="https://www.bilibili.com/video/BV1aW411Q7x1?p=2" target="_blank" rel="noopener">https://www.bilibili.com/video/BV1aW411Q7x1?p=2</a></p>
+<p>性质一：<br>逆矩阵的逆矩阵是原矩阵本身。<br>(M<sup>-1</sup>)<sup>-1</sup> = M</p>
+<p>性质二：<br>单位矩阵的逆矩阵是它本身。<br>I<sup>-1</sup> = I</p>
+<p>性质三：<br>转置矩阵的逆矩阵是逆矩阵的转置。<br>(M<sup>T</sup>)<sup>-1</sup> = (M<sup>-1</sup>)<sup>T</sup></p>
+<p>性质四：<br>矩阵串联相乘后的逆矩阵等于反串联各个矩阵的逆矩阵。<br>(AB)<sup>-1</sup> = B<sup>-1</sup>A<sup>-1</sup><br>(ABCD)<sup>-1</sup> = D<sup>-1</sup>C<sup>-1</sup>B<sup>-1</sup>A<sup>-1</sup></p>
+<p>矩阵的几何意义是<strong>变换</strong>，逆矩阵表示还原这个变换，或这个变换的反向变换。<br>使用变化矩阵M对矢量<strong>v</strong>进行一次变换，然后再使用逆矩阵M<sup>-1</sup>进行一次变换，会得到原来的矢量v。<br>M<sup>-1</sup>(M<strong>v</strong>) = (M<sup>-1</sup>M)<strong>v</strong> = I<strong>v</strong> = <strong>v</strong></p>
+<h4 id="正交矩阵"><a href="#正交矩阵" class="headerlink" title="正交矩阵"></a>正交矩阵</h4><p>正交矩阵是特殊的方阵。一个方阵M和它的转置矩阵的乘积是单位矩阵，则这个矩阵是正交的。<br>MM<sup>T</sup> = M<sup>T</sup>M = I</p>
+<p>有逆矩阵的性质MM<sup>-1</sup> = M<sup>-1</sup>M = I可以得出正交矩阵的逆矩阵是它的转置矩阵：<br>M<sup>T</sup> = M<sup>-1</sup></p>
+<p>正交矩阵可以用转置矩阵的运算代替逆矩阵的运算，因为逆矩阵计算更复杂。</p>
+<p>怎样判定一个矩阵是正交矩阵？来看一下它有哪些定义。</p>
+<p>因为：</p>
+<p><img src="/UnityShadersBook03/img_35.png" alt></p>
+<p>所以：</p>
+<p><img src="/UnityShadersBook03/img_36.png" alt></p>
+<p>于是可以得到以下结论：</p>
+<ul>
+<li>矩阵的每一行，即c<sub>1</sub>、c<sub>2</sub>、c<sub>3</sub>是单位矢量；（因为他们与自己的点积是1）</li>
+<li>矩阵的每一行，即c<sub>1</sub>、c<sub>2</sub>、c<sub>3</sub>之间相互垂直；（因为他们的点积是0）</li>
+<li>上述两条，对矩阵的每一列同样适用；（因为正交矩阵的转置通用是正交矩阵）</li>
+</ul>
+<h3 id="行矩阵还是列矩阵"><a href="#行矩阵还是列矩阵" class="headerlink" title="行矩阵还是列矩阵"></a>行矩阵还是列矩阵</h3><p>一个矢量（比如：平行光的方向、表面发现方向），既可以写成行矩阵的形式，也可以写成列矩阵的形式，但是当它和矩阵相乘时，使用行矩阵还是列矩阵对其乘法的书写次序和结果值是有影响的。</p>
+<p>假设有一个矢量<strong>v</strong> = (x, y, z)，写成行矩阵是：<strong>v</strong> = [x y z]，写成列矩阵是：<strong>v</strong> = [x y z]<sup>T</sup>（这里使用转置符号表示列矩阵的写法，纯粹为了排版）。另外有一个矩阵M：</p>
+<p><img src="/UnityShadersBook03/img_37.png" alt></p>
+<p>当M和行矩阵相乘时，写法为：<br><strong>v</strong>M = [xm<sub>11</sub>+ym<sub>21</sub>+zm<sub>31</sub>   xm<sub>12</sub>+ym<sub>22</sub>+zm<sub>32</sub>   xm<sub>13</sub>+ym<sub>23</sub>+zm<sub>33</sub>]</p>
+<p>当M和列矩阵相乘时，写法为：</p>
+<p><img src="/UnityShadersBook03/img_38.png" alt></p>
+<p>可以看到两者相乘的书写次序和结果里面元素也是不一样的。</p>
+<p>Unity中通常把矢量当做列矩阵，所以相乘时，矢量是放在矩阵的右侧的，且阅读顺序也是从右到左。例如：<br>CBA<strong>v</strong> = (C(B(A<strong>v</strong>)))<br>表示先对<strong>v</strong>进行A矩阵变换，再进行B矩阵变换，最后进行C矩阵变换。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>再小的鼓励也是一种支持!</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="代码咖啡 WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="代码咖啡 Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Unity-Shader/" rel="tag"># Unity Shader</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/UnityShadersBook02/" rel="next" title="《Unity Shader入门精要》笔记（二）">
+                <i class="fa fa-chevron-left"></i> 《Unity Shader入门精要》笔记（二）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar_sidebar.png" alt="代码咖啡">
+            
+              <p class="site-author-name" itemprop="name">代码咖啡</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss2.html" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/wjnovember" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:wnovember@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.jianshu.com/u/9b87ba5fc959" title="我的简书" target="_blank">我的简书</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://runnerwoo.com/" title="老班长的博客" target="_blank">老班长的博客</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#笛卡尔坐标系"><span class="nav-number">1.</span> <span class="nav-text">笛卡尔坐标系</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#二维笛卡尔坐标系"><span class="nav-number">1.1.</span> <span class="nav-text">二维笛卡尔坐标系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三维笛卡尔坐标系"><span class="nav-number">1.2.</span> <span class="nav-text">三维笛卡尔坐标系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#左手坐标系和右手坐标系"><span class="nav-number">1.3.</span> <span class="nav-text">左手坐标系和右手坐标系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Unity使用的坐标系"><span class="nav-number">1.4.</span> <span class="nav-text">Unity使用的坐标系</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#点和矢量"><span class="nav-number">2.</span> <span class="nav-text">点和矢量</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#矢量和标量的乘法-除法"><span class="nav-number">2.1.</span> <span class="nav-text">矢量和标量的乘法/除法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#矢量的加法和减法"><span class="nav-number">2.2.</span> <span class="nav-text">矢量的加法和减法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#矢量的模"><span class="nav-number">2.3.</span> <span class="nav-text">矢量的模</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单位矢量"><span class="nav-number">2.4.</span> <span class="nav-text">单位矢量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#矢量的点积"><span class="nav-number">2.5.</span> <span class="nav-text">矢量的点积</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#矢量的叉积"><span class="nav-number">2.6.</span> <span class="nav-text">矢量的叉积</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#矩阵"><span class="nav-number">3.</span> <span class="nav-text">矩阵</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#矩阵的定义"><span class="nav-number">3.1.</span> <span class="nav-text">矩阵的定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#和矢量联系起来"><span class="nav-number">3.2.</span> <span class="nav-text">和矢量联系起来</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#矩阵运算"><span class="nav-number">3.3.</span> <span class="nav-text">矩阵运算</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#矩阵和标量的乘法"><span class="nav-number">3.3.1.</span> <span class="nav-text">矩阵和标量的乘法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#矩阵和矩阵的乘法"><span class="nav-number">3.3.2.</span> <span class="nav-text">矩阵和矩阵的乘法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特殊的矩阵"><span class="nav-number">3.3.3.</span> <span class="nav-text">特殊的矩阵</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#方块矩阵"><span class="nav-number">3.3.3.1.</span> <span class="nav-text">方块矩阵</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#单位矩阵"><span class="nav-number">3.3.3.2.</span> <span class="nav-text">单位矩阵</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#转置矩阵"><span class="nav-number">3.3.3.3.</span> <span class="nav-text">转置矩阵</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#逆矩阵"><span class="nav-number">3.3.3.4.</span> <span class="nav-text">逆矩阵</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#正交矩阵"><span class="nav-number">3.3.3.5.</span> <span class="nav-text">正交矩阵</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#行矩阵还是列矩阵"><span class="nav-number">3.3.4.</span> <span class="nav-text">行矩阵还是列矩阵</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2016 &mdash; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">代码咖啡</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: '8vMRQb0bSf05Hd5zFNhrSHXz-gzGzoHsz',
+        appKey: 'uD8TcECp3UshQsLS1vxEocGy',
+        placeholder: '欢迎评论留言哦~',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("8vMRQb0bSf05Hd5zFNhrSHXz-gzGzoHsz", "uD8TcECp3UshQsLS1vxEocGy");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
